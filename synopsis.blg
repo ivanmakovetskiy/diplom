@@ -1,0 +1,47 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'synopsis.blg'
+[110] biber:340> INFO - === Wed May 15, 2024, 19:12:28
+[130] Biber.pm:418> INFO - Reading 'synopsis.bcf'
+[237] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
+[237] Biber.pm:969> INFO - Using all citekeys in bib section 1
+[237] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[237] Biber.pm:972> INFO - Found 5 citekeys in bib section 2
+[238] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
+[289] Biber.pm:4383> INFO - Processing section 0
+[304] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/external.bib' for section 0
+[314] bibtex.pm:1713> INFO - LaTeX decoding ...
+[547] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/external.bib'
+[6727] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 0
+[6728] bibtex.pm:1713> INFO - LaTeX decoding ...
+[6751] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/author.bib'
+[20433] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 0
+[20434] bibtex.pm:1713> INFO - LaTeX decoding ...
+[20441] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/registered.bib'
+[24458] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[24459] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[24459] Biber.pm:4203> INFO - Sorting list 'none/global/7FC56270E7A70FA81A5935B72EACBE29/global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[24459] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[24480] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[24480] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[24480] Biber.pm:4203> INFO - Sorting list 'none/global/D41D8CD98F00B204E9800998ECF8427E/global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[24480] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[24503] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[24503] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[24503] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[24503] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[24515] Biber.pm:4383> INFO - Processing section 1
+[24515] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 1
+[38949] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 1
+[43395] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[43396] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[43397] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[43397] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[43410] Biber.pm:4383> INFO - Processing section 2
+[43413] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 2
+[48826] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 2
+[53696] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[53696] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[53697] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[53697] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[53702] bbl.pm:654> INFO - Writing 'synopsis.bbl' with encoding 'UTF-8'
+[53739] bbl.pm:757> INFO - Output to synopsis.bbl
