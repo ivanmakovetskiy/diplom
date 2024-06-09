@@ -121,18 +121,42 @@
 \egroup 
 \selectlanguage *[babelshorthands=true]{russian}
 \tocheader 
-\contentsline {chapter}{ВВЕДЕНИЕ}{9}{chapter*.3}%
-\contentsline {chapter}{\chapternumberline {1}Теоретическая часть}{11}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Поведенческая теория игр}{11}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Большие языковые модели в контексте теории игр}{12}{section.1.2}%
-\contentsline {chapter}{\chapternumberline {2}Методология}{13}{chapter.2}%
-\contentsline {chapter}{\chapternumberline {3}Проведение экспериментов}{14}{chapter.3}%
-\contentsline {chapter}{\chapternumberline {4}Результаты экспериментов}{16}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Игра <<Диктатор>>}{16}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Игра <<Ультиматум: Предлагающий>>}{17}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Игра <<Ультиматум: Отвечающий>>}{18}{section.4.3}%
-\contentsline {chapter}{ЗАКЛЮЧЕНИЕ}{19}{chapter*.4}%
-\contentsline {chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}{20}{section*.6}%
+\contentsline {chapter}{ВВЕДЕНИЕ}{10}{chapter*.3}%
+\contentsline {chapter}{\chapternumberline {1}Теоретические основы исследования}{12}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Понятие и сущность эмпатии}{12}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Большие языковые модели: определение, архитектура, особенности}{12}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Теория игр и процесс принятия решений}{12}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Большие языковые модели в контексте теории игр}{13}{section.1.4}%
+\contentsline {chapter}{\chapternumberline {2}Методология}{14}{chapter.2}%
+\contentsline {chapter}{\chapternumberline {3}Проведение экспериментов}{15}{chapter.3}%
+\contentsline {chapter}{\chapternumberline {4}Результаты экспериментов}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Игра <<Диктатор>>}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Игра <<Ультиматум: Предлагающий>>}{18}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Игра <<Ультиматум: Отвечающий>>}{19}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Роль эмпатии в принятии решений: обзор существующих исследований}{20}{section.4.4}%
+\contentsline {chapter}{\chapternumberline {5}Методология исследования}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Описание используемых языковых моделей и датасетов}{21}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Разработка сценариев игр и моделирование принятия решений}{21}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Методы оценки уровня эмпатии в языковых моделях}{21}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Статистические методы анализа результатов}{21}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Одиночное изображение}{21}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Длинное название параграфа, в котором мы узнаём как сделать две картинки с~общим номером и названием}{21}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Векторная графика}{23}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Пример вёрстки списков}{24}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Традиции русского набора}{27}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}Пробелы}{27}{subsection.5.9.1}%
+\contentsline {subsection}{\numberline {5.9.2}Математические знаки и символы}{27}{subsection.5.9.2}%
+\contentsline {subsection}{\numberline {5.9.3}Кавычки}{28}{subsection.5.9.3}%
+\contentsline {subsection}{\numberline {5.9.4}Тире}{28}{subsection.5.9.4}%
+\contentsline {subsection}{\numberline {5.9.5}Дефисы и переносы слов}{29}{subsection.5.9.5}%
+\contentsline {section}{\numberline {5.10}Текст из панграмм и формул}{30}{section.5.10}%
+\contentsline {chapter}{\chapternumberline {6}Результаты исследования}{34}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Анализ влияния эмпатии на принятие решений в различных типах игр}{34}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Сравнение моделей с разным уровнем эмпатии}{34}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Выявление факторов, опосредующих связь между эмпатией и принятием решений}{34}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Ограничения исследования и направления для дальнейшей работы}{34}{section.6.4}%
+\contentsline {chapter}{ЗАКЛЮЧЕНИЕ}{35}{chapter*.11}%
+\contentsline {chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}{36}{section*.13}%
 \bgroup 
 \selectlanguage *{russian}
 \egroup 
