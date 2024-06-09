@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  9 JUN 2024 20:18
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  9 JUN 2024 20:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2534,21 +2534,7 @@ Package biblatex Info: Data encoding 'utf8' specified.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'dissertation.bbl' found.
-(./dissertation.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                brrokins
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
-
-Package biblatex Warning: citation 'brrokins'
-(biblatex)                was not found at all in the .bbl file,
-(biblatex)                bibliography labels cannot be generated,
-(biblatex)                please correct the citation.
-
+(./dissertation.bbl)
 Package biblatex Info: Reference section=0 on input line 52.
 Package biblatex Info: Reference segment=0 on input line 52.
 Package nag Info: Command \captionabove not defined, skipping amendment on inpu
@@ -3400,11 +3386,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
 
 
-]
-
-LaTeX Warning: Citation 'brrokins' on page 12 undefined on input line 20.
-
-[12.12] [13.13
+] [12.12] [13.13
 
 ]
 Underfull \hbox (badness 2913) in paragraph at lines 43--44
@@ -4427,12 +4409,12 @@ Package logreq Info: Writing requests to 'dissertation.run.xml'.
 ### simple group (level 1) entered at line 4 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 76763 strings out of 476191
- 1866298 string characters out of 5812073
- 3375820 words of memory out of 5000000
+ 76764 strings out of 476191
+ 1866372 string characters out of 5812073
+ 3375802 words of memory out of 5000000
  95975 multiletter control sequences out of 15000+600000
- 475141 words of font info for 93 fonts, out of 8000000 for 9000
+ 475149 words of font info for 94 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  119i,12n,123p,1472b,8151s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on dissertation.xdv (23 pages, 292656 bytes).
+Output written on dissertation.xdv (23 pages, 293908 bytes).

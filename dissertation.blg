@@ -1,41 +1,37 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'dissertation.blg'
-[117] biber:340> INFO - === Sun Jun  9, 2024, 20:17:52
-[146] Biber.pm:418> INFO - Reading 'dissertation.bcf'
-[290] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
-[291] Biber.pm:969> INFO - Using all citekeys in bib section 1
-[291] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
-[291] Biber.pm:972> INFO - Found 5 citekeys in bib section 2
-[293] Biber.pm:972> INFO - Found 26 citekeys in bib section 0
-[327] Biber.pm:4383> INFO - Processing section 0
-[345] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/external.bib' for section 0
-[353] bibtex.pm:1713> INFO - LaTeX decoding ...
-[561] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/external.bib'
-[951] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 0
-[953] bibtex.pm:1713> INFO - LaTeX decoding ...
-[965] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/author.bib'
-[967] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 0
-[967] bibtex.pm:1713> INFO - LaTeX decoding ...
-[973] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/registered.bib'
-[1288] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1288] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1289] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
-[1289] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
-[1605] Biber.pm:4383> INFO - Processing section 1
-[1606] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 1
-[1691] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 1
-[1759] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1760] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1760] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
-[1760] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
-[1777] Biber.pm:4383> INFO - Processing section 2
-[1778] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 2
-[1810] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 2
-[1868] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1868] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1868] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
-[1868] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
-[1880] bbl.pm:654> INFO - Writing 'dissertation.bbl' with encoding 'UTF-8'
-[1928] bbl.pm:757> INFO - Output to dissertation.bbl
-[1929] Biber.pm:130> WARN - I didn't find a database entry for 'brrokins' (section 0)
-[1929] Biber.pm:132> INFO - WARNINGS: 1
+[110] biber:340> INFO - === Sun Jun  9, 2024, 20:44:28
+[134] Biber.pm:418> INFO - Reading 'dissertation.bcf'
+[281] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
+[282] Biber.pm:969> INFO - Using all citekeys in bib section 1
+[282] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[282] Biber.pm:972> INFO - Found 5 citekeys in bib section 2
+[284] Biber.pm:972> INFO - Found 25 citekeys in bib section 0
+[321] Biber.pm:4383> INFO - Processing section 0
+[337] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/external.bib' for section 0
+[348] bibtex.pm:1713> INFO - LaTeX decoding ...
+[566] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/external.bib'
+[1060] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1060] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1061] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[1061] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[1131] Biber.pm:4383> INFO - Processing section 1
+[1132] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 1
+[1134] bibtex.pm:1713> INFO - LaTeX decoding ...
+[1150] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/author.bib'
+[1218] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 1
+[1219] bibtex.pm:1713> INFO - LaTeX decoding ...
+[1225] bibtex.pm:1518> INFO - Found BibTeX data source 'biblio/registered.bib'
+[1272] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1272] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1272] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[1273] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[1289] Biber.pm:4383> INFO - Processing section 2
+[1289] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/author.bib' for section 2
+[1318] Biber.pm:4574> INFO - Looking for bibtex file 'biblio/registered.bib' for section 2
+[1363] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1363] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1363] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[1363] Biber.pm:4209> INFO - No sort tailoring available for locale 'ru-RU'
+[1371] bbl.pm:654> INFO - Writing 'dissertation.bbl' with encoding 'UTF-8'
+[1413] bbl.pm:757> INFO - Output to dissertation.bbl
