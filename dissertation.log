@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  9 JUN 2024 13:51
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  9 JUN 2024 14:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2560,10 +2560,7 @@ Package cleveref Info: loaded `russian' language definitions on input line 52.
 (./common/renames.tex)
 \openout2 = `Dissertation/title.aux'.
 
- (./Dissertation/title.tex
-File: images//logo.png Graphic file (type bmp)
-<images//logo.png>
-) [1.1
+ (./Dissertation/title.tex) [1.1
 
 
 ]
@@ -2991,7 +2988,6 @@ dissertation.bbl
     umsb.fd    2013/01/14 v3.01 AMS symbols B
 common/renames.tex
 Dissertation/title.tex
-images//logo.png
 Dissertation/contents.tex
 common/renames.tex
 Dissertation/introduction.tex
@@ -3013,11 +3009,11 @@ Package logreq Info: Writing requests to 'dissertation.run.xml'.
 ### simple group (level 1) entered at line 40 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 76196 strings out of 476191
- 1853440 string characters out of 5812073
+ 76159 strings out of 476191
+ 1852724 string characters out of 5812073
  3370076 words of memory out of 5000000
- 95813 multiletter control sequences out of 15000+600000
- 475165 words of font info for 96 fonts, out of 8000000 for 9000
+ 95790 multiletter control sequences out of 15000+600000
+ 475133 words of font info for 92 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  115i,12n,120p,1414b,6165s stack positions out of 5000i,500n,10000p,200000b,80000s
 
