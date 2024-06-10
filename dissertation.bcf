@@ -3583,8 +3583,11 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">biblio/registered.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Gosele1999161</bcf:citekey>
-    <bcf:citekey order="1">Lermontov</bcf:citekey>
+    <bcf:citekey order="1">nassiri2024recent</bcf:citekey>
+    <bcf:citekey order="2">Min2023</bcf:citekey>
+    <bcf:citekey order="3">https://doi.org/10.48550/arxiv.2310.19852</bcf:citekey>
+    <bcf:citekey order="4">Gosele1999161</bcf:citekey>
+    <bcf:citekey order="4">Lermontov</bcf:citekey>
   </bcf:section>
   <!-- SECTION 1 -->
   <bcf:bibdata section="1">
@@ -3616,66 +3619,27 @@
   </bcf:section>
   <!-- SECTION 0 (cont.) -->
   <bcf:section number="0">
-    <bcf:citekey order="2">ziems2024can</bcf:citekey>
-    <bcf:citekey order="3">xie2024can</bcf:citekey>
-    <bcf:citekey order="4">openai2023gpt4</bcf:citekey>
-    <bcf:citekey order="4">wu2023autogen</bcf:citekey>
-    <bcf:citekey order="4">chen2023agentverse</bcf:citekey>
-    <bcf:citekey order="4">park2023generative</bcf:citekey>
-    <bcf:citekey order="5">akata2023playing</bcf:citekey>
-    <bcf:citekey order="5">horton2023large</bcf:citekey>
-    <bcf:citekey order="5">aher2023using</bcf:citekey>
-    <bcf:citekey order="6">lerner2015emotion</bcf:citekey>
-    <bcf:citekey order="7">ekman1999basic</bcf:citekey>
-    <bcf:citekey order="8">akata2023playing</bcf:citekey>
-    <bcf:citekey order="8">brookins</bcf:citekey>
-    <bcf:citekey order="9">li2023large</bcf:citekey>
-    <bcf:citekey order="10">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
-    <bcf:citekey order="11">fpsyg.2013.00469</bcf:citekey>
-    <bcf:citekey order="12">PROTO2019209</bcf:citekey>
-    <bcf:citekey order="13">harle2007incidental</bcf:citekey>
-    <bcf:citekey order="13">ANDRADE20091</bcf:citekey>
-    <bcf:citekey order="13">FORGAS201364</bcf:citekey>
-    <bcf:citekey order="14">akata2023playing</bcf:citekey>
-    <bcf:citekey order="15">brookins</bcf:citekey>
-    <bcf:citekey order="16">ekman1999basic</bcf:citekey>
-    <bcf:citekey order="17">akata2023playing</bcf:citekey>
-    <bcf:citekey order="17">brookins</bcf:citekey>
-    <bcf:citekey order="18">akata2023playing</bcf:citekey>
-    <bcf:citekey order="19">lorè2023strategic</bcf:citekey>
-    <bcf:citekey order="20">jiang2024mixtral</bcf:citekey>
-    <bcf:citekey order="21">wang2023openchat</bcf:citekey>
-    <bcf:citekey order="22">ekman1999basic</bcf:citekey>
-    <bcf:citekey order="22">LARNEY201961</bcf:citekey>
-    <bcf:citekey order="23">morettiarticle</bcf:citekey>
-    <bcf:citekey order="23">bonini</bcf:citekey>
-    <bcf:citekey order="24">Gosele1999161</bcf:citekey>
-    <bcf:citekey order="25">Lermontov</bcf:citekey>
-    <bcf:citekey order="26">ziems2024can</bcf:citekey>
-    <bcf:citekey order="27">xie2024can</bcf:citekey>
-    <bcf:citekey order="28">openai2023gpt4</bcf:citekey>
-    <bcf:citekey order="29">wu2023autogen</bcf:citekey>
-    <bcf:citekey order="30">chen2023agentverse</bcf:citekey>
-    <bcf:citekey order="31">park2023generative</bcf:citekey>
-    <bcf:citekey order="32">akata2023playing</bcf:citekey>
-    <bcf:citekey order="33">horton2023large</bcf:citekey>
-    <bcf:citekey order="34">aher2023using</bcf:citekey>
-    <bcf:citekey order="35">lerner2015emotion</bcf:citekey>
-    <bcf:citekey order="36">ekman1999basic</bcf:citekey>
-    <bcf:citekey order="37">brookins</bcf:citekey>
-    <bcf:citekey order="38">li2023large</bcf:citekey>
-    <bcf:citekey order="39">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
-    <bcf:citekey order="40">fpsyg.2013.00469</bcf:citekey>
-    <bcf:citekey order="41">PROTO2019209</bcf:citekey>
-    <bcf:citekey order="42">harle2007incidental</bcf:citekey>
-    <bcf:citekey order="43">ANDRADE20091</bcf:citekey>
-    <bcf:citekey order="44">FORGAS201364</bcf:citekey>
-    <bcf:citekey order="45">lorè2023strategic</bcf:citekey>
-    <bcf:citekey order="46">jiang2024mixtral</bcf:citekey>
-    <bcf:citekey order="47">wang2023openchat</bcf:citekey>
-    <bcf:citekey order="48">LARNEY201961</bcf:citekey>
-    <bcf:citekey order="49">morettiarticle</bcf:citekey>
-    <bcf:citekey order="50">bonini</bcf:citekey>
+    <bcf:citekey order="5">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
+    <bcf:citekey order="6">fpsyg.2013.00469</bcf:citekey>
+    <bcf:citekey order="7">PROTO2019209</bcf:citekey>
+    <bcf:citekey order="8">harle2007incidental</bcf:citekey>
+    <bcf:citekey order="8">ANDRADE20091</bcf:citekey>
+    <bcf:citekey order="8">FORGAS201364</bcf:citekey>
+    <bcf:citekey order="9">akata2023playing</bcf:citekey>
+    <bcf:citekey order="10">brookins</bcf:citekey>
+    <bcf:citekey order="11">nassiri2024recent</bcf:citekey>
+    <bcf:citekey order="12">Min2023</bcf:citekey>
+    <bcf:citekey order="13">https://doi.org/10.48550/arxiv.2310.19852</bcf:citekey>
+    <bcf:citekey order="14">Gosele1999161</bcf:citekey>
+    <bcf:citekey order="15">Lermontov</bcf:citekey>
+    <bcf:citekey order="16">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
+    <bcf:citekey order="17">fpsyg.2013.00469</bcf:citekey>
+    <bcf:citekey order="18">PROTO2019209</bcf:citekey>
+    <bcf:citekey order="19">harle2007incidental</bcf:citekey>
+    <bcf:citekey order="20">ANDRADE20091</bcf:citekey>
+    <bcf:citekey order="21">FORGAS201364</bcf:citekey>
+    <bcf:citekey order="22">akata2023playing</bcf:citekey>
+    <bcf:citekey order="23">brookins</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
