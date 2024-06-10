@@ -59,6 +59,8 @@
 \include{Dissertation/title}           % Титульный лист
 \include{Dissertation/annotation}        % Оглавление
 \include{Dissertation/contents}        % Оглавление
+\include{Dissertation/acronyms}        % Список сокращений и условных обозначений
+\include{Dissertation/dictionary}      % Словарь терминов
 \ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{}{\counterwithout{table}{chapter}}
 \include{Dissertation/introduction}    % Введение
@@ -67,14 +69,9 @@
 \ifnumequal{\value{contnumtab}}{1}{\counterwithout{table}{chapter}
 }{\counterwithin{table}{chapter}}
 \include{Dissertation/part1}           % Глава 1
-\include{Dissertation/part2}           % Глава 1
-\include{Dissertation/part3}           % Глава 1
-
-
-
+\include{Dissertation/part2}   
+\include{Dissertation/part3}  
 \include{Dissertation/conclusion}      % Заключение
-%\include{Dissertation/acronyms}        % Список сокращений и условных обозначений
-%\include{Dissertation/dictionary}      % Словарь терминов
 \include{Dissertation/references}      % Список литературы
 %\include{Dissertation/lists}           % Списки таблиц и изображений (иллюстративный материал)
 
