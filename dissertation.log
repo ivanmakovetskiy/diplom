@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  10 JUN 2024 18:00
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  11 JUN 2024 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2973,7 +2973,13 @@ Package cleveref Info: loaded `russian' language definitions on input line 157.
 ]
 \openout2 = `Dissertation/introduction.aux'.
 
-(./Dissertation/introduction.tex (./common/characteristic.tex [10.10
+(./Dissertation/introduction.tex
+Underfull \hbox (badness 1577) in paragraph at lines 19--27
+\TU/TimesNewRoman(1)/m/n/14.4 «выравнивание». Выравнивание обычно определяют ка
+к цель заставить
+ []
+
+(./common/characteristic.tex [10.10
 
 
 
@@ -3392,10 +3398,10 @@ Underfull \hbox (badness 6477) in paragraph at lines 203--204
 \@c=\count692
 \@last=\count693
 \@pnul=\count694
-) [13.13]
+) [13.13] [14.14]
 \openout2 = `Dissertation/part1.aux'.
 
-(./Dissertation/part1.tex [14.14
+(./Dissertation/part1.tex [15.15
 
 
 
@@ -3406,10 +3412,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 ых моделей
  []
 
-) [15.15]
+) [16.16]
 \openout2 = `Dissertation/part2.aux'.
 
-(./Dissertation/part2.tex) [16.16
+(./Dissertation/part2.tex) [17.17
 
 
 
@@ -3417,7 +3423,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 ]
 \openout2 = `Dissertation/part3.aux'.
 
-(./Dissertation/part3.tex [17.17
+(./Dissertation/part3.tex [18.18
 
 
 
@@ -3425,7 +3431,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 ])
 \openout2 = `Dissertation/conclusion.aux'.
 
-(./Dissertation/conclusion.tex) [18.18
+(./Dissertation/conclusion.tex) [19.19
 
 
 
@@ -3434,7 +3440,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 ]
 \openout2 = `Dissertation/references.aux'.
 
-(./Dissertation/references.tex
+(./Dissertation/references.tex [20.20
+
+
+
+
+
+]
 LaTeX Info: Redefining \rmfamily on input line 6.
 LaTeX Info: Redefining \sffamily on input line 6.
 LaTeX Info: Redefining \ttfamily on input line 6.
@@ -3457,13 +3469,7 @@ Package cleveref Info: loaded `russian' language definitions on input line 6.
 (./common/renames.tex)
 Missing character: There is no ‐ (U+2010) in font Times New Roman/OT:language=d
 flt;mapping=tex-text;!
-[19.19
-
-
-
-
-
-]
+[21.21]
 LaTeX Info: Redefining \rmfamily on input line 6.
 LaTeX Info: Redefining \sffamily on input line 6.
 LaTeX Info: Redefining \ttfamily on input line 6.
@@ -3483,7 +3489,7 @@ LaTeX Info: Redefining \rmfamily on input line 6.
 LaTeX Info: Redefining \sffamily on input line 6.
 LaTeX Info: Redefining \ttfamily on input line 6.
 Package cleveref Info: loaded `russian' language definitions on input line 6.
-(./common/renames.tex)) [20.20]
+(./common/renames.tex)) [22.22]
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -4398,12 +4404,12 @@ Package logreq Info: Writing requests to 'dissertation.run.xml'.
 ### simple group (level 1) entered at line 7 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 76837 strings out of 476191
- 1867970 string characters out of 5812073
- 3397916 words of memory out of 5000000
- 96008 multiletter control sequences out of 15000+600000
+ 76872 strings out of 476191
+ 1870010 string characters out of 5812073
+ 3399833 words of memory out of 5000000
+ 96043 multiletter control sequences out of 15000+600000
  478744 words of font info for 106 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  119i,11n,123p,1419b,8028s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on dissertation.xdv (20 pages, 206572 bytes).
+Output written on dissertation.xdv (22 pages, 230780 bytes).

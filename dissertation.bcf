@@ -3585,9 +3585,16 @@
   <bcf:section number="0">
     <bcf:citekey order="1">nassiri2024recent</bcf:citekey>
     <bcf:citekey order="2">Min2023</bcf:citekey>
-    <bcf:citekey order="3">https://doi.org/10.48550/arxiv.2310.19852</bcf:citekey>
-    <bcf:citekey order="4">Gosele1999161</bcf:citekey>
-    <bcf:citekey order="4">Lermontov</bcf:citekey>
+    <bcf:citekey order="3">https://doi.org/10.48550/arxiv.2311.00710</bcf:citekey>
+    <bcf:citekey order="3">https://doi.org/10.48550/arxiv.2401.08672</bcf:citekey>
+    <bcf:citekey order="3">https://doi.org/10.48550/arxiv.2310.16048</bcf:citekey>
+    <bcf:citekey order="4">https://doi.org/10.48550/arxiv.2310.19852</bcf:citekey>
+    <bcf:citekey order="5">wang2023emotional</bcf:citekey>
+    <bcf:citekey order="6">huang2024emotionally</bcf:citekey>
+    <bcf:citekey order="7">regan2024generative</bcf:citekey>
+    <bcf:citekey order="8">fan2023large</bcf:citekey>
+    <bcf:citekey order="9">Gosele1999161</bcf:citekey>
+    <bcf:citekey order="9">Lermontov</bcf:citekey>
   </bcf:section>
   <!-- SECTION 1 -->
   <bcf:bibdata section="1">
@@ -3619,27 +3626,34 @@
   </bcf:section>
   <!-- SECTION 0 (cont.) -->
   <bcf:section number="0">
-    <bcf:citekey order="5">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
-    <bcf:citekey order="6">fpsyg.2013.00469</bcf:citekey>
-    <bcf:citekey order="7">PROTO2019209</bcf:citekey>
-    <bcf:citekey order="8">harle2007incidental</bcf:citekey>
-    <bcf:citekey order="8">ANDRADE20091</bcf:citekey>
-    <bcf:citekey order="8">FORGAS201364</bcf:citekey>
-    <bcf:citekey order="9">akata2023playing</bcf:citekey>
-    <bcf:citekey order="10">brookins</bcf:citekey>
-    <bcf:citekey order="11">nassiri2024recent</bcf:citekey>
-    <bcf:citekey order="12">Min2023</bcf:citekey>
-    <bcf:citekey order="13">https://doi.org/10.48550/arxiv.2310.19852</bcf:citekey>
-    <bcf:citekey order="14">Gosele1999161</bcf:citekey>
-    <bcf:citekey order="15">Lermontov</bcf:citekey>
-    <bcf:citekey order="16">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
-    <bcf:citekey order="17">fpsyg.2013.00469</bcf:citekey>
-    <bcf:citekey order="18">PROTO2019209</bcf:citekey>
-    <bcf:citekey order="19">harle2007incidental</bcf:citekey>
-    <bcf:citekey order="20">ANDRADE20091</bcf:citekey>
-    <bcf:citekey order="21">FORGAS201364</bcf:citekey>
-    <bcf:citekey order="22">akata2023playing</bcf:citekey>
-    <bcf:citekey order="23">brookins</bcf:citekey>
+    <bcf:citekey order="10">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
+    <bcf:citekey order="11">fpsyg.2013.00469</bcf:citekey>
+    <bcf:citekey order="12">PROTO2019209</bcf:citekey>
+    <bcf:citekey order="13">harle2007incidental</bcf:citekey>
+    <bcf:citekey order="13">ANDRADE20091</bcf:citekey>
+    <bcf:citekey order="13">FORGAS201364</bcf:citekey>
+    <bcf:citekey order="14">akata2023playing</bcf:citekey>
+    <bcf:citekey order="15">brookins</bcf:citekey>
+    <bcf:citekey order="16">nassiri2024recent</bcf:citekey>
+    <bcf:citekey order="17">Min2023</bcf:citekey>
+    <bcf:citekey order="18">https://doi.org/10.48550/arxiv.2311.00710</bcf:citekey>
+    <bcf:citekey order="19">https://doi.org/10.48550/arxiv.2401.08672</bcf:citekey>
+    <bcf:citekey order="20">https://doi.org/10.48550/arxiv.2310.16048</bcf:citekey>
+    <bcf:citekey order="21">https://doi.org/10.48550/arxiv.2310.19852</bcf:citekey>
+    <bcf:citekey order="22">wang2023emotional</bcf:citekey>
+    <bcf:citekey order="23">huang2024emotionally</bcf:citekey>
+    <bcf:citekey order="24">regan2024generative</bcf:citekey>
+    <bcf:citekey order="25">fan2023large</bcf:citekey>
+    <bcf:citekey order="26">Gosele1999161</bcf:citekey>
+    <bcf:citekey order="27">Lermontov</bcf:citekey>
+    <bcf:citekey order="28">RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209</bcf:citekey>
+    <bcf:citekey order="29">fpsyg.2013.00469</bcf:citekey>
+    <bcf:citekey order="30">PROTO2019209</bcf:citekey>
+    <bcf:citekey order="31">harle2007incidental</bcf:citekey>
+    <bcf:citekey order="32">ANDRADE20091</bcf:citekey>
+    <bcf:citekey order="33">FORGAS201364</bcf:citekey>
+    <bcf:citekey order="34">akata2023playing</bcf:citekey>
+    <bcf:citekey order="35">brookins</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
