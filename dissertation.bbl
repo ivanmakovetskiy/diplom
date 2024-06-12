@@ -605,107 +605,6 @@
       \endverb
       \keyw{,biblioexternal,bibliofull}
     \endentry
-    \entry{Gosele1999161}{article}{useauthor=false}
-      \name{author}{9}{}{%
-        {{hash=05de44ab1f46dc1f00a24838bf37554c}{%
-           family={Gösele},
-           familyi={G\bibinitperiod},
-           given={U.},
-           giveni={U\bibinitperiod}}}%
-        {{hash=2acf1b60f0cab4f13cee6c38135494b8}{%
-           family={Tong},
-           familyi={T\bibinitperiod},
-           given={Q.-Y.},
-           giveni={Q\bibinithyphendelim Y\bibinitperiod}}}%
-        {{hash=683a3bcc1fa5815e802c9c45f263b840}{%
-           family={Schumacher},
-           familyi={S\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=e9b5036af4528f774a81a86d70882daa}{%
-           family={Kräuter},
-           familyi={K\bibinitperiod},
-           given={G.},
-           giveni={G\bibinitperiod}}}%
-        {{hash=0b3cf0a34987c45027b5ef7e01175840}{%
-           family={Reiche},
-           familyi={R\bibinitperiod},
-           given={M.},
-           giveni={M\bibinitperiod}}}%
-        {{hash=d50b5bf5d08761c80f5e6be18f7d74f0}{%
-           family={Plößl},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=8e0eac29a351fc94c50a89404026df4c}{%
-           family={Kopperschmidt},
-           familyi={K\bibinitperiod},
-           given={P.},
-           giveni={P\bibinitperiod}}}%
-        {{hash=358a318c1f57cd8e3147995b8ffc328c}{%
-           family={Lee},
-           familyi={L\bibinitperiod},
-           given={T.-H.},
-           giveni={T\bibinithyphendelim H\bibinitperiod}}}%
-        {{hash=478b891875ffa3e7ed7e144fee41b984}{%
-           family={Kim},
-           familyi={K\bibinitperiod},
-           given={W.-J.},
-           giveni={W\bibinithyphendelim J\bibinitperiod}}}%
-      }
-      \strng{authorbibnamehash}{74c89efa7fd1351b9f6d8ef21ac753de}
-      \strng{authornamehash}{74c89efa7fd1351b9f6d8ef21ac753de}
-      \strng{authorfullhash}{8ec39cefebf09b92629bf4c4d25aeee0}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Sensors and Actuators A: Physical}
-      \field{langid}{russian}
-      \field{media}{text}
-      \field{title}{Wafer bonding for microsystems technologies}
-      \field{year}{1999}
-      \field{number}{1\bibrangedash 3}
-      \range{number}{3}
-      \field{pages}{161\bibrangedash 168}
-      \range{pages}{8}
-      \field{volume}{74}
-      \range{volume}{1}
-      \verb{doi}
-      \verb 10.1016/S0924-4247(98)00310-0
-      \endverb
-      \keyw{,biblioexternal,bibliofull}
-    \endentry
-    \entry{Lermontov}{book}{}
-      \name{author}{1}{}{%
-        {{hash=73be3854cce603aa225d009bbc42fd7d}{%
-           family={Лермонтов},
-           familyi={Л\bibinitperiod},
-           given={Михаил\bibnamedelima Юрьевич},
-           giveni={М\bibinitperiod\bibinitdelim Ю\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {М.}%
-      }
-      \list{publisher}{1}{%
-        {Терра-Кн. клуб}%
-      }
-      \strng{namehash}{73be3854cce603aa225d009bbc42fd7d}
-      \strng{fullhash}{73be3854cce603aa225d009bbc42fd7d}
-      \strng{bibnamehash}{73be3854cce603aa225d009bbc42fd7d}
-      \strng{authorbibnamehash}{73be3854cce603aa225d009bbc42fd7d}
-      \strng{authornamehash}{73be3854cce603aa225d009bbc42fd7d}
-      \strng{authorfullhash}{73be3854cce603aa225d009bbc42fd7d}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{langid}{russian}
-      \field{media}{text}
-      \field{note}{4 т.}
-      \field{title}{Собрание сочинений: в 4 т.}
-      \field{year}{2009}
-      \keyw{,biblioexternal,bibliofull}
-    \endentry
     \entry{RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209}{article}{}
       \name{author}{1}{}{%
         {{hash=93efea3d3e8db68d8bde666ebec381cf}{%
@@ -720,8 +619,8 @@
       \strng{authorbibnamehash}{93efea3d3e8db68d8bde666ebec381cf}
       \strng{authornamehash}{93efea3d3e8db68d8bde666ebec381cf}
       \strng{authorfullhash}{93efea3d3e8db68d8bde666ebec381cf}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Economic Journal}
