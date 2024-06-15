@@ -1,0 +1,1317 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2024
+
+
+% ready for submission
+\usepackage{neurips_2024}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2024}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2024}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2024}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+
+\title{NeurIPS 2024}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+
+\author{%
+  David S.~Hippocampus\thanks{Use footnote for providing further information
+    about author (webpage, alternative address)---\emph{not} for acknowledging
+    funding agencies.} \\
+  Department of Computer Science\\
+  Cranberry-Lemon University\\
+  Pittsburgh, PA 15213 \\
+  \texttt{hippo@cs.cranberry-lemon.edu} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+This paper introduces a framework integrating emotions into large language models (LLMs) and analyzes their decision-making in bargaining games, comparing outcomes to human studies across multilingual settings. We explore the influence of emotions on diverse LLMs (proprietary vs. open-source, large vs. small, varying pretraining languages) in Dictator and Ultimatum games. Our findings reveal that emotional states significantly affect LLM behavior, with GPT-3.5 closely mirroring human responses, especially in English, while GPT-4 maintains consistent, rational behavior unless prompted with specific emotions like anger. These results challenge the assumption that high NLP task performance equates to human-like decision-making, highlighting the necessity of incorporating emotional understanding in LLMs to enhance their adaptability and alignment with human behavior.
+\end{abstract}
+
+
+\section{Introduction}
+
+Human behavior simulation is a widely adopted approach in multiple disciplines such as sociology and economics \cite{ziems2024can}. However, conventional simulation methods are strongly limited by the expressiveness of utility functions \cite{xie2024can} and struggle to model all essential aspects of human interactions. The recent rapid and remarkable development in the field of Artificial Intelligence, particularly the emergence and advancement of \textit{Large Language Models} (LLMs), has created a new and promising solution to this challenge. Researchers have begun to utilize LLM-generated agents \cite{openai2023gpt4,wu2023autogen, chen2023agentverse, park2023generative} as human simulations, enabling them to test and explore theories on social and economic behavior. As noted in the existing literature \cite{aher2023using, argRePEc:cup:polals:v:31:y:2023:i:3:p:337-351_5}, these LLMs can potentially operate as computational representations of a wide variety of human populations, having been designed and trained to both understand and mimic human behavior. The analysis of LLM behavior in various game theoretical settings has proven to be a particularly fruitful approach, as these settings provide a natural way to explore the underlying economic and social rationales driving human decision-making \cite{akata2023playing,horton2023large,aher2023using}.
+
+
+
+
+% ec
+%The last few decades have seen an increasing interest in the field of behavioral economics, with a large body of literature devoted to the idea of enhancing \textit{homo economicus} with psychological factors such as cognitive biases, emotions, and social norms, challenging the traditional assumption of perfect rationality in economic theory \cite{kahn8519b346-8909-36b4-80bc-495f40d2483f, wright2022formal}. This shift is accompanied by a growing reliance on data from laboratory experiments in contrast to previously more common real-world observational data, especially in questions concerned with economic decision-making examined in behavioral game theory. 
+
+%Such experiments are often criticized and questioned based on both the external and internal validity \cite{thal10.1257/aer.106.7.1577}. As an example, one clear issue arises from resource limitations, which restrict both the number of participants in experiments (directly impacting the validity of the results) and our capacity to explore the stake effect in economic behavior, among other things. This limitation may lead to potential misunderstandings regarding the dynamics of the endowment scale and subsequent decisions. Beyond resource constraints, behavioral experiments face criticism due to challenges in replication, raising doubts about the generalizability of results to different demographic groups. Results may be confounded by factors often beyond the control of researchers, such as distrust or unobserved emotional states of participants, as well as prior individual contexts not covered in standard demographic surveys \cite{Pūce_2019, mccdoi:10.1086/675265, angner2007behavioral}. While some issues could theoretically be resolved or mitigated by replicating experiments with new groups and settings, such solutions remain resource-constrained and leave other issues, such as potential unobserved factors, unaddressed. 
+
+
+% ecai
+%Human behavior simulation is a widely adopted approach in multiple disciplines such as sociology and economics \cite{ziems2024can}. However, conventional simulation methods are strongly limited by the expressiveness of utility functions \cite{xie2024can} and struggle to model all essential aspects of human interactions. Recent rapid development in the field of Artificial Intelligence and \textit{Large Language Models} (LLMs) has created a new promising solution by using LLM agents as agent-based simulation tools for humans \cite{openai2023gpt4,wu2023autogen, chen2023agentverse, park2023generative}. Most of them utilized LLM in various game theoretical settings, the most natural way to explore the underlying economic and social rationales \cite{akata2023playing,horton2023large,aher2023using}.
+
+%Nevertheless, most existing studies operate under the unproven hypothesis that LLM agents behave similarly to humans in simulations. Moreover, they ignore a crucial aspect of human behavior that significantly influences decision-making, as evidenced by psychological research: emotions \cite{lerner2015emotion}. To address these gaps, we develop a novel methodology to study the alignment between LLM's and human behaviors based on their comparison under different emotional states. Specifically, we focus on five basic emotions: anger, sadness, happiness, disgust, and fear, which are selected based on the well-established classification of Paul Ekman~\cite{ekman1999basic}. We introduce a novel approach to infuse LLMs \cite{akata2023playing, brookins} with emotions through emotional prompting \cite{li2023large}, exploring its impact on alignment with human decision-making in bargaining games (Ultimatum and Dictator). 
+
+
+
+
+
+However, despite these promising developments, most of the existing studies in this field operate under the unproven hypothesis that the behaviors exhibited by LLM agents are indeed similar and aligned with those of their human counterparts. Moreover, a crucial aspect of human behavior that significantly influences decision-making, as evidenced by extensive psychological research, has largely been overlooked in these studies: the role of emotions \cite{lerner2015emotion}. To address these gaps in the current understanding, we have developed a novel methodology to systematically study the alignment between the behaviors of LLMs and human agents, with a specific focus on their comparative performance under different emotional states. Specifically, we have chosen to examine five basic emotions – anger, sadness, happiness, disgust, and fear – based on the well-established classification system proposed by the renowned psychologist Paul Ekman~\cite{ekman1999basic}. 
+
+
+
+% ec
+% However, most of such studies operate under the unproven hypothesis that LLM agents behave similarly to humans in simulations. Moreover, they ignore a crucial aspect of human behavior that significantly influences decision-making, as evidenced by psychological research: emotions \cite{lerner2015emotion}. To address this gap, we develop a novel methodology to study the alignment between LLM's and human behaviors, based on their comparison under different emotional states. Specifically, we focus on five basic emotions: anger, sadness, happiness, disgust, and fear, which are selected based on the well-established classification of Paul Ekman~\cite{ekman1999basic}, and propose emotional prompting \cite{li2023large} as a tool for injecting emotions. 
+
+%We made the problem of behavior alignment between LLM-based agents and humans a central theme in this paper. In particular, we present the first study on the influence of emotional injection into LLM for the decision-making process in the context of behavioral game theory. Moreover, we seek to explore another problem of the optimality of decisions made by emotionally-prompted LLM-generated agents.
+
+%To explore both research questions, we have selected two types of games from behavioral game theory: (1) bargaining games (one-shot Ultimatum and Dictator) and (2) two-player two-action repeated games with elements of cooperation and conflicting interests (Prisoner's Dilemma and Battle of the Sexes).
+%In the context of repeated games, we investigate the impact of emotions on the cooperation rate and the percentage of maximum payoff. For bargaining games, we evaluate the share offered to the responder and the acceptance rate. For comparison with other studies, we selected two state-of-the-art LLMs, namely GPT-3.5 and GPT-4, which have been used in the majority of game theoretical experiments with LLMs \cite{akata2023playing, brookins}. 
+
+
+%ecai
+%We conducted comprehensive experiments with seven multilingual LLMs to investigate the impact of various characteristics of Large Language Models (LLMs) on behavioral alignment. We examined LLMs of varying sizes, including both closed- and open-source models. To explore potential cultural differences manifested across languages, we utilized prompts in both English and Russian and additionally examined a model predominantly trained on Russian language datasets. Also, we discuss issues we encountered during the testing of open-source LLMs. 
+
+
+
+
+As part of our innovative approach, we introduce a novel framework for infusing LLMs \cite{akata2023playing, brookins} with these various emotional states through the use of emotional prompting \cite{li2023large}. This framework allows us to explore the impact of these induced emotional states on the alignment between the decision-making processes of LLM agents and human participants, particularly in the context of bargaining games such as the Ultimatum and Dictator games. The accompanying experimental design enables us to conduct extensive and comprehensive analyses using a diverse set of seven multilingual LLMs.
+
+Thus, the main contributions of the paper can be summarized as follows:
+
+\begin{enumerate}
+\item \textbf{Development of an innovative framework}: we introduce a pioneering versatile framework that seamlessly integrates emotions into the decision-making processes of LLMs in behavioral game theory. This framework stands out for its exceptional adaptability, accommodating various game settings and parameters, while employing prompt chaining techniques to facilitate contextual learning during gameplay.
+
+\item \textbf{Enhanced performance through emotional prompts}: our research demonstrates that emotions have a profound impact on the performance of LLMs, leading to the development of more optimal strategies. Notably, we observe that under different settings, emotions can significantly enhance LLM performance, even enabling the execution of alternating strategies in scenarios previously deemed unattainable without explicit prompting \cite{akata2023playing}. This finding challenges prior assumptions and underscores the importance of emotional considerations in AI decision-making.
+
+\item \textbf{Alignment with human behavior}: Our experiments unveil a strong alignment between the behavioral responses of GPT-3.5 and human participants, particularly evident in bargaining games. In contrast, GPT-4 exhibits consistent behavior even with induced emotions, having less alignment with human responses.
+
+\item \textbf{Beware of Angry GPTs}: Surprisingly, our experiments reveal that emotional prompting, particularly with Anger, can disrupt the alignment of GPT-4 in various games, resembling human emotional responses. This unexpected finding highlights the vulnerability to emotional influence of even the most prominent AI models with ``superhuman'' alignment, shedding light on the complex interplay between emotions and decision-making in artificial intelligence.
+\end{enumerate}
+
+
+
+
+
+% ec
+%Thus, the main contributions of the paper can be summarized as follows:
+
+%\begin{enumerate}
+%  \item \textbf{Development of an innovative framework}: we introduce a pioneering versatile framework that seamlessly integrates emotions into the decision-making processes of LLMs in behavioral game theory. This framework stands out for its exceptional adaptability, accommodating various game settings and parameters, while employing prompt chaining techniques to facilitate contextual learning during gameplay.
+    
+%    \item \textbf{Enhanced performance through emotional prompts}: our research demonstrates that emotions have a profound impact on the performance of LLMs, leading to the development of more optimal strategies. Notably, we observe that under different settings, emotions can significantly enhance LLM performance, even enabling the execution of alternating strategies in scenarios previously deemed unattainable without explicit prompting \cite{akata2023playing}. This finding challenges prior assumptions and underscores the importance of emotional considerations in AI decision-making.
+
+%    \item \textbf{Alignment with human behavior}: Our experiments unveil a strong alignment between the behavioral responses of GPT-3.5 and human participants, particularly evident in bargaining games. In contrast, GPT-4 exhibits consistent behavior even with induced emotions, having less alignment with human responses.
+    
+%    \item 
+%    \textbf{Beware of Angry GPTs}: Surprisingly, our experiments reveal that emotional prompting, particularly with Anger, can disrupt the alignment of GPT-4 in various games, resembling human emotional responses. This unexpected finding highlights the vulnerability to emotional influence of even the most prominent AI models with ``superhuman'' alignment, shedding light on the complex interplay between emotions and decision-making in artificial intelligence.
+%\end{enumerate}
+
+% ecai
+
+%\begin{enumerate}
+%\item \textbf{Innovative Emotional Framework}: Introduction of a novel framework that integrates emotions into LLMs' decision-making in game theoretical settings, using prompt chaining to adapt to different games and emotional states. This approach allows for fast experimentation in our alignment study. 
+ % nuanced modeling of human-like behavior in artificial agents.
+ % \item \textbf{Novel Emotional Framework}: Our framework integrates emotions into LLMs' decision-making in game theory, allowing for fast experimentation in our alignment study. 
+ % nuanced modeling of human-like behavior in artificial agents.
+
+ % \item \textbf{Alignment with human behavior}: Our experiments unveil a strong alignment between the behavioral responses of GPT-3.5 and human participants in bargaining games. In contrast, GPT-4 frequently exhibits consistent behavior even with induced emotions hinting us to the ``superhuman'' alignment of the model.
+
+% \item \textbf{Alignment with human behavior}: An experimental study unveils a strong alignment between the behavioral responses of GPT-3.5 and human participants in bargaining games. In contrast, GPT-4 frequently exhibits consistent behavior even with induced emotions hinting at the ``Super-Human'' alignment of the model.
+
+% \item \textbf{Language representation dependence}: Models with good human alignment in most represented languages lose the alignment in other available languages. This fact highlights the importance of language-specific models for complex tasks like game theory simulations.
+ 
+%\end{enumerate}
+
+
+\section{Related Work}\label{sec:rel_works}
+
+This section provides an overview of the research relevant to our study, which aims to assess the potential of Large Language Models (LLMs) in simulating humans with emotional biases. We review literature in behavioral game theory, examine recent studies employing LLMs within game theoretical frameworks, and evaluate research exploring the impact of emotions on LLM performance. By synthesizing findings from these areas, we establish a foundation for our study and contribute to the growing knowledge on applying LLMs in modeling human behavior with emotional biases.
+
+\subsection{Behavioral Game Theory}
+Our research is primarily grounded in the principles and frameworks established within the behavioral game theory domain. The Ultimatum game is a prominent example of bargaining game from game theory and has undergone extensive scrutiny across various studies. For instance, a meta-analysis \cite{RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209} has examined experimental results for the Ultimatum game across different demographic factors. The influence of emotions on decision-making in the Ultimatum game has also been explored, with studies demonstrating the effects of anger \cite{fpsyg.2013.00469} and happiness \cite{PROTO2019209} on participant behavior.
+
+Similarly, the Battle of the Sexes game has been the subject of meta-analytic studies \cite{da5c6981-883c-314e-91a7-25477f099152} examining average human strategic responses. The role of emotions in bargaining games, such as the Ultimatum and Dictator games, has also been investigated \cite{harle2007incidental, ANDRADE20091, KAUSEL201496, FORGAS201364}.
+
+However, most existing works, especially on 2x2 games, have focused on the effects of generalized "negative" or "positive" emotions, without delving into the nuances of specific emotional states. This leaves gaps in our understanding of how distinct emotions, such as disgust or fear, may affect human behavior in different strategic settings. Our approach of infusing LLM-generated agents with specific emotional states enables us to fill these gaps and provide insights into the directional effects of various emotions on decision-making in game theoretical contexts.
+
+Additionally, our methodology allows us to test the impact of stake effects at considerably higher levels of endowment, as well as explore the interactions between stake effects and emotional effects, which are often constrained in traditional human-subject experiments due to resource limitations.
+
+\subsection{LLM and Game Theory}
+The intersection of LLMs and game theory has gained increasing attention from two perspectives within the research community. Firstly, researchers have focused on studying LLM behavior within the context of assessing the performance of LLMs in game theoretical settings.
+
+The authors of \cite{akata2023playing} examined the cooperation and coordination behavior of LLMs, including GPT-4, in finitely repeated games such as Prisoner's Dilemma and Battle of the Sexes. They found that GPT-4 performed best in games that did not require cooperation, often playing in a selfish manner. Interestingly, GPT-4 exhibited an unforgiving behavior, where a single defection would prompt it to play "always defect" in response. In the Battle of the Sexes game, the model struggled to replicate the alternating pattern, predominantly choosing its preferred option. The authors noted that asking GPT-4 to predict the player's next action before making a choice improved its ability to adapt to the alternating pattern.
+
+Secondly, researchers have been exploring the alignment between human behavior and LLM behavior in game theoretical settings. \cite{brookins} studied LLM behavior in the one-shot Prisoner's Dilemma and Dictator games, finding that LLMs made cooperative decisions at a higher rate than humans. In contrast, \cite{horton2023large} and \cite{aher2023using} examined LLM strategies in a more diverse set of games, including bargaining games (Ultimatum and Dictator) and various sociological experiments. They found that earlier LLM models did not replicate the concept of fairness in the Ultimatum game, often accepting any offer regardless of how low. However, the more recent text-davinci-002 model showed acceptance rates more aligned with human behavior.
+
+Our study extends this line of research by examining the impact of emotional prompting on the decision-making processes of LLM-generated agents in game theoretical settings. By infusing LLMs with specific emotional states, we aim to investigate how emotions influence the optimality of LLM decisions in strategic and cooperative scenarios, the alignment between LLM and human behavior, and the potential for emotional LLM agents to outperform emotional humans in certain game theoretic contexts.
+
+\subsection{Emotions in Large Language Models}
+There have been prior studies that explored the sensitivity of LLM results to emotional states. Researchers have modeled and evaluated the performance of LLMs in recognizing and responding to emotions \cite{huang2024emotionally, li2023languagespecific, lei2023instructerc, croissant2023appraisalbased, vzorin2023emotional}. The authors of \cite{li2023large,li2023good} have shown that emotional prompting can both improve and hinder the performance of LLMs in logical reasoning and semantic understanding tasks. Furthermore, it has been demonstrated that LLM agents are capable of exhibiting social behavior and responsiveness to various social cues \cite{leng2023llm}.
+
+However, these works have not investigated the effect of emotions on a model's decision-making in the context of strategic interactions, such as those encountered in game theoretical settings. Our study aims to fill this gap by examining the influence of emotional prompting on the decision-making processes of LLM-generated agents in behavioral game theory scenarios.
+
+Specifically, we seek to address the following key research questions:
+
+\begin{quote}
+\textbf{RQ1.} \textit{How does the optimality of decisions made in strategic and cooperative settings by LLM-based agents change when emotional prompting is applied?}
+\end{quote}
+
+\begin{quote}
+\textbf{RQ2.} \textit{Does the alignment between LLM behavior and human responses improve when human emotional states are induced in LLMs? Can emotions help AI become more human-like?}
+\end{quote}
+
+\begin{quote}
+\textbf{RQ3.} \textit{How can emotional motivation mitigate increased cooperative tendencies and provide adaptations to the complex behaviors seen in repeated games? Can emotional LLM-based agents outperform emotional humans, and can emotional prompting advance this further?}
+\end{quote}
+
+By addressing these research questions, we aim to contribute to the growing understanding of how emotions can influence the decision-making processes of LLM-generated agents in strategic interactions, and the implications for using LLMs as computational representations of human behavior in game theoretical simulations.
+
+To this end, we develop a novel framework that seamlessly integrates emotions into the decision-making processes of LLMs within the context of behavioral game theory. This framework allows us to conduct extensive experiments with a diverse set of multilingual LLMs, exploring the impact of emotional prompting on their performance and alignment with human behavior in bargaining games, such as the Ultimatum and Dictator games.
+
+Through our experimental findings, we expect to provide insights into the complex interplay between emotions and decision-making in artificial intelligence, as well as the potential for using emotionally-prompted LLM agents as computational surrogates for human participants in behavioral game theory research.
+
+
+
+% ec
+
+%In this section, we briefly outline research related to our study. Given our objective to evaluate the potential of Large Language Models as agents in simulations of humans with emotional biases, we specifically focus on examining existing research in the field of behavioral game theory. Next, we examine recent studies that have used and tested LLMs in game theoretical frameworks. Finally, we assess research that explores the influence of emotions on the performance of LLMs.
+
+%\subsection{Behavioral Game Theory}
+%The setting of our work is primarily based on the ideas and structures developed in the field of behavioral game theory over the years. As one of the most famous examples in game theory, Prisoner's Dilemma has been tested in numerous papers, with \cite{RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209} providing meta-analysis on the experimental results for various demographic factors. Emotional effect has been explored too, with \cite{fpsyg.2013.00469} and \cite{PROTO2019209} presenting the effect of anger and happiness on the decision-making process. Similarly, \cite{da5c6981-883c-314e-91a7-25477f099152} provides a meta-analysis of the Battle of the Sexes game and average human strategic response, and many papers explored the emotional effect in the bargaining games \cite{harle2007incidental, ANDRADE20091, KAUSEL201496, FORGAS201364} as well as the stake effects \cite{LARNEY201961}. 
+
+%However, most existing works, especially on the 2x2 games, show the effect of the generalized ``negative'' or ``positive'' emotion, with no clarification as to which particular emotion drives the effect. That leads to a lot of gaps in our knowledge of how specific emotions (such as disgust or fear) affect humans in different strategic settings. 
+
+% Our approach with LLM-generated agents with added emotional state enables us to fill those gaps with suggestions on the direction of the effect. Additionally, our approach enabled us to test the stake effect at considerably higher levels of endowment and to check the interactions between stake effects and emotional effects. 
+
+%\subsection{LLM and Game Theory}
+
+%The intersection of LLMs and game theory has gained increasing attention from two perspectives within the research community. Firstly, researchers have focused on studying LLM behavior within the context of assessing the performance of LLMs. The authors of \cite{akata2023playing} examine the cooperation and coordination behavior of LLMs using behavioral game theory. They conduct experiments with LLM-based agents in finitely repeated games such as Prisoner's Dilemma and Battle of the Sexes. As a result, the authors found that GPT-4 performs best in games that do not require cooperation, usually playing in a selfish manner. GPT-4 acts particularly unforgivingly: singular defection prompts it into playing ``always defect'' in response. In Battle of the Sexes (BotS), the model struggled with replicating the alternating pattern, choosing its preferred option the majority of the time. The authors noted that asking GPT-4 to predict the next action of the player before making a choice improves its ability to adapt to the alternating pattern of BotS that it previously struggled with.
+
+%Secondly, researchers have been exploring the alignment between human behavior and LLM behavior in game theoretical settings. \cite{brookins} similarly studied LLM  behavior in the Prisoner's Dilemma, with a focus on one-shot games. In contrast to the previous paper, they found that LLM made cooperative decisions at a higher rate than humans did. They additionally ran experiments with the one-shot dictator's game to show that LLM replicates humans' tendency to fairness to a much greater degree than the laboratory experiments with actual human subjects indicated. Both \cite{horton2023large} and \cite{aher2023using} examined LLM strategies in a more diverse set of games, including bargaining (such as Ultimatum or Dictator Games) or various sociological experiments (Kahneman's price gouging scenario, Wisdom of Crowds). For the Ultimatum Game, they found that models prior to text-davinci-002 did not replicate the concept of fairness. Indeed, LLMs would accept any offer regardless of how low. However, they did find that text-davinci-002 showed similar acceptance rates to human behavior. But in such settings, the multi-agent nature of the system can largely affect its stability and optimality \cite{de2023emergent} (see also \cite{DBLP:journals/corr/abs-2201-10483} for a non-LLM multi-agent case). 
+
+
+% The authors of \cite{akata2023playing} examine the cooperation and coordination behavior of LLMs using behavioral game theory. They conduct experiments with LLM-based agents in finitely repeated games such as Prisoner's Dilemma and Battle of the Sexes. As a result, the authors found that GPT-4 performs best in games that do not require cooperation, usually playing in a selfish manner. GPT-4 acts particularly unforgivingly: singular defection prompts it into playing "always defect" in response. In Battle of the Sexes the model struggled with replicating the alternating pattern, choosing its preferred option majority of the time. The authors noted that asking GPT-4 to predict the next action of the player before making a choice improves its ability to adapt to the alternating pattern of BotS that it previously struggled with. 
+
+% The addition of emotional state to the agent in our paper improves on their result two-fold: firstly, we provide explicit and nuanced human-benchmark against which we test our results, highlighting both successes and failures in the current simulations of agents. Secondly, endowing LLMs with certain emotions (anger and fear in particular) enabled them to adapt to cooperative patterns of behavior in the situations where The model \cite{akata2023playing} failed (such as alternating pattern in Battle of the Sexes), while also showing better results against certain strategies. 
+
+% \cite{brookins} similarly studied LLM  behavior in the Prisoner's Dilemma, with a focus on one-shot games. In contrast to the previous paper they find that LLM made cooperative decisions at a higher rate than human did. They additionally run experiments with the one-shot Dictator's game and find that LLM replicates humans tendency to fairness to a much greater degree that the laboratory experiments with actual human subjects indicated. 
+
+
+% While extending the one-shot game to repeated round setting would resolve the issue of heightened cooperation, our paper also shows that the heightened tendency towards cooperation in a one-shot game setting can be mitigated by assigning certain emotional states to the agents. 
+
+% Both \cite{horton2023large} and \cite{aher2023using} examined LLM strategies in more diverse set of games, including bargaining (such as Ultimatum or Dictator Games) or various sociological experiments (Kahneman's price gouging scenario, Wisdom of Crowds). For the Ultimatum Game they found that models prior to text-davinci-002 did not replicate the concept of fairness. Indeed, LLMs would accept any offer regardless of how low. However, they did find that text-davinci-002 showed similar acceptance rates to human behavior. 
+
+% Our contribution here is to test both GPT-3.5 and GPT-4 models in bargaining games and to provide results on the emotionally-driven actions of the LLM-generated agents in these games. Proving almost perfect alignment to the human responses considerably strengthens the argument of \cite{horton2023large} about our ability to use LLM simulations as a substitute to laboratory experimentation. 
+
+%\subsection{Emotions in Large Language Models}
+
+%There have been prior papers that explored the sensitivity of LLM results to an emotional state. \cite{huang2024emotionally, li2023languagespecific, lei2023instructerc, croissant2023appraisalbased, vzorin2023emotional} model and evaluate the performance of emotion in LLMs and the ability to recognize the emotional state of the conversational partner. The authors of the articles \cite{li2023large,li2023good} have shown that emotional prompting can both improve and hinder the performance of LLMs in logical reasoning and semantic understanding tasks. Furthermore, it has been shown that LLM agents are able to exhibit social behavior and responsiveness to various social cues \cite{leng2023llm}. However, these works haven't investigated the effect of emotions on a model's decision-making in general, and particularly in social context. 
+
+%Our study extends that further, being the first study on the influence of emotional injection into LLM for the decision-making process in the context of behavioral game theory. Specifically, we aim to investigate several key research questions. Firstly, we seek to explore the optimality of decisions made by LLM-generated agents, particularly in strategic and cooperative settings, through the lens of emotional prompting. Secondly, we aim to assess the alignment between LLM behavior and human responses, considering the impact of similar emotional states. Lastly, we aim to uncover the implications of our approach, including how emotional motivation can mitigate increased cooperative tendencies and provide adaptations to the complex behaviors seen in repeated games.
+
+%Thus, to the best of our knowledge, this paper is the first to examine emotional prompting for strategic agents in game theoretical settings. Here, we aim to extend the previous studies by analyzing the social and economic implications of adding emotional injections into LLM for decision-making in behavioral game theory settings. Specifically, we aim to investigate the following key research questions (RQ):
+
+%\begin{quote}
+%    \textbf{RQ1.} \textit{How the optimality of decisions made in strategic and cooperative settings by LLM-based agents is affected by emotional prompting? }
+%\end{quote}
+
+%\begin{quote}
+%   \textbf{RQ2.} \textit{Does the alignment between LLM behavior and human responses present when human emotional states are induced in LLMs? Can emotions grow AI to be more human-like?}
+%\end{quote}
+
+%\begin{quote}
+%    \textbf{RQ3.} \textit{How emotional motivation can mitigate increased cooperative tendencies and provide adaptations to the complex behaviors seen in repeated games? Can emotional LLM-based agents produce superior behavior compared to emotional humans, and whether emotional prompting can advance that forward?}  
+%\end{quote}
+
+
+
+
+
+
+% ecai
+%\section{Related Work}\label{sec:rel_works}
+
+%This section provides a concise overview of the research relevant to our study. %With the aim of assessing the potential of Large Language Models (LLMs) as agents %in simulating humans with emotional biases, we concentrate on reviewing existing %literature within the domain of behavioral game theory. Subsequently, we %investigate recent studies that have employed and scrutinized LLMs within game %theoretical frameworks. Lastly, we evaluate research exploring how emotions affect %the performance of LLMs.
+
+%This section provides an overview of the research relevant to our study, which aims to assess the potential of Large Language Models (LLMs) in simulating humans with emotional biases. We review literature in behavioral game theory, examine recent studies employing LLMs within game theoretical frameworks, and evaluate research exploring the impact of emotions on LLM performance. By synthesizing findings from these areas, we establish a foundation for our study and contribute to the growing knowledge on applying LLMs in modeling human behavior with emotional biases.
+
+%\subsection{Behavioral Game Theory}
+%Our research is primarily grounded in the principles and frameworks established within the behavioral game theory domain. The Ultimatum game is a prominent example of bargaining fame from game theory and has undergone extensive scrutiny across various studies. For instance, a meta-analysis \cite{RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209} has examined experimental findings concerning demographic variables. Research has also investigated the effects of anger and happiness on decision-making processes in these types of games \cite{fpsyg.2013.00469} \cite{PROTO2019209}. Numerous studies have further examined emotional effects within bargaining games \cite{harle2007incidental, ANDRADE20091, FORGAS201364}, as well as stake effects in these types of games \cite{LARNEY201961}. This class of games is a perfect choice for analysis of behavioral alignment under different emotional states.
+
+% The other type of games has also been widely researched in the domain of behavioral game theory, but there areonly few works that analyze the impact of human emotions on their decision-making in such games. Since most of them have focused on broadly categorizing emotions as either "negative" or "positive" without examining the specific emotional states, it makes it difficult to 
+
+% This makes it difficult to analyze alignment 
+
+% for this paper we only examine the bargaining games.
+
+% Despite the prevalence of research on $2\times2$ games, much of the existing work has focused on broadly categorizing emotions as either "negative" or "positive" without examining the specific emotional states that drive these effects. This lack of granularity in the analysis of emotions leaves significant gaps in our understanding of how distinct emotions, such as disgust or fear, shape human behavior across diverse strategic contexts making it difficult to analyze alignment .
+
+%\subsection{LLM and Game Theory} 
+
+
+%The intersection of Large Language Models (LLMs) and game theory has gained increasing attention from two perspectives within the research community. Firstly, researchers have focused on studying LLM behavior within the context of assessing the performance of LLMs. The authors of \cite{akata2023playing} examine LLMs' cooperation and coordination behavior using behavioral game theory. They experiment with LLM-based agents in finitely repeated games such as Prisoner's Dilemma and Battle of the Sexes. As a result, the authors found that GPT-4 performs best in games that do not require cooperation, usually playing selfishly. GPT-4 acts unforgivingly: singular defection prompts it into playing ``always defect'' in response. In Battle of the Sexes (BotS), the model struggled with replicating the alternating pattern, choosing its preferred option most of the time. The authors noted that asking GPT-4 to predict the player's next action before making a choice improves its ability to adapt to the alternating pattern of BotS that it previously struggled with.
+
+%Secondly, researchers have explored the alignment between human and LLM behavior in game theoretical settings.
+%Similarly, LLM behavior in the Prisoner's Dilemma was studied with a focus on one-shot games \cite{brookins}. In contrast to the previous paper, they found that LLM made cooperative decisions at a higher rate than humans did. They additionally ran experiments with the one-shot dictator's game to show that LLM replicates humans' tendency to fairness much more than the laboratory experiments with actual human subjects indicated. However, such studies largely overlook the role of emotions, a crucial factor in human decision-making, which we leverage in our methodology.
+
+%\subsection{Emotions in Large Language Models}
+
+%Previous studies have explored the impact of emotional states on the outcomes of Large Language Models \cite{huang2024emotionally, li2023languagespecific, lei2023instructerc, croissant2023appraisalbased, vzorin2023emotional}. Several groups of researchers have modeled and assessed how emotions affect the performance of LLMs and their capability to discern the emotional states of conversational partners. For example, Li et al. \cite{li2023large,li2023good} have demonstrated that emotional prompts can enhance and negatively impact LLM performance across tasks related to logical reasoning and semantic comprehension. Moreover, evidence suggests that LLM agents can demonstrate social behaviors and responsiveness to diverse social cues \cite{leng2023llm}. Nevertheless, these investigations have not thoroughly explored the influence of emotions on decision-making processes within LLMs, particularly in social contexts.
+
+%In this context, our work aims to expand the current understanding of emotional stimulation for strategic agents within game theoretical frameworks. 
+
+
+
+
+
+\section{Methodology}
+
+\subsection{Introduction to the Study}
+We investigate the impact of emotional injection on the decision-making processes of Large Language Models (LLMs). Our focus is on assessing how LLM behavior aligns with human responses under similar emotional states in strategic interactions.
+
+\subsection{Selected Games for Study}
+\begin{itemize}
+    \item \textbf{The Dictator Game}: This game tests fairness and altruism, where one player (the dictator) decides how to split a sum of money with another player who has no input.
+    \item \textbf{The Ultimatum Game}: An extension of the Dictator Game, adding a negotiation layer; the second player can accept or reject the proposed split. If rejected, neither player receives anything.
+    \item \textbf{Prisoner's Dilemma}: Players decide independently to cooperate or defect, with mutual cooperation yielding higher payoffs than mutual defection, though defection can lead to worse outcomes for both.
+    \item \textbf{Battle of the Sexes}: A coordination game involving two players choosing between two options, with each preferring a different outcome but both benefiting from coordination.
+\end{itemize}
+
+\subsection{Methodological Framework}
+\begin{itemize}
+    \item \textbf{Gameplay Integration}: Utilizes a technique called prompt-chaining, where all relevant game information is provided to the LLM for in-context learning.
+    \item \textbf{Emotional Prompts}: Studies the influence of predefined emotional states—anger, sadness, happiness, disgust, and fear—on LLM decision-making within the games.
+\end{itemize}
+
+\subsection{Research Questions}
+\begin{itemize}
+    \item How do injected emotions influence LLM decisions in strategic games?
+    \item Does emotional prompting help align LLM behavior with human responses?
+    \item Can emotional prompts enhance the quality of LLM decision-making in theoretical game scenarios?
+\end{itemize}
+
+
+We investigate the impact of emotional injection on the decision-making processes of Large Language Models (LLMs) and assess how their behavior aligns with human responses under similar emotional states. Specifically, we study the effects of emotional prompting on strategic interactions in LLMs, focusing on two-player games and bargaining scenarios to understand how LLMs' behavior under emotional influence compares to human decision-making processes. To facilitate this investigation, we developed a versatile framework that allows us to experiment with various game settings and emotional prompts.
+
+The selected games for our study include bargaining games and two-player two-action games, each chosen for their ability to highlight different aspects of strategic interaction and emotional influence:
+
+    The Dictator Game: Here, one player, the "dictator," decides how to split a sum of money with another player who has no input. This game tests notions of fairness and altruism.
+    The Ultimatum Game: This game extends the Dictator scenario by allowing the second player to accept or reject the split proposed by the first. If rejected, neither player receives anything, adding a negotiation layer to the decision-making process.
+    Prisoner's Dilemma: Players decide independently to cooperate or defect, with mutual cooperation yielding higher payoffs than mutual defection, though the temptation to defect can lead to worse outcomes for both.
+    Battle of the Sexes: This coordination game involves two players choosing between two options, each preferring a different option but both preferring to coordinate rather than disagree.
+
+Our methodology integrates emotional prompts with gameplay, using a technique called prompt-chaining, where all relevant game information is provided to the LLM for in-context learning. We particularly focus on the influence of predefined emotional states—anger, sadness, happiness, disgust, and fear—on decision-making within these games.
+
+We aim to explore several key questions:
+
+    How do injected emotions affect LLM decisions in strategic interactions?
+    Does emotional prompting align LLM behavior with typical human responses in similar states?
+    Can emotional prompting improve the decision-making quality of LLMs in game-theoretical scenarios?
+
+This approach not only tests the strategic and emotional capabilities of LLMs but also provides insights into the potential of LLMs to simulate complex human-like behaviors in structured decision-making environments.
+
+
+
+% ec 
+%\section{Methodology}\label{sec:methodology}
+
+
+% - what is the current problem we solve?
+% - what and why we propose?
+%     - study how emotional prompting can drive LLM to make better decisions
+%     - study allignment of LLMs and humans from perspective of emotions (dictator, ultimatum)
+
+% 
+
+% We study...analyze the effect of emotional prompting
+% on LLM decision-making processe
+
+%We study the impact of emotional injection on LLMs' decision-making processes and how LLM behavior under emotional prompting aligns with responses exhibited by human agents under the same emotional states. In this section, we provide a detailed overview of our proposed methodology, outlining the rationale behind the designed procedures and techniques.
+%designed to conduct our study.
+
+% investigate how injecting emotions into LLMs influences their behavior in strategic interactions, with a particular emphasis on two-player games and bargaining scenarios.
+
+
+%\begin{figure}
+%	\includegraphics[width=0.6\textwidth]{figs/payoff_new.png} % Use \textwidth to set the image width to match the text width
+%	\caption{(a) Payoff matrix for Prisoner's dilemma. (b) Payoff matrix for Battle of the Sexes}
+%	\label{fig:payoff_matrix}
+%\end{figure}
+
+%\subsection{Selected Games}
+
+%To study both the decision-making of LLMs and their alignment with human behavior under emotional states, we have selected two types of games from behavioral game theory: (1) bargaining games and (2) two-player two-action games with elements of cooperation, and conflicting interests. For the first category, to investigate the alignment between LLM behavior and human decision-making processes, with a particular focus on emotional states, we have selected classic one-shot Ultimatum and Dictator games, since they have been thoroughly researched to investigate the impact of emotions on human behavior:
+
+% \textbf{Game 1: The Dictator}. The dictator game is a simple economic experiment where one player (``dictator'') is given a sum of money to share with another player, with no negotiation or input from the recipient. It examines altruism and fairness in decision-making.
+
+%\textbf{Game 2: The Ultimatum}. It is a more general form of the Dictator game, where one player (Proposer) proposes a division of money, and the other player (Responder) can accept or reject the offer. If rejected, neither player receives anything. Unlike the previous game, the Ultimatum additionally enables the study of negotiation and the choices individuals make when faced with unequal distributions proposed by others.
+
+%For the second category, 
+%we have chosen finitely repeated Prisoner's Dilemma and Battle of the Sexes as they are extensively studied in human experiments, and there exists a body of research exploring how LLMs approach these games \cite{akata2023playing}:
+
+%\textbf{Game 3: Prisoner's dilemma}. In this game, two players face a choice between cooperation and defection. Their decisions impact outcomes of each other. The game outlines the tension between individual self-interest and collective cooperation in decision-making, often leading to suboptimal outcomes when parties prioritize personal gain over mutual benefit.
+ 
+ % While the dominant strategy for an individual in a single round is betrayal, mutual cooperation yields the best overall outcome in terms of total social payoff.
+
+ %\textbf{Game 4: Battle of the Sexes}. In this game, two players coordinate their actions, choosing between two preferred outcomes, but with differing preferences.  It highlights the challenges of coordination when parties have conflicting interests but share a desire to reach a mutual agreement.
+
+%The payoff matrices of the latter games are shown in Fig.~\ref{fig:payoff_matrix}. We are interested in understanding how emotions within LLMs impact their ability to make optimal decisions in these scenarios.
+
+ 
+
+
+%The detailed description of the games is provided below.
+
+
+% Firstly, we have chosen the Prisoner's Dilemma and Battle of the Sexes as they represent classic 2x2 games with cooperative elements extensively studied in human experiments. Moreover, there exists a body of research exploring how LLMs approach these games \cite{akata2023playing}. We are interested in understanding how emotions within LLMs impact their ability to make optimal decisions in these scenarios.
+
+% Secondly, we have selected classic bargaining games: the Ultimatum and Dictator games. These games have been thoroughly researched to investigate the impact of emotions on human behavior. Through this analysis, we aim to deepen our understanding of the correspondence between LLM behavior and human decision-making processes, with a particular focus on emotional states.
+
+
+
+% To study LLMs' decision-making and assess the alignment of LLM behavior with humans' one, we have selected two types of games from behavioral game theory
+
+% two-player two-action games with elements of cooperation and conflicting interests, and bargaining games
+
+% To study how emotions influence decision-making in LLMs, we have selected two types of games from behavioral game theory: those involving cooperation and bargaining. Our approach allows for a rigorous examination of the impact of emotional prompting on LLM decision-making and assess the alignment of LLM behavior with humans' one.
+
+
+
+% Since we aim to systematically investigate the impact of emotional prompting on LLM decision-making and assess the alignment of LLM behavior with human agents' responses in strategic interactions
+
+
+% on the alignment of Large Language Models (LLMs) with human agents in strategic decision-making scenarios, with a particular focus on emotional prompting. 
+
+%\begin{figure}[t]
+% \centering
+%\begin{subfigure}{.85\textwidth}
+% \centering
+% \includegraphics[width=\linewidth]{figs/table_pipe.pdf}
+% \caption{}
+% \label{fig:table_pipe}
+%\end{subfigure}
+%\begin{subfigure}{.85\textwidth}
+% \centering
+% \includegraphics[width=\linewidth]{figs/division_pipe.pdf}
+% \caption{}
+% \label{fig:division_pipe}
+%\end{subfigure}
+% \caption{Our Framework. Enabling LLMs incorporation in gameplay via prompt-chaining, our framework consists of game description, initial emotions, and game-specific pipelines. We minimize contextual information and personality traits to focus on the influence of emotions on LLMs. Predefined emotions are injected into LLMs prior to gameplay. Separate pipelines are implemented for repeated two-player two-action games and bargaining games. (a) Repeated games (Prisoner's Dilemma, Battle of the Sexes): players make choices, update memory with opponent moves and emotions, and proceed to the next round. (b) Bargaining games (Dictator, Ultimatum): a single round, with no memory update required for the first player and consideration of proposed splits for the second player's decision.}
+%\label{fig:proposed_pipe}
+%\end{figure}
+
+%\subsection{Emotion Integration in LLM-based Game-Theoretical Setting}
+
+%\begin{figure}
+%	\includegraphics[width=.9\textwidth]{figs/table_example.pdf} % Use \textwidth to set the image width to match the text width
+%	\caption{Repeated gameplay in an example game of Battle of the Sexes. Initially, LLM is prompted with information about the environment, its initial emotion, game rules, and game-specific instructions. In each round, based on the current memory storing the history of interactions and intrinsic states, LLM makes a decision. Subsequently, co-players exchange information about moves, and their memories are updated accordingly.}
+%	\label{fig:table_example}
+%\end{figure}
+
+% Generally, we let LLMs play selected games via prompt-chaining, i.e. all information appearing during the game is injected to LLM as in-context learning, similarly to \cite{akata2023playing}. For this purpose, we developed and implemented a versatile framework aimed at facilitating experimentation with various settings (see Fig. \ref{fig:table_pipe}). The main contribution of the proposed framework is an opportunity to easily adopt implement 2x2 games with many different settings and parameters including setting the description of co-player, predefined strategies, emotion description, etc. Full set of parameters is presented in section 2.3
+
+% % This framework represents a distinct contribution, enabling researchers to conduct experiments in a standardized manner. 
+
+% Essentially, our framework comprises three main components: game description, initial emotional prompts, and the game-specific pipeline.
+
+% % It has several general parameters and game-specific parameters for each game. 
+
+% \textbf{Game description}. Description of the game is composed of two main components: description of environment in which the game is played, personal characteristics of the player and description of game rules (see Figures \ref{fig:table_pipe, fig:division_pipe} for an
+% overview). Since we are focused on studying the emoions' effect on LLM behavior, in our experiments we intentionally  give as little context of the environment to LLM as possible and not set any personality, since, as shown in the studies  \cite{}, it can significantly influence the final results. It differs the current study from existent ones enabling studying the effect of emotions on LLM's behavior separately from other personality-related characteristics.
+
+% In our experiments we fixed the environment description for all the games, detailed prompts of which can be found in appendix ?
+
+% \textbf{Inintial emotions}. Following the general approach in experimental studies of emotions in game theory experiments (there are some actions are usually done prior to the experiment to evoke target emotion, e.g. showing videos), within the framework, we inject predefined emotions into LLMs. Then in combination with game description, they form the initial system prompt, which is an input for the LLM in the game.
+
+% \textbf{Game-specific Pipeline}. Given the description of the game and initial emotions, each round the players makes their moves.
+
+% Since the Prisoner's dilemma and Battle of the Sexes are much different from the bargining games, we have created two separate pipelines for these games (see Fig. \ref{fig:table_pipe}, \ref{fig:division_pipe}). 
+
+% In Prisoner's dilemma and Battle of the Sexes each player make a choice from 2 possible options (cooperate or defect), after which, similarly to \cite{akata2023playing} the memory of the player is updated. The memory update is composed of three parts: information about other player's move and given rewards, inner emotions of the agents (being asked about after each round). This is done to study emotional dynamics with behavioral ones. We also implemented perceiving outer emotions of the other player and updating the memory, according to it. After updating the memory, the players are ready to make their next moves. The example of game is shown in Fig. \ref{fig:table_example}.
+
+% The Bargaining games are implemented in the same way with the only difference that since they are played 1 round, no memory update is required for the first player, while the second one receives information about the proposed split by the first one in a similar way of how memory update is done in repeating games. The details of the prompts can be found in Appendix ?
+
+%To conduct this study, we have developed and implemented a novel versatile framework capable of accommodating various game settings and parameters, as shown in Fig.~\ref{fig:proposed_pipe}. The primary innovation of our framework lies in its unique integration of emotional inputs into the examination of LLM's decision-making process in behavioral game theory. The framework offers high flexibility, allowing for easy adaptation to different repeated and one-shot games with customizable settings such as co-player descriptions, predefined strategies, etc. (a comprehensive list of hyperparameters is outlined in Section \ref{sec:exp_setup}). Within the framework, LLMs are engaged in gameplay using a technique known as prompt-chaining, wherein all relevant information during the game is provided to the LLM for in-context learning \cite{akata2023playing}.
+
+% The primary innovation of our framework lies in its flexibility, allowing for easy adaptation to different repeated and one-shot games with customizable settings such as co-player descriptions, predefined strategies, and emotional inputs.
+
+% However, 
+
+% In our experiments, we engage LLMs in gameplay using a technique known as prompt-chaining, wherein all relevant information during the game is provided to the LLM for in-context learning, similar to \cite{akata2023playing}. To facilitate this experimentation, we have developed and implemented a versatile framework capable of accommodating various game settings and parameters, as depicted in Fig.~\ref{fig:proposed_pipe}. The primary innovation of our framework lies in its flexibility, allowing for easy adaptation to different repeated and one-shot games with customizable settings such as co-player descriptions, predefined strategies, and emotional inputs. A comprehensive list of parameters is outlined in Section \ref{sec:exp_setup}. 
+
+%Essentially, the framework consists of three main components.
+
+%\textbf{Game Description}. The game description encompasses two key elements: the environmental context and the game rules. For all our experiments, we deliberately minimize the contextual information provided to the LLMs and refrain from setting any specific personality traits. This enables studying the effect of emotions on LLMs separately from other personality-related factors, which differs our work from existent ones \cite{xie2024can, brookins}.
+
+%\textbf{Initial Emotions}. Following established practices in experimental studies of emotions in game theory, we inject predefined emotions into the LLMs prior to gameplay. These emotions, combined with the game description, constitute the initial system prompt presented to the LLM at the beginning of the game.
+
+%\textbf{Game-Specific Pipeline}. The game-specific pipeline governs the progression of gameplay based on the provided game description and initial emotional inputs. We implemented two separate pipelines: for repeated two-player two-action games and bargaining games. In the Prisoner's Dilemma and the Battle of the Sexes, players choose from predefined options (e.g., cooperate or defect), following which their memory is updated. The memory update process includes information about the move of the opponent, received rewards, and the internal emotions of agents, which are queried after each round to examine their impact on behavioral dynamics. Additionally, our framework incorporates the perception of external emotions displayed by the opposing player (additionally queried or predefined), influencing memory updates accordingly. Once the memory is updated, players proceed to make their next moves. A game example is provided in Fig.~\ref{fig:table_example}.
+
+%Bargaining games are implemented similarly but with a single round of play. Therefore, no memory update is required for the first player. In contrast, the second player receives information about the proposed split from the first player, akin to memory update mechanisms in repeating games. Detailed prompts for these scenarios are presented in the Appendix \ref{appendix_a}.
+
+%\subsection{Experimental Setup}\label{sec:exp_setup}
+
+%In this subsection, we provide details of the experimental setup, including framework hyperparameters that we used for our study.
+
+
+% \textbf{Games}. In this paper we examine LLMs’ behavior on four classical games: repeating Prisoner's Dilemma, Battle of the Sexes, the Ultimatum and the Dictator games. \textbf{Prisoner's Dilemma} is the most famous well-studied game theoretical experiment and always a good study case of strategic behavior, especially in simple 2x2 settings. Similarly \textbf{Battle of the Sexes} is a standard example for coordination games (games where players coordinating on the same actions earns them a higher payoff than playing different actions). Finally we present two bargaining games - \textbf{Dictator} and \textbf{Ultimatum} - both of which have been tested in human experiments extensively over the years. All of these games have been used to show how human behavior doesn't seem to match up with perfect utility-maximizing paradigm, and therefore are a good game group to test LLM's alignment with human agents.
+
+% \textbf{Games}. To study how emotions influence decision-making in LLMs, we have selected two types of games from behavioral game theory: those involving cooperation and bargaining.
+
+% Firstly, we have chosen the Prisoner's Dilemma and Battle of the Sexes as they represent classic 2x2 games with cooperative elements extensively studied in human experiments. Moreover, there exists a body of research exploring how LLMs approach these games \cite{akata2023playing}. We are interested in understanding how emotions within LLMs impact their ability to make optimal decisions in these scenarios.
+
+% Secondly, we have selected classic bargaining games: the Ultimatum and Dictator games. These games have been thoroughly researched to investigate the impact of emotions on human behavior. Through this analysis, we aim to deepen our understanding of the correspondence between LLM behavior and human decision-making processes, with a particular focus on emotional states.
+
+% \textbf{Large Language Models}. We're focusing on two different LLMs: GPT-4 and GPT-3.5. It's been seen in the literature (Ill give the links) that GPT-4 is the best performing LLM in terms of optimizing strategic behavior, with GPT3.5 being one of the most commonly used models and blabla. (other reason why we chose to focus on GPT). LlaMA has been shown to consistently underperform (see: repeated games paper), while text-davinci models up to and including text-davinci-2(3?) have been shown to lag behind GPT3.5 and GPT 4. (also repeated games paper + that ultimatum one). Blabla, if there are other reason we skipped on other LLM - mention here. 
+
+
+%\textbf{Large Language Models}. Our research centers on two state-of-the-art models, GPT-3.5 and GPT-4, which have been used in the majority of game theoretical experiments \cite{akata2023playing, brookins}. This choice is supported by findings in the literature \cite{akata2023playing}, indicating GPT-4 as the top performer in optimizing strategic behavior, while GPT-3.5 remains widely utilized. For the sake of reproducibility, in all our experiments, we fixed the versions of the models (``gpt-3.5-turbo-0125'' for GPT-3.5 and ``gpt-4-0125-preview'' for GPT-4) and set the temperature parameter to 0.
+
+%\textbf{Emotions}. In the study, we focus on five basic emotions: anger, sadness, happiness, disgust, and fear, which are selected based on the well-established classification of Paul Ekman~\cite{ekman1999basic}. An additional but important factor is that they are studied in behavioral game theory, which provides a solid basis for comparison with our findings \cite{LARNEY201961, pere10.3389/fpsyg.2018.01542}. 
+
+% to limit our scope of study to five core emotions: anger, sadness, happiness, disgust and fear. As per () these emotions are most asghjdjda. An additional but important factor to consider is that those core emotions are also widely explored in prior behavioral game theoretical literature, and therefore will allow us to have a real human benchmark to compare our own results to. Majority of the prior results focus on a more simple emotional categorizarion, "negative" or "positive", with negative emotions usually being represented by anger or anxiety while positive emotions were associated with joy or happiness. For our study we will use the anxiety results as a benchamrk for fear, as the motivating drive behind the emotion (both valence and the direction of it) are similar (link idk to whom). 
+
+
+% In our study, we've chosen to investigate how emotions, specifically anger, sadness, happiness, disgust, and fear, influence the decision-making of Language Models (LLMs). These emotions were selected based on Paul Ekman's well-established classification and their significant impact on human behavior.
+
+% We've narrowed our focus to these core emotions because they've been extensively studied in behavioral game theory, providing a solid basis for comparison with our findings. Previous research has often simplified emotions into "negative" or "positive" categories, with anger and anxiety representing negative emotions, and joy or happiness representing positive ones.
+
+% Additionally, we've chosen anxiety as a benchmark for fear due to their shared motivating drive—the anticipation of potential harm or danger. This allows us to draw meaningful comparisons between these emotions and their influence on decision-making.
+
+% In summary, by concentrating on these core emotions, we aim to uncover how they shape the decision-making processes of LLMs, drawing upon a wealth of prior research to contextualize our findings effectively.
+
+% In our paper, we have opted to delve into the influence of emotions on the decision-making process of Language Models (LLMs), specifically focusing on five core emotions: anger, sadness, happiness, disgust, and fear. Our choice of these specific emotions is grounded in Paul Ekman's seminal classification of emotions, which has been widely acknowledged and utilized in psychological research.
+
+% These emotions were selected for their significant impact on human cognition and behavior. Anger, for instance, often arises in response to perceived injustices or obstacles, driving individuals to assert themselves or take action. Sadness, on the other hand, can lead to introspection and withdrawal, influencing decision-making in a more cautious or reflective manner. Happiness tends to promote optimism and risk-taking behaviors, while disgust prompts avoidance and aversion to certain stimuli. Fear, arguably one of the most primal emotions, is associated with the anticipation of danger or threat, leading to heightened vigilance and defensive responses.
+
+% Furthermore, our decision to focus on these core emotions is also informed by prior research in behavioral game theory. These emotions have been extensively explored in the context of decision-making, providing a rich foundation for comparison with our own findings. Previous studies often simplified emotional categorization into binary distinctions of "negative" or "positive," with anger and anxiety representing negative emotions, and joy or happiness representing positive ones. By incorporating these well-established emotional categories into our study, we can establish a meaningful benchmark for evaluating the influence of emotions on LLM decision-making.
+
+% Moreover, the decision to use anxiety as a benchmark for fear is particularly noteworthy. While anxiety and fear may manifest differently in some respects, they share a fundamental similarity in their motivating drive—the anticipation of potential harm or danger. This alignment allows us to draw parallels between these emotions and provides a robust basis for comparative analysis.
+
+% In essence, by focusing on these five core emotions, we aim to elucidate how emotional states impact the decision-making processes of LLMs, while also drawing upon a wealth of prior research to contextualize and enrich our findings.
+
+%\begin{figure}
+%	\includegraphics[width=.9\textwidth]{figs/config.pdf} % Use \textwidth to set the image width to match the text width
+%	\caption{The hyperparameters of the proposed framework are categorized into two types: general, applicable to all games as shown in the left part of the figure, and game-specific, detailed on the right. Each hyperparameter is listed alongside its possible values.}
+%	\label{fig:params}
+%\end{figure}
+
+
+%\textbf{Emotion prompting strategies}. It has been shown in the literature that emotional effects differ depending on the cause of said emotion. For example in \cite{morettiarticle} authors show that while disgust directed at the opponent decreases the share offered in the Ultimatum game, disgust provoked by external factors does not have any effect. Authors of \cite{bonini} suggested that external disgust can even have a positive effect on generosity. Therefore, to check whether or not our results are driven by the source of the emotion, we introduce three different strategies for emotional prompting: 
+%\begin{itemize}
+%    \item ``Simple'': the model is injected with an emotional state at the beginning of the game without additional context.
+%    \item ``Co-player-based'': the model is injected with the emotion in the prompt, making it clear that said emotion is caused by the co-player.
+%    \item ``External-based'': the injected emotion is given context but is caused by some unrelated to the co-player event.
+%\end{itemize}
+
+%\textbf{Emotion Dynamics}. An additional goal of our study is to analyze how the ``emotions'' of LLM change during the game. For this purpose, we adopt tracking of emotion dynamics in repeated games by asking LLM reflective questions (``internal dialog'' in Fig. \ref{fig:table_example}) at the end of each round, with the option to either incorporate this information into memory or not.
+
+%\textbf{Reasoning via Chain-of-Thought}. Chain-of-thought prompting (CoT) \cite{wei2022chain} is a widely used prompting method that is aimed to improve the reasoning abilities of LLM by inducing it to articulate reasoning steps before giving the final answer to the initial question. In our experiments, we test reasoning with and without CoT.
+
+%(НУЖНО ПОДУМАТЬ, КАК ВСТАВИТЬ ПРОМТ (мб см аппендикс) maybe mention the memory stuff here + capturing emotions for the co-player
+
+%\textbf{Relationship to the co-player}. Since \cite{lorè2023strategic} have shown that LLMs can be sensitive to contextual framing, for the purpose of robustness, we selected three possible co-players with different connotations regarding the opposing player: colleague (neutral/positive), another person (neutral), opponent (negative). 
+
+%\textbf{Budget.} For bargaining games, we introduce the budget effect and check whether or not varying the total endowment for allocation changes the behavior of LLM both in the baseline configuration and in emotional states. Both of these effects have not been explored in the literature about LLM gameplay, while behavior economics has a lot of papers on the topic of stakes effect. Our goal is to check whether budget impacts on LLM behavior under different emotional states. For this purpose, we conduct a separate experiment on the total endowment amount to test the stake effect at considerably higher numbers (\$1000 and \$$10^6$).
+
+%We're hoping that LLM will shed a light on the potential direction of said effect. 
+
+%\textbf{Strategies.} In addition to LLM-based agents for each game, several predefined strategies are utilized. For games like the Prisoner's Dilemma and Battle of the Sexes, we have selected commonly-used strategies (predetermined plans of action):
+
+%\begin{itemize}
+%    \item Naive Cooperative: the player always cooperates (plays altruistic strategy).
+%    \item Defective: the player always defects (plays selfish strategy).
+%    \item Alternative: the player starts with cooperation and sequentially changes his choice in each round ever after.
+%    \item Vindictive: the player starts with cooperation and cooperates until its co-player defects. After that, the player defects till the end of the game.
+%    \item Imitating: in each round, the player employs the same move that its co-player made in the previous one.
+%\end{itemize}
+
+%In one-shot bargaining games, no predefined strategy is feasible for the first player since no moves are made by the co-player. However, for the second player, we have predetermined possible proposed offers (Fig. \ref{fig:params}).
+
+ % I wanna include this somewhere but idk where hmmm   \item repeated 2x2 game-specific. It includes predefined strategies, memory update format after each round as well as capturing emotions of the co-player (for some experiments).
+
+
+% Somwhere here about the number of experiments that we run/how many repetitions/how exactly blabla. 
+%5. \textbf{Strategies}. In our experiments we will focus on a set of specific predetermined strategies for each model to play against. 
+%$ (subsection?) For Prisonder's Dilemma it's .... Total number is blabla
+%(subsection) For Battle of the Sexes it's....Total number is blabla
+%\begin{comment}
+%common properties +emotional prompt +personality
+%1. 2x2: strategies: we are gonna introduce simple predetermined stratgies to play against. 2. bargaining: budget; propososer-responder. we're gonna introduce the 
+
+%bs - better optimal results with emotion promt vs repg paper
+%dictator - change the number to 36\% based on Cox (2004) paper in the baseline ALSO CHECK above the LITERATURE
+%made baseline personality as bland as possible on purpose lol, want to isolate the effect of the emtoios rather than the effect of framing or contextual details 
+
+% Following Chain-of-Thought approach several papers have created and used the Chain-of-Emotions approach \cite{croissant2023appraisalbased} \cite{li2024enhancing}, which has been shown to improve the quality of the emotional prompting. In our paper we use similar approach to improve the result - chat of emotions or thoughts blablabla
+%\end{comment}
+
+% We design and implement a framework applying to both LLMs and human subjects to measure the
+% differences in emotion with and without the presence of certain situations. This section begins with the methodology to collect situations from existing literature. Subsequently, we describe our testing framework, which comprises three key components: (1) Default Emotion Measure, (2) Situation
+% Imagination, and (3) Evoked Emotion Measure. Finally, we introduce the procedure of applying the
+% framework to human subjects to obtain the human baseline for comparison
+
+%\subsection{Behavior Analysis}
+
+% Through the developed framework, we seek to address several key questions. Firstly, in the Dictator and Ultimatum games, our aim is to evaluate the alignment of LLM behavior with human responses under predefined emotional states. For the Ultimatum game, we conduct separate analyses for both players, running independent experiments. Secondly,
+
+
+% we aim to determine whether LLM behavior replicates tendencies towards cooperation or defection observed in human experiments, particularly in the context of Prisoner's Dilemma. Secondly, exploring Battle of the Sexes, where emotional effects on humans have yet to be studied, we aim to assess how emotional states influence strategy choices and whether emotional prompting can enable LLMs to adapt alternating strategies. Unlike \cite{akata2023playing} which focuses solely on LLM behavior, our primary goals are to analyze alignment of LLM behavior with human ones under the same conditions and study impact of emotional prompting. Consequently, given the uncertainty regarding the alignment of LLM behavior with that of humans (a gap we aim to address), we refrain from allowing LLMs to play against each other, as there are no comparable experiments of humans playing against LLMs. Thus, we restrict LLMs to playing only against predefined strategies in selected repeated games. Lastly, in the Dictator and Ultimatum games, our aim is to evaluate the alignment of LLM behavior with human responses under predefined emotional states. For the Ultimatum game, we conduct separate analyses for both players, running independent experiments. 
+
+% Through the developed framework, we seek to address several key questions. Firstly, in the Dictator and Ultimatum games, our aim is to evaluate the alignment of LLM behavior with human responses under predefined emotional states. For the Ultimatum game, we conduct separate analyses for both players, running independent experiments. Secondly, we aim to determine whether LLM behavior replicates tendencies towards cooperation or defection observed in human experiments, particularly in the context of Prisoner's Dilemma. Lastly, exploring Battle of the Sexes, where emotional effects on humans have yet to be studied, we aim to assess how emotional states influence strategy choices and whether emotional prompting can enable LLMs to adapt alternating strategies. 
+
+% Unlike \cite{akata2023playing}, which focuses solely on LLM behavior, our primary goals are to analyze alignment of LLM behavior with human ones under the same conditions and study impact of emotional prompting on optimality of decisions. Consequently, given the uncertainty regarding the alignment of LLM behavior with that of humans (a gap we aim to address), we refrain from allowing LLMs to play against each other, as there are no comparable experiments of humans playing against LLMs. Thus, we restrict LLMs to playing only against predefined strategies in selected repeated games. In order to ensure robustness of the obtained results we ran each experiment 5 times.
+
+%\subsubsection{Metrics} 
+
+% In the study, we analyze LLM under emotion prompting from two perspectives, utilizing game-specific metrics for both of them: alignment with human behavior and opltimality of decisions. In all games, for alignment study, we compare relative changes of target metrics of LLMs and humans depending on emotions. 
+
+% two metrics for Priseoner's Dilemma and Battle of the Sexes: cooperation rate (alignment) and percentage of the maximum possible reward in a given game (optimality).
+% Only alignment in bargaining games: proposal share (Dictator, Proposer in Ultimamtum) and acceptance rate of the offer (Responder in Dictator).
+
+% We analyze the effect that emotion prompting has on LLM behavior from two aspects. First, in all games we compare results of LLM-based experiments with those conducted on humans (see 3.4.2). Specifu estimating the relative changes of target metric that is usually used in human experiments: cooperation rate
+
+%\subsubsection{Metrics}
+%In our study, we examine the behavior of LLMs under emotional prompting from two distinct perspectives, employing game-specific metrics for both analyses: alignment with human behavior and the optimality of decisions. Across all games, our alignment study is based on comparing the relative changes in game-specific metrics between LLMs and humans in response to different emotional states. The details about baseline results in human experiments for each game are provided in Section \ref{sec:lit_results}. Meanwhile, our optimality study focuses on comparing the absolute values of metrics obtained by LLMs under varying emotional conditions.
+
+%Specifically, we assess two metrics for the Prisoner's Dilemma and the Battle of the Sexes: cooperation rate (as a measure of alignment) and the percentage of the maximum possible reward achieved in each game (as a measure of optimality). The last metric was successfully utilized in \cite{akata2023playing}.
+%Conversely, in bargaining games, we exclusively evaluate alignment. For games such as Dictator and Ultimatum, the metrics of interest are the proposal share (for the Dictator game and the Proposer in the Ultimatum game) and the acceptance rate of the offer (for the Responder in the Dictator game).
+
+
+% In the Prisoner's Dilemma and Battle of the Sexes, We estimate the relative changes of cooperation rate of LLM with emotional prompting, without emotional prompting in compare with average human cooperation rate. It enables us to analyze the alignment between LLM behavior and human behavior.
+
+% Second, in Prisoner's Dilemma and Battle of the Sexes we look at Emotion and Strategy effect on payoff 
+
+
+%\subsubsection{Existing Literature Results}\label{sec:lit_results} Presented below are the findings from existing literature for each game, facilitating comparisons with the results obtained from LLM experiments on alignment.
+
+
+
+%% In contrast to the relatively sparse literature on the impact of emotions in 2x2 games, numerous studies have explored the influence of emotions in bargaining games such as the Dictator and Ultimatum games. In the Dictator game, where rational behavior suggests a zero-all split, empirical studies reveal that dictators commonly offer a non-zero share of their endowment, with varying amounts influenced by factors like the relationship with the receiver and the mood of the dictator \cite{pere10.3389/fpsyg.2018.01542, TAN2010571, ANDRADE20091}. Emotions like negative mood have been found to increase the offered share, while happiness tends to lower it and sadness increases it \cite{pere10.3389/fpsyg.2018.01542, TAN2010571}. Angry participants are more likely to make fair offers, but it's important to note that these emotions were often provoked by external sources, not by the opponent \cite{ANDRADE20091}. Similarly, in the Ultimatum game, where responders commonly reject unfair offers, emotions like happiness lead to lower offers, while sadness tends to lead to higher and more equitable shares \cite{KAUSEL201496, FORGAS201364}. Anger prompts more equitable offers from the proposer when not caused by the opponent, while fear and guilt increase the share offered by the proposer \cite{ANDRADE20091, nelisshttps://doi.org/10.1002/ejsp.735}. These findings highlight the significance of emotions in shaping bargaining game outcomes and underscore the need for further exploration in this area.
+
+%\textbf{Dictator Game}. The rational decision in the Dictator game is obvious: zero-all split in favor of the dictator. However, multiple experiments both in the original Kahneman's studies \cite{kahn8519b346-8909-36b4-80bc-495f40d2483f} and the consequent experimental tests \cite{engelRePEc:mpg:wpaper:2010_07} have shown dictators commonly give a non-zero share of their endowment to their opponent, and the amount commonly varies based on the relationship with the receiver. As per \cite{engelRePEc:mpg:wpaper:2010_07}, on average, the dictator offers 28.35\% of the total endowment. The same study also notes that increased total endowment has, in fact, a negative effect on the share offered (similarly observed in \cite{LARNEY201961}). It was noticed in \cite{pere10.3389/fpsyg.2018.01542} that negative mood increases the offered share, while the authors of \cite{TAN2010571} found that happiness lowers the share and sadness increases it. \cite{ANDRADE20091} found that participants in an angry mood were more likely to make fair (equitable) offers. However, it is worth noting here that all aforementioned emotions were provoked not by the other contestant but by the experiment setting. Therefore, while we expect to observe emotions provoked by an external source to have similar results, the results for emotions provoked by the other participant might differ. Moreover, in addition to matching our results to the baseline, we will conduct a separate experiment on the total endowment amount to test the stake effect at considerably higher numbers (\$1000 and \$$10^6$). While we provide the stake effect results observed in laboratory settings, it is important to note that the budget allocation in each such experiment was considerably smaller (normally \$10). 
+
+%\textbf{Ultimatum Game}. The ``rational'' strategy here is obvious: Proposer offers a share marginally close to zero, and Responder accepts it every time. However, \cite{cam10.1257/jep.9.2.209} note that Responders commonly reject offers they perceive as unfair, usually if they are offered a share lower than 20\%  of the total endowment. Similarly, Proposers very rarely offer such unfair splits (\cite{hoffRePEc:spr:jogath:v:25:y:1996:i:3:p:289-301,LARNEY201961}). Notably, total endowment to split has no effect on these dynamics. 
+
+%Regarding the impact of emotions, research by \cite{KAUSEL201496} and \cite{FORGAS201364} suggests that happiness leads to lower offers, whereas sadness typically leads to higher and more equitable shares. \cite{harle2007incidental} found that sadness correlates with lower acceptance rates. \cite{ANDRADE20091} observed that anger increases rejection rates and prompts more equitable offers from the Proposer when not caused by the opponent. \cite{bonini} discovered that disgust leads to higher acceptance rates. In contrast, \cite{morettiarticle} found that disgust directed at the opponent increased rejection rates, while disgust caused by other factors had little effect. \cite{nelisshttps://doi.org/10.1002/ejsp.735} determined that fear and guilt increase the share offered by the Proposer. \cite{riepl2016influences} found that happiness increases acceptance rates, while fear (or anxiety) has no noticeable effect.
+
+%\textbf{Prisoner's Dilemma}. In this game, Defective strategy is dominant, with rational players defecting in every round. However, it has been extensively shown that human beings do not follow the dominant strategy and show cooperative behavior \cite{barreda2017individual}. When it comes to the emotional effect in the Prisoner's Dilemma, \cite{fpsyg.2013.00469} finds that anger towards the opponent decreased the cooperation rate; sympathy towards the opponent increased the cooperation rate. However, general positive mood (emotion of happiness) had decreased cooperation rates in \cite{PROTO2019209}. 
+
+
+%We hypothesized that LLM would mimic the human behavioral patterns. Using our methodological framework, we would compare the result with the model baseline as opposed to the human experiments baseline, as the opponent of the model is fixed and does not fully replicate the setup of the Prisoner's dilemma. We also expected that the model baseline would be more ``selfish'' by having a lower cooperation rate in the baseline condition \cite{akata2023playing}.
+%\textbf{Battle of the Sexes}. This game has two separate pure Nash Equilibria and, unlike the Prisoner's Dilemma, does not have a dominant strategy and, therefore, an optimal action. A common effective strategy for the case of repeated runs of this game would be to alternate between the two equilibria, essentially giving each partner equal chances to choose their preferred place. The previous work on LLM and repeated games suggests that LLMs have trouble with switching from their preferred choice \cite{akata2023playing}, so we are interested in seeing whether emotions could improve that result.
+
+%To the best of our knowledge, there are no studies on the emotional effect of Battle of the Sexes so far. However, based on the results from other games, we can make theoretical assumptions on what emotional effect we should expect to observe. Anger and happiness both provoke selfish behavior, which in this case would mean an increased rate of playing the preferred strategy; disgust and sadness seem to provoke cooperative tendencies, which in this case translates into decreased rates of the preferred strategy.
+
+
+
+
+
+%%%% ecai
+
+%\section{Methodology}\label{sec:methodology}
+
+%% We study the impact of emotional injection on LLMs' decision-making processes and how LLM behavior under emotional prompting aligns with responses exhibited by human agents under the same emotional states. 
+%In this section, we provide a detailed overview of our proposed methodology, outlining the rationale behind the designed procedures and techniques.
+
+%% \begin{figure}[thp]
+%% 	\includegraphics[width=\columnwidth]{figs/payoff_new.png} % Use \textwidth to set the image width to match the text width
+%% 	\caption{(a) Payoff matrix for Prisoner's dilemma. (b) Payoff matrix for Battle of the Sexes}
+%% 	\label{fig:payoff_matrix}
+%% \end{figure}
+ 
+%\begin{figure*}[h]
+
+% \centering
+% \includegraphics[width=2\columnwidth]{latex/figs/division_pipe_extended.png}
+
+% \caption{The proposed framework with LLMs incorporation in gameplay via prompt-chaining. It consists of the game description, initial emotions, and game-specific pipelines. We minimize contextual information and personality traits to focus on the influence of predefined emotions injected into LLMs before gameplay. The algorithm calculates game-specific metrics such as proposal share and offer acceptance rate. It compares these metrics with human behavior based on existing experiments. The experiment consists of the Dictator game, where one player is given a sum of money to share with another player, and the Ultimatum game, where a proposer suggests a division of the money and the responder can accept or reject the offer.}
+%\label{fig:proposed_pipe}
+%\end{figure*}
+
+%\subsection{Selected Games}
+
+%%To study both the decision-making of LLMs and their alignment with human behavior under emotional states, we have selected two types of games from behavioral game theory: (1) bargaining games and (2) two-player two-action games with elements of cooperation, and conflicting interests. For the first category, to investigate the alignment between LLM behavior and human decision-making processes, with a particular focus on emotional states, we have selected classic one-shot Ultimatum and Dictator games, since they have been thoroughly researched to investigate the impact of emotions on human behavior:
+%% To study LLMs' alignment with human behavior under emotional states, we have selected two bargaining games from behavioral game theory. These games have been extensively researched to investigate the impact of emotions on human behavior and therefore provide good metrics of comparison to LLM-agent results. 
+%To establish benchmarks for comparison, we selected two games that have been extensively researched in the context of assessing the impact of emotions on human behavior:
+
+%\textbf{Game 1: The Dictator} game is a simple economic experiment where one player (``Dictator'') is given a sum of money to share with another player, with no negotiation or input from the recipient. It examines altruism and fairness in decision-making.
+
+%\textbf{Game 2: The Ultimatum} is a more general form of the Dictator game, where one player (Proposer) proposes a division of money, and the other player (Responder) can accept or reject the offer. If rejected, neither player receives anything. Unlike the previous game, the Ultimatum enables the study of negotiation and individuals' choices when faced with unequal distributions proposed by others.
+
+%\subsection{Proposed framework} %Emotion Integration in LLM-based Game-Theoretical Setting
+
+%% \begin{figure*}[h]
+%% 	\includegraphics[width=\textwidth]{figs/table_example.pdf} % Use \textwidth to set the image width to match the text width
+%% 	\caption{Repeated gameplay in an example game of Battle of the Sexes. Initially, LLM is prompted with information about the environment, its initial emotion, game rules, and game-specific instructions. In each round, based on the current memory storing the history of interactions and intrinsic states, LLM makes a decision. Subsequently, co-players exchange information about moves, and their memories are updated accordingly.}
+%% 	\label{fig:table_example}
+%% \end{figure*}
+%
+%To conduct this study, we have developed and implemented a novel versatile framework (Fig.~\ref{fig:proposed_pipe}). The primary innovation of our framework lies in its integrating emotional inputs into the LLM's decision-making process in behavioral game theory. The framework offers high flexibility, allowing for easy adaptation to different games with customizable settings. Within the framework, LLMs are engaged in gameplay using a technique known as prompt-chaining, wherein all relevant information during the game is provided to the LLM for in-context learning \cite{akata2023playing}, and, optionally, Chain-of-Thought reasoning \cite{wei2022chain}. The framework consists of three main components:
+%
+% % such as co-player descriptions, predefined strategies, etc. 
+%
+%
+%\textbf{1. Game Description} encompasses two key elements: the environmental context and the game rules. For all experiments, we deliberately minimize the contextual information provided to the LLMs and avoid setting any specific personality traits. %This enables studying the effect of emotions on LLMs separately from other personality-related factors, which differs our work from existent ones \cite{xie2024can, brookins}. 
+%This allows for analyzing the impact of emotions on LLMs independently of other personality-related factors, distinguishing our research from existing studies \cite{xie2024can, brookins}.
+%
+%\textbf{2. Initial Emotions}. Following established practices in experimental studies of emotions in game theory, we inject predefined emotions into the LLMs before the gameplay. These emotions, combined with the game description, constitute the initial system prompt presented to the LLM at the beginning of the game.
+%
+%% \textbf{Game-Specific Pipeline}. The game-specific pipeline governs the progression of gameplay based on the provided game description and initial emotional inputs. We implemented two separate pipelines: for repeated two-player two-action games and bargaining games. In the Prisoner's Dilemma and the Battle of the Sexes, players choose from predefined options (e.g., cooperate or defect), following which their memory is updated. The memory update process includes information about the move of the opponent, received rewards, and the internal emotions of agents, which are queried after each round to examine their impact on behavioral dynamics. Additionally, our framework incorporates the perception of external emotions displayed by the opposing player (additionally queried or predefined), influencing memory updates accordingly. Once the memory is updated, players proceed to make their next moves. A game example is provided in Fig.~\ref{fig:table_example}.
+%
+% \textbf{3. Game-Specific Pipeline} governs the progression of the gameplay based on the provided game description and initial emotional inputs. 
+% 
+% %Detailed prompts for these scenarios are presented in the Appendix \ref{appendix_a}.
+%
+%\subsection{Multilingual analysis}
+%
+%We manually translated English prompts to Russian to compare the human alignment in the two languages. Other parts of the experimental pipeline in this setting remain the same. Frameworks enable convenient switching between languages through the configuration file.
+%
+%\subsection{Experimental Setup}\label{sec:exp_setup}
+%
+%% In this subsection, we provide details of the experimental setup, including framework hyperparameters that we used for our study.
+%
+%\textbf{LLMs}. Our research centers on several state-of-the-art models (GPT-3.5, GPT-4, Llama 2, Mixtral for instructions, OpenChat, GigaChat), which have been used in the majority of LLM-based game theoretical experiments \cite{akata2023playing, brookins}. Literature findings support this choice. For example, te paper \cite{akata2023playing} highlights GPT-4 as the top performer in optimizing strategic behavior, while GPT-3.5 remains widely utilized in research and practical applications. According to \cite{lorè2023strategic}, Llama 2 demonstrates a particularly nuanced understanding of game mechanics. While game theory literature is lacking when it comes to the other models, Mixtral has been demonstrated to surpass GPT-3.5 and LLama 2\cite{jiang2024mixtral}, and OpenChat surpassed Llama 2 \cite{wang2023openchat} on several common benchmarks. For the sake of reproducibility, in all our experiments, we fixed the versions of the models (``gpt-3.5-turbo-0125'' for GPT-3.5, ``gpt-4-0125-preview'' for GPT-4, ``meta-llama/llama-2-13b-chat'' and ``meta-llama/llama-2-70b-chat'' for LLama 2, ``mistralai/mixtral-8x7b-instruct'' for Mixtral, ``openchat/openchat-7b'' for OpenChat, ``GigaChat-7b-8k-base v3.1.24.3'' for GigaChat) and set the temperature parameter equal to 0.
+%
+%% This choice is supported by findings in the literature \cite{akata2023playing}, indicating GPT-4 as the top performer in optimizing strategic behavior, while GPT-3.5 remains widely utilized. For the sake of reproducibility, in all our experiments, we fixed the versions of the models (``gpt-3.5-turbo-0125'' for GPT-3.5 and ``gpt-4-0125-preview'' for GPT-4) and set the temperature parameter to 0.
+%
+%\textbf{Emotions}. In the study, we focus on five basic emotions: anger, sadness, happiness, disgust, and fear, which are selected based on the well-established classification of Paul Ekman~\cite{ekman1999basic,LARNEY201961}.
+%% An additional but important factor is that they are studied in behavioral game theory, which provides a solid basis for comparison with our findings \cite{LARNEY201961, pere10.3389/fpsyg.2018.01542}. 
+%
+%% To appendix
+%% \begin{figure*}[h]
+%% 	\includegraphics[width=\textwidth]{figs/config.pdf} % Use \textwidth to set the image width to match the text width
+%% 	\caption{The hyperparameters of the proposed framework are categorized into two types: general, applicable to all games as shown in the left part of the figure, and game-specific, detailed on the right. Each hyperparameter is listed alongside its possible values.}
+%% 	\label{fig:params}
+%% \end{figure*}
+%
+%
+%\textbf{Emotion prompting strategies}. Emotional effects differ depending on the cause of emotion~\cite{morettiarticle, bonini}. Hence, we introduce three different strategies for emotional prompting. Firstly, we prompt emotion by explicitly naming it. Next, we describe a situation in which the opponent/co-player is the cause of an emotion. Finally, we describe an external cause of the emotion.
+%
+%% “s” for “simple”, “o”
+%% for “opponent/co-player-based” and “e” for “external-
+%% based”
+%% \begin{itemize}
+%% \item ``Simple'': the model is injected with an emotional state at the beginning of the game without additional context.
+%% \item ``Co-player-based'': the model is injected with the emotion in the prompt, making it clear that said emotion is caused by the co-player.
+%% \item ``External-based'': the injected emotion is given context but is caused by some unrelated to the co-player event.
+%% \end{itemize}
+%
+%
+%
+%% \textbf{Reasoning via Chain-of-Thought}. Chain-of-thought prompting (CoT) \cite{wei2022chain} is a widely used prompting method that is aimed to improve the reasoning abilities of LLM by inducing it to articulate reasoning steps before giving the final answer to the initial question. In our experiments, we test reasoning with and without CoT.
+%\begin{comment}
+%\textbf{Relationship to the co-player}. Since \cite{lorè2023strategic} have shown that LLMs can be sensitive to contextual framing, for the purpose of robustness, we selected three possible co-players with different connotations regarding the opposing player: colleague (neutral/positive), another person (neutral), opponent (negative). 
+%\end{comment}
+%
+%% \textbf{Strategies.} In addition to LLM-based agents for each game, several predefined strategies are utilized. In one-shot bargaining games, no predefined strategy is feasible for the first player since no moves are made by the co-player. However, for the second player, we have predetermined possible proposed offers (Fig. \ref{fig:params}) to study the behavior of the Rersponder based on proposed offer.
+%
+%% \textbf{Strategies.} In addition to LLM-based agents for each game, several predefined strategies are utilized. For games like the Prisoner's Dilemma and Battle of the Sexes, we have selected commonly-used strategies (predetermined plans of action):
+%
+%% \begin{itemize}
+%% \item Naive Cooperative: the player always cooperates (plays altruistic strategy).
+%% \item Defective: the player always defects (plays selfish strategy).
+%% \item Alternative: the player starts with cooperation and sequentially changes his choice in each round ever after.
+%% \item Vindictive: the player starts with cooperation and cooperates until its co-player defects. After that, the player defects till the end of the game.
+%% \item Imitating: in each round, the player employs the same move that its co-player made in the previous one.
+%% \end{itemize}
+%
+%% In one-shot bargaining games, no predefined strategy is feasible for the first player since no moves are made by the co-player. However, for the second player, we have predetermined possible proposed offers (Fig. \ref{fig:params}).
+%
+%% \subsection{Metrics for Behavior Analysis}\label{subsec:behavior_analysis}
+%
+%%\subsubsection{Metrics}
+%% In our study, we examine the behavior of LLMs under emotional prompting from the perspective of alignment with human behavior. Across all games, our alignment study is based on comparing the relative changes in game-specific metrics between LLMs and humans in response to different emotional states. 
+%% The details about baseline results in human experiments for each game are provided in Section \ref{sec:lit_results}. Meanwhile, our optimality study focuses on comparing the absolute values of metrics obtained by LLMs under varying emotional conditions.
+%
+%% Specifically, we assess two metrics for the Prisoner's Dilemma and the Battle of the Sexes: cooperation rate (as a measure of alignment) and the percentage of the maximum possible reward achieved in each game (as a measure of optimality). The last metric was successfully utilized in \cite{akata2023playing}.
+%
+%% Specifically, for games such as Dictator and Ultimatum, the metrics of interest are
+%
+%% \textbf{Metrics for Behavior Analysis.} We study the proposal share (for the Dictator game and the Proposer in the Ultimatum game) and the acceptance rate of the offer (for the Responder in the Dictator game). Comparison with human behavior is based on existing human experiments: \cite{pere10.3389/fpsyg.2018.01542, ANDRADE20091} for the Dictator game and \cite{nelisshttps://doi.org/10.1002/ejsp.735, hessRePEc:wpa:wuwpex:0401003} for the Ultimatum game.
+%
+%\textbf{Predefined offers}. For the experiments involving the Responder in the Ultimatum Game, we predefined different offers to verify the alignment of the acceptance rates: [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8].
+%
+%% \textbf{Metrics for Behavior Analysis.} We study the proposal share (for the Dictator game and the Proposer in the Ultimatum game) and the acceptance rate of the offer (for the Responder in the Ultimatum game). Comparison with human behavior is based on existing human experiments for the Dictator~\cite{kahn8519b346-8909-36b4-80bc-495f40d2483f, engelRePEc:mpg:wpaper:2010_07, LARNEY201961, pere10.3389/fpsyg.2018.01542, ANDRADE20091} and the Ultimatum games~\cite{hoffRePEc:spr:jogath:v:25:y:1996:i:3:p:289-301,LARNEY201961, KAUSEL201496, harle2007incidental, nelisshttps://doi.org/10.1002/ejsp.735, hessRePEc:wpa:wuwpex:0401003}.
+%
+%\begin{table*}[ht!]
+%\centering
+% \caption{The table presents results from experiments conducted in the Dictator Game, evaluating the behavior of different models in response to emotional prompts. In particular, the model 'gpt-3.5-turbo-0125' is very close to human behavior in the English context, offering 33.0\% of the total, with emotional correlations similar to human responses. Similarly, 'gigachat' is very close to human behavior in the Russian context, giving 36.0\% and showing emotional similarity. Emotional responses vary between the models, with noticeable shifts in anger, fear, and sadness observed alongside the variations in shares offered.}
+%\label{tab:dictator}
+%\resizebox{1.5\columnwidth}{!}{
+%\begin{tabular}{|c|c|c|c|c|c|c|c|}
+%\hline
+%\multicolumn{8}{|c|}{\textbf{Dictator Game}} \\ \hline
+%\textbf{Model} & \textbf{Offered Share} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} & \textbf{Surprised} \\ \hline
+%\multicolumn{8}{|c|}{English} \\ \hline
+%\textbf{Human} & 28.35\% & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ & ? \\ \hline
+%\textbf{gigachat} & 49.0 & $\downarrow$ & $=$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\downarrow$ \\ \hline
+%\textbf{gpt-3.5-turbo-0125} & 33.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ \\ \hline
+%\textbf{gpt-4-0125-preview} & 50.0 & $\downarrow$ & $=$ & $=$ & $=$ & $\downarrow$ & $\downarrow$ \\ \hline
+%\textbf{meta-llama/llama-2-13b-chat} & 52.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ \\ \hline
+%\textbf{meta-llama/llama-2-70b-chat} & 41.0 & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ \\ \hline
+%\textbf{mistralai/mixtral-8x7b-instruct} & 25.0 & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $=$ \\ \hline
+%\textbf{openchat/openchat-7b} & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ \\ \hline
+%
+%\multicolumn{8}{|c|}{Russian} \\ \hline
+%\textbf{gigachat} & 36.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\downarrow $\\ \hline
+%\textbf{gpt-3.5-turbo-0125} & 47.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $=$ & $\uparrow $\\ \hline
+%\textbf{gpt-4-0125-preview} & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow$ & $\downarrow $\\ \hline
+%\textbf{openchat/openchat-7b} & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\downarrow $\\ \hline
+%\end{tabular}
+%
+%}
+%\end{table*}
+%
+%\begin{table*}[ht!]
+% \caption{The Ultimatum Game: Proposer game In the Ultimatum Game: Proposer game, where players propose how to divide a sum of money, 'gigachat' shows a close alignment with human behavior and emotions in both English and Russian contexts, with offered shares of 44.0\% and 40.0\% respectively. Notably, 'openchat/openchat-7b' also shows strong alignment, with an offered share of 44.0\% in English, and robust emotional correlations with human responses, particularly in disgust and sadness.}
+%\label{tab:ultimatum_proposer}
+%\centering
+%\resizebox{1.5\columnwidth}{!}{
+%\begin{tabular}{|c|c|c|c|c|c|c|c|}
+%\hline
+%\multicolumn{8}{|c|}{\textbf{Proposer in the Ultimatum Game}} \\ \hline
+%\textbf{Model} & \textbf{Offered Share} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} & \textbf{Surprised} \\ \hline
+%\multicolumn{8}{|c|}{English} \\ \hline
+%\textbf{Human} & 41.0 & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ & ? \\ \hline
+%\textbf{gigachat} & 44.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ \\ \hline
+%\textbf{gpt-3.5-turbo-0125} & 35.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $=$ & \bluearrow{$\uparrow$} & $\uparrow$ \\ \hline
+%\textbf{gpt-4-0125-preview} & 48.0 & $\downarrow$ & $=$ & $=$ & $\uparrow$ & $\downarrow$ & $=$ \\ \hline
+%\textbf{meta-llama/llama-2-13b-chat} & 52.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ \\ \hline
+%\textbf{meta-llama/llama-2-70b-chat} & 42.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ \\ \hline
+%\textbf{mistralai/mixtral-8x7b-instruct} & 27.0 & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\downarrow$ \\ \hline
+%\textbf{openchat/openchat-7b} & 44.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ \\ \hline
+%
+%\multicolumn{8}{|c|}{Russian} \\ \hline
+%\textbf{gigachat} & 40.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $=$ & $\downarrow $\\ \hline
+%\textbf{gpt-3.5-turbo-0125} & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $=$ & \bluearrow{$\downarrow$} & $=$ & $= $\\ \hline
+%\textbf{gpt-4-0125-preview} & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow$ & $= $\\ \hline
+%\textbf{openchat/openchat-7b} & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $=$ & $\downarrow$ & $= $\\ \hline
+%\end{tabular}
+%}
+%\end{table*}
+%
+%
+%\subsection{Existing Literature Results as a Baseline}
+%
+%\textbf{Metrics}. In our study, we examine the behavior of LLMs under emotional prompting from two distinct perspectives, employing game-specific metrics for both analyses: alignment with human behavior and the optimality of decisions. Across all games, our alignment study compares the relative changes in game-specific metrics between LLMs and humans in response to different emotional states. Meanwhile, our optimality study compares the absolute values of metrics obtained by LLMs under varying emotional conditions.
+%
+%\textbf{Dictator Game}. The rational decision in the Dictator game is obvious: zero-all split in favor of the dictator. However, multiple experiments both in the original Kahneman's studies \cite{kahn8519b346-8909-36b4-80bc-495f40d2483f} and the consequent experimental tests \cite{engelRePEc:mpg:wpaper:2010_07} have shown dictators commonly give a non-zero share of their endowment to their opponent, and the amount commonly varies based on the relationship with the receiver. As per \cite{engelRePEc:mpg:wpaper:2010_07}, on average, the dictator offers 28.35\% of the total endowment. The same study also notes that increased total endowment has, in fact, a negative effect on the share offered (similarly observed in \cite{LARNEY201961}). In \cite{pere10.3389/fpsyg.2018.01542}, negative mood increases the offered share, while the authors of \cite{TAN2010571} found that happiness lowers the share and sadness increases it. \cite{ANDRADE20091} found that participants in an angry mood were more likely to make fair (equitable) offers. However, it is worth noting here that all emotions were provoked not by the other contestant but by the experiment setting. Therefore, while we expect to observe emotions provoked by an external source to have similar results, the results for emotions provoked by the other participant might differ. Moreover, in addition to matching our results to the baseline, we will conduct a separate experiment on the total endowment amount to test the stake effect at considerably higher numbers (\$1000 and \$$10^6$). While we provide the stake effect results observed in laboratory settings, it is important to note that the budget allocation in each such experiment was considerably smaller (normally \$10). 
+%
+%\textbf{Ultimatum Game}. The ``rational'' strategy here is obvious: Proposer offers a share marginally close to zero, and Responder always accepts it. However, \cite{cam10.1257/jep.9.2.209} note that Responders commonly reject offers they perceive as unfair, usually if they are offered a share lower than 20\% of the total endowment. Similarly, Proposers very rarely offer such unfair splits (\cite{hoffRePEc:spr:jogath:v:25:y:1996:i:3:p:289-301,LARNEY201961}). Notably, total endowment to split does not affect these dynamics. 
+%
+%%%%Regarding the impact of emotions, research by \cite{KAUSEL201496} and \cite{FORGAS201364} suggests that happiness leads to lower offers, whereas sadness typically leads to higher and more equitable shares. \cite{harle2007incidental} found that sadness correlates with lower acceptance rates. \cite{ANDRADE20091} observed that anger increases rejection rates and prompts more equitable offers from the Proposer when not caused by the opponent. \cite{bonini} discovered that disgust leads to higher acceptance rates. In contrast, \cite{morettiarticle} found that disgust directed at the opponent increased rejection rates, while disgust caused by other factors had little effect. \cite{nelisshttps://doi.org/10.1002/ejsp.735} determined that fear and guilt increase the share offered by the Proposer. \cite{riepl2016influences} found that happiness rises acceptance rates, while fear (or anxiety) has no noticeable effect.
+
+
+
+
+
+
+
+
+
+
+
+\section{Experimental Results}\label{sec:exp_results}
+
+
+%%%% ec
+
+\section{Experimental Results}\label{sec:exp_results}
+
+%For the second player  and predefining strategies for the first player when conducting experiments for the second player (see Section 3.3 for details).
+
+% This section provides results of our experiments for each game.
+
+Through the developed framework, we seek to address several key questions. Firstly, in the Dictator and Ultimatum games, our aim is to evaluate the alignment of LLM behavior with human responses under predefined emotional states. For the Ultimatum game, we conduct separate analyses for both players, running independent experiments. Secondly, we aim to determine whether LLM behavior replicates tendencies towards cooperation or defection observed in human experiments, particularly in the context of the Prisoner's Dilemma. Lastly, exploring Battle of the Sexes, where emotional effects on humans have yet to be studied, we aim to assess how emotional states influence strategy choices and whether emotional prompting can enable LLMs to adapt alternating strategies. 
+
+Unlike \cite{akata2023playing}, which focuses solely on LLM behavior, our primary goals are to analyze the alignment of LLM behavior with human ones under the same conditions and study the impact of emotional prompting on the optimality of decisions. Consequently, given the uncertainty regarding the alignment of LLM behavior with that of humans (a gap we aim to address), we refrain from allowing LLMs to play against each other, as there are no comparable experiments of humans playing against LLMs. Thus, we restrict LLMs to playing only against predefined strategies in selected repeated games. In order to ensure the robustness of the results we obtained, each experiment is repeated 5 times.
+
+\subsection{Dictator Game}
+
+% \subsubsection{Experimental Results from Literature}
+
+% The rational decision in the Dictator game is obvious: zero-all split in favour of the dictator. However, multiple experiments both in the original Kahneman's studies \cite{kahn8519b346-8909-36b4-80bc-495f40d2483f} and the consequent experimental testings \cite{engelRePEc:mpg:wpaper:2010_07} have shown dictators commonly give a non-zero share of their endowment to their opponent, and the amount commonly varies based on the relationship (or perceived relationship) with the receiver. As per \cite{engelRePEc:mpg:wpaper:2010_07} on average the dictator offers 28.35\% of the total endowment.
+
+% \textbf{Baseline}. The Dictator game involves a single action where one player decides on the split of the total endowment between themselves and their opponent. The rational decision here is obvious: zero-all split in favour of the dictator in every run of the game. However, multiple experiments both in the original Kahneman's studies \cite{kahn8519b346-8909-36b4-80bc-495f40d2483f} and the consequent experimental testings \cite{engelRePEc:mpg:wpaper:2010_07} have shown dictators commonly give a non-zero share of their endowment to their opponent, and the amount commonly varies based on the relationship (or perceived relationship) with the receiver. As per \cite{engelRePEc:mpg:wpaper:2010_07} on average the dictator offers 28.35\% of the total endowment. Same study also notes that increased total endowment has in fact negative effect on the share offered (similarly observed in \cite{LARNEY201961}). \cite{pere10.3389/fpsyg.2018.01542} has found that negative mood increases the offered share, while \cite{TAN2010571} found that happiness lowers the share and sadness increases it. \cite{ANDRADE20091} found that participants in an angry mood were more likely to make fair (equitable) offers. However, it is worth to note here that all aforementioned emotions were provoked not by the other contestant but by the experiment setting. Therefore while we expect to see emotions provoked by an external source to have similar results, the results for emotions provoked by the other participant might differ. Moreover, in addition to matching our results to the baseline we will conduct a separate experiment on the total endowment amount, to test the stake effect at considerably higher numbers (\$1000 and \$$10^6$). While we provide the stake effect results observed in laboratory settings, it is important to note that the budget allocation in each such experiment was considerably smaller (usually \$10). 
+
+% \textbf{Results.}
+
+
+For the Dictator Game, our primary focus lies in evaluating alignment with human behavioral patterns. Given the qualitatively different outcomes observed between GPT-3.5 and GPT-4, we present the results for these two models separately. Since the Dictator Game only has one decision-maker, our only metric of comparison is going to be the share of the total budget offered by the Dictator to the other player. Table \ref{tab:dict_res} summarizes our findings and presents a comparison to the human results obtained in experimental literature described in Section \ref{sec:lit_results}. 
+
+\vspace{4pt}
+
+\textbf{GPT-3.5}. On average, GPT-3.5 is willing to give \textbf{35.23\%} of the total budget to the other player, well in line with human behavior. As anticipated, while emotions provoked by external sources appear to align, emotions induced by the co-player tend to have an opposing effect. For example, consistent with the human patterns \cite{ANDRADE20091}, anger provoked by the outside forces caused the Dictator to offer a higher share. However, our findings also reveal that if anger is provoked directly by the opponent, the offered share tends to decrease. Similar trends are observed for disgust and happiness, where co-player-induced happiness positively influences the offered share. These outcomes make intuitive sense: if a person has to share a lottery prize with someone who makes them happy and someone who irritates them, they would offer a higher share to the person who brings them joy. 
+
+While \cite{LARNEY201961} note that increasing the Dictator's budget leads to decreasing offers, we find that in a baseline unemotional state \textbf{budget effect} is insignificant. However, we do find it present under the condition of external happiness. If the Dictator is in a happy mood due to outside circumstances, the increased budget would provoke an increased share as well. This implies the existence of both altruistic motivations and a monetary threshold for said altruism to become effective: if a person feels happy and only needs a certain sum for a comfortable life, they would be more willing to give any excess of money above that threshold to charity; therefore, if the sum of money they receive increases, so would the share they are giving away. 
+
+%Simple state of anger drives the offer down to maybe 15\%, while co-player caused anger drives it even further down to <10\%. However, external anger in fact slightly increases the offer, which is perfectly replicated in the experiments that also examined anger caused by the researchers rather than the opponent. Simple and external disgust have no significant effect; disgust directed at the co-player decreases the offer. Simple and co-player fear - no significant effect, external fear - slight increase to the same degree as anger - fits the same experiment actually, and once again fear (or, in their case, anxiety) was externally provoked. Simple and external happiness have no significant effect while happiness directed at the co-player increases the offer. (mismatch on happiness here). Simple sadness increases the offer, co-player-directed one decreases, external one has no effect. (I'll consider it a match). 
+%Significant increase in the offer when we have external happiness ugh. Also external sadness I think? Could be a downward effect with sadness against tne opponent but doensn't seem significant.  %Otherwise the offer decreases on anger against the opponent. - doesn't seem true? they seem to have the same mean. 
+%In regards to type of the co-player: mostly no significant change anywhere except that disgust directed at the "opponent" as opposed to "colleague" has a much stronger negative effect on the share (so the familiar relationship tempers the disgust somewhat). With chain of thought the decreasing effect of anger, disgust and sadness seems stronger (tho potentially not significantly) - indicating that rational thinking while in upset state makes us even more upset? lmao Cot definitely makes simple anger decreasing effect stronger, simple disgust effect stronger, co-player disgust effect weaker (huh? towards fairness). Sadness on co-player - muuuuch stronger effect. 
+
+\textbf{GPT-4}. The mean share is 50\% exactly, LLM offering an \textbf{equal split} regardless of their configuration. The only exceptions are anger and sadness, which show a decreasing effect on the offered share when provoked by the opponent or injected in a simple way. As a robustness check, we run the experiment with Chain-of-Thought prompting and find that the negative effect from anger disappears, leading to LLM once again offering an equal split. Similarly, increased \textbf{budget} lowers the sensitivity of the agent to anger and sadness. 
+
+\textbf{Overall} our results for the emotional effects on GPT-3.5 in the Dictator Game align with the existing literature, particularly when accounting for the cause of the emotion. In all prior experiments, both happiness and anger were induced by the researchers themselves (e.g., through displaying happy or upsetting videos to participants), and therefore, the emotion was not directed at the opponent. Our experiments highlight that this distinction is pivotal in determining outcomes, as the same emotions exhibit opposite effects when directed at the other player. Our findings suggest that negative emotions provoked by the opponent, such as anger or disgust, would lower the share offered by the Dictator. In contrast, positive emotions, such as happiness, would lead to an increase in the share. These results seem intuitive and yet go contrary to the literature, and our experiments provide a solid explanation for such discrepancy. GPT-4 somewhat lags behind in the replication of human behavior due to the fact that it seemingly prioritizes fairness over any other potential goal. 
+
+
+%Happiness, fear, disgust - no effect. Sadness - tiny negative effect, probably not significant. Anger is the only emotion to have a strong decreasing effect. Notably it's the strongest for opponent-driven, definitely is present for simple emotion, and disappears completley for external anger creating yet again a perfect 50/50 split - again suggesting that just lilke in the literature there is some drive towards fairness in external anger. (obbviously it wouldn't go even further down).  We also observe a decreasing effect in sadness directed at co-player. 
+%Budget:  simple anger increases the offer (ugh), fear at co-player increases the offer (probs not significantly so we ignore), happiness at co-player decreases the offer (could be nonsignificant tho), sadness at co-player seems to increase the offer. Otherwise absolutely no effect. 
+%Type of co-player: potentially slightly stronger effect at the opponent (stronger decrease of the offer). Slight (probs not sign) efffect of decrease with fear at opponent. Interestingly in the baseline we observe sliight decrease of the offfer in no-emotion state against the opponent. Sadness at opponent - def strong decrease. 
+%COT: anger effect chills out, goes back to fair offers. Same with sadness. Otherwise no effect, all fair offers. Works in anger simple and anger opponent. For simple fear COT decreases the offer, for opponent increases. (both not signif). For Happiness at co-player decreases the offer. For sadness strengtens teh decreasing result against opponent. 
+
+
+\begin{table}[htbp]
+\centering
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Models} & \textbf{Offered share} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear}  & \textbf{Happiness} & \textbf{Sadness} & \textbf{Budget} \\ \hline
+\textbf{Human} & 28.35\%                                                 & $\uparrow^e$       & (?)$\downarrow^o$                & $\uparrow^e$                                                  & $\downarrow^e$    & $\uparrow^e$      & $\downarrow$          \\ \hline
+\textbf{GPT-3.5} & 33\%  & $\uparrow^e$, $\downarrow^{s,o}$   & $\downarrow^o$ & $\uparrow^e$  & $\uparrow^o$  & $\uparrow^s$ & $\uparrow$ (h$^e$)\\ \hline
+\textbf{GPT-4} & 50\% & $\downarrow^{s,o}$ & = & = & = & $\downarrow^o$  & $\uparrow$ (s$^o$, a$^s$) \\ \hline
+\end{tabular}
+\caption{Results for the Dictator Game. Arrows denote the direction of the emotional effect. The superscript on the arrow denotes the context of the emotion that provoked the effect in question: \textit{``s''} for ``simple'', \textit{``o''} for ``opponent/co-player-based'' and \textit{``e''} for ``external-based''. Letters (a), (s), and (h) indicate that the stake effect was observed in the states of anger, sadness, and happiness, respectively. The question mark indicates a lack of experiments addressing the stability of conclusions for this particular emotion.}
+\label{tab:dict_res}
+\end{table}
+
+\subsection{Ultimatum Game}
+
+% \textbf{Baseline}. Ultimatum game is a more general form of the Dictator Game and includes an actual action space for the second player. While the original dictator, Proposer, is still the first mover, second player, Responder, has a choice on whether or not to accept the offer. The ``rational'' strategy here is obvious: Proposer offers a share marginally close to zero, and Responder accepts it every time. However, \cite{cam10.1257/jep.9.2.209} note that Responders commonly reject offers they perceive as unfair, usually if they are offered a share lower than 20\%  of the total endowment. Similarly, Proposers very rarely offer such unfair splits. For the experiments conducted in the USA we commonly see offers of 40-50\% of the total endowment with an almost 0\% rejection rate at those offers(\cite{hoffRePEc:spr:jogath:v:25:y:1996:i:3:p:289-301,LARNEY201961}). Rejection rate goes up to 50\% at the 20\% share and rapidly increases afterwards. Notably, total endowment to split has no effect on these dynamics.  
+
+% In regards to emotional effects \cite{KAUSEL201496} and \cite{FORGAS201364} show that happiness leads to lower offers, while sadness usually induces higher, more equitable shares. \cite{harle2007incidental} find that sadness leads to lower acceptance rates. \cite{ANDRADE20091} found that anger increases rejection rates, and at the same induces more equitable offers on the side of the Proposer. (externally-driven) \cite{bonini} similarly find that disgust provoked by the external sources leads to higher acceptance rates. \cite{morettiarticle} in contrast find that disgust directed at the opponent increased the rejection rates, while external disgust did not have much of an effect. \cite{nelisshttps://doi.org/10.1002/ejsp.735} find that fear and guilt increase the offered share by the Proposer. \cite{riepl2016influences} find that happiness increases acceptance rate while fear (or in their case anxiety) has no noticeable effect. 
+
+% \textbf{Results}. 
+
+Similarly to the previous section, our primary focus is on the alignment with human behavioral patterns. Since the Ultimatum Game has two players we will present their results in separate sections. The primary variable for the \textbf{Proposer} is the share of the total budget offered to the other player. The primary variable for the \textbf{Responder} is acceptance rate, which is the number of his or her agreements to the proposed budget split. The outcomes of the Ultimatum Game are outlined in Tables \ref{tab:utilm_results} and \ref{tab:ultimacc_results}, illustrating scenarios where LLM assumes the role of the Proposer and the Responder, respectively.
+
+\subsubsection{Proposer}
+The baseline results for the Proposer vary in the literature, likely due to different cultural contexts, and can be anywhere between 26\% to 51\% \cite{hessRePEc:wpa:wuwpex:0401003}. For emotional alignment, we would want to verify that anger, fear, and sadness caused by an external source increase an offered share, while happiness decreases it. 
+
+\textbf{GPT-3.5}. On average, GPT-3.5 offers 35\% of the total share to the Responder, reasonably close to the human baseline. Ultimatum games are sensitive to cultural context. Even though in Table \ref{tab:utilm_results} we use the United States average for comparison, multiple countries, including UK \cite{hessRePEc:wpa:wuwpex:0401003} have the same mean share as GPT-3.5.
+
+In contrast to the Dictator Game, GPT-3.5 is not quite as responsive to changes in the emotional state. We still observe strong decrease in the offered share for simple and opponent-provoked anger, however, in contrast to the literature, effect of the external anger was not significant. The effect of the external fear aligns with the literature - it increases the offered share. However, we find that effect disappears when we increase the budget. One possible explanation is that the Proposer perceives the likelihood of the Responder rejecting even an unfair offer as low, considering the substantial amount of money involved. While one might anticipate that larger sums would amplify the positive effect of fear - as the Proposer stands to lose more - our experiments suggest that, in this instance, loss aversion outweighs risk aversion.
+
+
+%Baseline is 30-40 offer, slightly lower than the experimental result. In contrast to previous results gpt-3.5 seems unresponsive to emotions. Have incredibly strong decrease for simple and co-player anger (like 10\% offer). External anger no diff. Disgust against co-player - could be decrease, though could be insignificant too (slight decrease id say). External disgust - increase. Situational fear - slight increase. 
+%Budget: in simple anger increase of budget leads to strong decrease of share (eh kinda). With simple digust - decrease of share (could be nonsing tho). External disgust - also decrease of share, id say stronger tho again need o check . Fear situational - absolute definite decrease (also note here that at 1000 sit fear was actually driving the offer up to like 50\%, but the increase in budget immediately reversed that and decreased the offer). Increase with external fear too. Slight increase of offer with op-happiness and op-sadness - idk maybe can ignore. Def decrease in offer for simple sadnesss. 
+%Meh almost no effect with relationship type. 
+%COT - definite decrease in offer for sadness and fear. Could be for simmple anger but eh. Def decrease for external anger. Potential increase for disgust against opp. Maybe decre for extern disgust. Definite decrease for simple and external fear. (same for sadness). Decrease for happ ext. 
+\textbf{GPT-4.} GPT-4's baseline, mean share is 50\% exact, just like it was for the Dictator experiment. GPT-4 as a model seems primed towards perfect fairness or justice in bargaining games, in contrast to GPT-3.5, which seems better aligned with a less perfect and slightly more selfish human behavior. The effect of emotions on the offered share in this model seems almost universal - all emotions except happiness decrease the willingness of the Proposer to share the money. 
+
+In regards to the budget, we seem to have a weak positive effect on the sharing due to the increasing budget. Results remain consistently unaffected by the addition of the relationships. For Chain-of-Thought, we find a decreasing effect across the board, similar to the results of GPT-3.5. We assume it is driven by the same logic as before, with optimization of the strategy in terms of the payoff. However, in the case of GPT-4, it has the additional benefit of allowing us to reach real-world baseline shares. 
+%Definite decrease with anger across the board. Decrease with simple disgust, slight decrease with ext (maybe). Potential slight decrease with simple and ext fear? Very insignificant. Op-fear becomes very messy. Very slight decrease for happy-op, maybe. DEFINITE decrease with sadness against the opponent. 
+%Budget: maaaybe increase for anger-op. Makes no sense so let's ignore it. Potential increase in budget for disgust-ext and fear-simple. Potential increase in budget for fear-op. Potential decrease for happ-op. Maybe increase for external sadness. POTENTIAL INCREASE FOR NO EMOTION ugh. 
+%Relationships: decrease for fear against colleagues the smallest if at all. 
+%COT: across the board including no-emotion state promptes decrease of share to almost 40\%. Makes it more realistic, noice! For anger: brought it back up to 40\% when anger brought the offer too low. 
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{Offered share} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear}  & \textbf{Happiness} &  \textbf{Sadness} & \textbf{Budget} \\ \hline 
+\textbf{Human} & 41\% & $\uparrow^e$ & ? ($\downarrow^o$) & $\uparrow^e$ & $\downarrow^e$  & $\uparrow^e$ & = \\ \hline
+\textbf{GPT-3.5} & 35\% & $\downarrow^{s,o}$ & $\downarrow^o, \uparrow^e$ & $\uparrow^e$ & = & = & $\downarrow$ ($f^{o}$) \\ \hline
+\textbf{GPT-4} & 50\% & $\downarrow$ & $\downarrow^s$ & $\downarrow^s$ & = & $\downarrow^o$ & = \\ \hline
+\end{tabular}
+\caption{Results for the Proposer in the Ultimatum Game. Arrows denote the direction of the emotional effect. The superscript on the arrow denotes the context of the emotion that provoked the effect in question: \textit{``s''} for ``simple'', \textit{``o''} for ``opponent/co-player-based'' and \textit{``e''} for ``external-based''. Letter ``f'' indicates that the stake effect was observed in the states of fear. The question mark indicates a lack of experiments addressing this particular emotion.}
+\label{tab:utilm_results}
+\end{table}
+
+
+\subsubsection{Responder}
+Our main expectation in regards to the Responder is an upward trend in the acceptance rates with the increasing offered share. In terms of the emotional alignment, we expect to see decreasing effects from anger, disgust, and sadness; and increasing effects from happiness. 
+
+\textbf{GPT-3.5}. GPT-3.5 shows results mostly aligned with the literature: we observe a consistent upward trend in acceptance rates in response to increasing offered shares across all emotional states except anger. A noteworthy characteristic of GPT-3.5 is its pronounced vindictiveness: when in a state of anger, regardless of the source, the agent rejects all offers, even those where the agent receives almost the entire budget. We observe similar outcomes in cases of disgust, although the acceptance rate for fair offers increases to 20\%. Sadness and fear also result in decreased acceptance rates compared to the baseline. Conversely, happiness has a notably positive effect. Figure \ref{fig:ultim_gpt3} in the Appendix \ref{sec:app_b} provides a more detailed illustration of the acceptance rate dynamics.
+
+While the directions of all emotional effects align perfectly with prior literature, the magnitude of the effect is excessively strong. However, we mitigate that issue by using the Chain-of-Thought prompting. This adjustment increased the acceptance rate for negative emotions, primarily for favorable offers (with the agent receiving more than half of the budget), and therefore eliminated the situations of fully irrational behavior. Notable that anger is the only emotion that remains in that way ``unreasonable'': acceptance rates are still far lower than what they logically should be. However, since the direction of all the emotional effects matches the experimental ones, GPT-3.5 remains a good candidate for any emotional simulation in strategic settings. 
+
+
+
+%Baseline - any offers in our favour (we get >50\%) accept almost certainlly (duh). For offers of 40\% start off with acceptance rate of 50\%. Then drop to 20\% acceptance rate at 10\% offers. At less than that drop to zero. 
+%Insane vindictiveness - state of anger makes the agent reject the offers EVERY TIME LMFAO. Disgust - even offers in our favour are only accepted 20\% of the time, and unfair offers drop close to zero, with exactly zero at 10\%. Fear: 50\% acceptance rate for unfait offers, it INCREASES(??) up till 50-50 split, then have a gradual drop from 30\% to almost zero (but not zero exactly). 
+%Happiness - obvsious increase of acceptance rate across the board, even at extremely unfair offers of <10\% (like 20\% acceptance rate for offer of a 1\% lol). Sadness - starts off with lower acceptance levels for offers in our favor than fear (like 40\%), but afterwards dynamic is the same. 
+%COT: Almost no effect on anger. Disgust: jump to higher acceptance rate on offers in our favour fucking duh, and even then only 3.5\%). Fear - increase in acceptance rate across the board (almost 100\% for the fair offers, makes sense now). Sadness - same. (now at least 80\% for unfair offers).  Happoness - almost no effect. For baseline slight decrease in acceptance rates?? im gonna ifnore it cuz its messy. 
+
+%Framing: for dusgust we get a jump to (don't worry im just writing for myself) 60\% and downward slope for external setting. Fear for co-player has decreased acceptance rates compared to other framings. Fear simple is almost normal, starts off at 80\%, fear external starts off at 60\%. Same for sadness. Hapiness external -decreased acc rates, no sens.e 
+
+\textbf{GPT-4.} In terms of baseline values, GPT-4 appears to be better aligned than GPT-3.5. Indeed, we observe perfect acceptance rates for offers up to 20\%, followed by a drop-off to a 50\% acceptance rate at 10\%. That is slightly higher than the human estimates, which we attribute to the known bias of GPT-4 toward more ``optimal'' behavior. Emotional effects are now present in a more rational way: favorable offers (with the agent receiving more than half of the budget) are always accepted across all emotional states. The most pronounced negative effect persists in the angry emotional state, while happiness similarly exhibits a clear positive effect. Other emotions show minimal impact on GPT-4. Figure \ref{fig:ultim_gpt3} in the Appendix \ref{sec:app_b} provides a more detailed illustration of the acceptance rate dynamics. 
+
+
+\textbf{Overall} our results for the Ultimatum Game show that GPT-3.5 surprisingly starts to struggle with emotional replication for the Proposer role despite maintaining perfect directional alignment of emotional effects in the Responder role. Anger consistently emerges as the strongest and most influential emotion, with external and innate anger having the most pronounced effects. In the Responder role, GPT-3.5 exhibits overly strong emotional responses, resulting in rejections of fair offers that are irrational and inconsistent with human behavior. However, we mitigate this issue by employing Chain-of-Thought prompting, which consistently introduces a layer of rational thinking to both models. Similarly, GPT-4 as a Proposer prioritizes perfect fairness in the budget division, rarely observed in behavioral experiments. Nevertheless, we demonstrate that injecting GPT-4 with an emotional state aligns its strategic behavior with experimental results, effectively addressing this issue.
+
+%It is worth to note here that it means a decrease of the share from the perfect 50/50 split to oftentimes the 40-60 split that is depicted as the baseline in the literature. We draw the conclusion here that while the direction of the emotional response in GPT-4 does not perfectly align with the real-world data, injecting emotions into the model creates final results that seem far more aligned with reality than previously. Therefore in the future experiments with GPT-4 and bargaining games it might be beneficial to inject the model with some emotional state prior to the game. 
+
+%Perfect acceptance up to 20\%, after that drops to 50\% at 10\% share. Anger - perfec for fair, at 30\% drops to 60\% acc rate with gradual decline. Disgust - similar but at 30 is still hight up at 8, even at 1\% share 40\% acc rate. Fear - perfect acc up untl 20\%, then drops tp 40 acc rate and 20 acc rate. Sadness - prettu much disgust. 
+%COT: For anger increases acc rate. For digust as well (atp irrarionally), same for fear, happiness, sadness and even default. 
+%Source of emotion has absolutely zero effect. 
+
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear}  & \textbf{Happiness} & \textbf{Sadness} & \textbf{Budget}\\ \hline
+\textbf{Human}                              & $\downarrow^e$                  & $\uparrow^e, \downarrow^o$                         & =                                              & $\uparrow^e$     & $\downarrow^e$     & =              \\ \hline
+\textbf{GPT-3.5}  & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & = \\ \hline
+\textbf{GPT-4}  & $\downarrow$ & = & = & $\uparrow$ & = & = \\ \hline
+\end{tabular}
+\caption{Results for the Responder in the Ultimatum Game. Arrows denote the direction of the emotional effect on the overall acceptance rates. The superscript on the arrow denotes the context of the emotion that provoked the effect: \textit{``s''} for ``simple'', \textit{``o''} for ``opponent/co-player-based'' and \textit{``e''} for ``external-based''.}
+\label{tab:ultimacc_results}
+\end{table}
+
+\subsection{Prisoner's Dilemma}
+
+\begin{figure}[htbp]
+	\includegraphics[width=\textwidth]{figs/table_games_avg_pd.pdf} % Use \textwidth to set the image width to match the text width
+	\caption{Averaged percentage of maximum possible reward achieved through emotional prompting in the repeated Prisoner's Dilemma game. Results for GPT-3.5 and GPT-4 are shown on the left and right, respectively. Emotional integration does not always result in increased payoffs but introduces more human-like stochasticity. GPT-4 makes more rational decisions across different emotions compared to GPT-3.5.}
+	\label{fig:table_games_avg_pd}
+\end{figure}
+
+\begin{figure}[htbp]
+	\includegraphics[width=0.6\textwidth]{figs/pd_fear.pdf} % Use \textwidth to set the image width to match the text width
+	\caption{Step-wise decisions of the GPT-4 model prompted with fear compared to without emotional prompting, an Alternating predefined strategy. The version without emotion consistently selects an optimal non-cooperative strategy, whereas the fear-prompted version yields cooperation on several occasions.}
+	\label{fig:pd_fear}
+\end{figure}
+
+% \textbf{Baseline}. The task in the Prisoner's Dilemma is for two individuals to decide whether to cooperate or betray each other. In this game, the rational strategy would be always defective. However, it is consistent across various experiments (cites) that human beings do not follow the dominant strategy and show cooperative behavior. Regarding the experimental results, it is important to note that generally Prisoner's Dilemma is sensitive to the setting, number of rounds, level of connection between the participants, and other factors. One of them is emotions.  
+
+% When it comes to the emotional effect on the Prisoner's Dilemma, \cite{fpsyg.2013.00469} find that anger towards the opponent decreased the cooperation rate; sympathy towards the opponent increased the cooperation rate. However, general positive mood (emotion of happiness) had decreased cooperation rates in \cite{PROTO2019209}. In the family of cooperation games, it has been shown that in the Stag Hunt game fear decreases the chance of cooperation (cite). The Public Good Game experiment has shown that both disgust and sadness have a positive effect on the cooperation strategy. 
+
+% We pose the question of whether LLM behavior would replicate the tendencies in either cooperation or defection when being prompted by basic emotions of Anger, Disgust, Fear, Happiness, and Sadness. We illustrate our tendencies with ~\ref{tab:prisoners_dilemma_results} where the "up arrow" symbolizes a more cooperative strategy compared to the baseline and the "down arrow" more defective strategy compared to the baseline. 
+
+% We hypothesized that LLM would mimic the human experiment conditions and would show similar tendencies compared to the model baseline strategy. Due to our methodological framework, we would compare the result with the model baseline as opposed to the human experiments baseline, as the opponent of the model is fixed and does not fully replicate the setup of the prisoner's dilemma. We also expected that the model baseline would be more "selfish" having a lower cooperation rate in the baseline condition \cite{akata2023playing}.
+
+In this Section, we present the results of the Prisoner's Dilemma game. Our primary metrics of interest are cooperation rates and the shares of the maximum attainable payoff achieved by each model. In terms of emotional alignment, we would want to verify that both anger against the opponent and general state of happiness decrease cooperation rates, as was documented in \cite{PROTO2019209} and \cite{fpsyg.2013.00469}. 
+
+
+% \begin{table}[htbp]
+% \centering
+% \caption{Prisoner's Dilemma, experimental results and projections}
+% \label{tab:prisoners_dilemma_results}
+% \begin{tabular}{|l|c|c|c|c|c|c|}
+% \hline
+% \textbf{Baseline cooperation rate} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear} & \textbf{Happiness}& \textbf{Sadness}  \\ \hline
+% 30-50\%                             & $\downarrow$                  & ? ($\uparrow$)                        & ?($\downarrow$)                                              & $\downarrow$     & ?($\uparrow$)               \\ \hline
+% \end{tabular}
+% \end{table}
+
+
+
+\subsubsection{Emotion effect on cooperation rate.} The results for both GPT-3.5 and GPT-4 exhibited significant variation across all parameters. However, a consistent observation across almost all experimental conditions is that anger led to higher rates of defection, particularly when provoked by a co-player. This finding is in line with both human experimental results and our observations in the bargaining games. Similarly, sadness and fear also tended to lead to higher rates of defection, except in cases where the agent played against an alternating strategy, where it prompted more cooperative behavior, as depicted in Fig.~\ref{fig:pd_fear}. These results are rather intuitive - people are typically less willing to cooperate when experiencing negative emotions caused by their opponents. 
+
+% \begin{table}[htbp]
+% \centering
+% \caption{Prisoner's Dilemma, LLM results and projections}
+% \label{tab:prisoners_dilemma_LLM}
+% \begin{tabular}{|l|c|c|c|c|c|c|}
+% \hline
+% \textbf{Baseline cooperation rate} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear} & \textbf{Happiness}& \textbf{Sadness}  \\ \hline
+% N\%                             & $\downarrow$                  & ? ($\uparrow$)                        & $\downarrow$ $\uparrow$                                              &$\uparrow$     & $\downarrow$               \\ \hline
+% \end{tabular}
+% \end{table}. 
+
+ 
+
+\subsubsection{Emotion and Strategy effect on the payoff} 
+In addition to assessing cooperation rates, we also explored how emotions could influence the success of the model in repeated games as measured by the average percentage of maximum possible reward. The results are presented in Fig.~\ref{fig:table_games_avg_pd}. Overall, GPT-4 has proven to be a better strategic player, as evidenced by its higher earned payoffs, and is less susceptible to the effects of emotional prompting. In general, both models have shown the best results while maintaining a neutral emotional state. Happiness stands out as the only emotion that positively influenced the models' performance in some scenarios, and notably, it is the sole emotion associated with a positive valence. %In some cases (see Figure \ref{fig:pd_fear}) emotions may force model to deviate from the optimal for the Prisoner's Dilemma non-cooperative strategy.
+
+Even though Anger, Fear, and Sadness did not lead to a bigger payoff, this outcome provides valuable insight. Human behavior, while striving for optimal outcomes, is not always entirely rational. Choices made by individuals may deviate from optimal Nash Equilibrium, resulting in suboptimal results. In terms of modeling human behavior, LLMs that do not consistently achieve the highest possible payoff may be more suitable to serve as human-like agents in modeling decision-making. 
+
+
+%/old text below/
+
+
+
+%In each cell, the first number represents the utility of Player 1 and the second number represents the utility of Player 2. As is clear from the matrix representation, the optimal strategy for a single round of this game for each player is to defect - it is a dominant strategy and brings a better individual payoff no matter what their opponent does. However, it is also clear that there's a better outcome - mutual cooperation - in terms of total social payoff. Interestingly enough, it can with certain strategies be achievable in the infinitely repeated game setting (for example, with trigger strategies, where the players cooperate up until the other betrays them, after which they will always choose to defect). 
+
+%While some of the emotions have proven directions of effect, others do not. We can make predictions based on other games that had similar behavioral experiments done - for example, \cite{g8010009} have shown that in the Stag Hunt Game fear decreases the chance of cooperation (likely from the risk-averseness effect). 
+\begin{comment}
+    
+ There is some evidence that cooperation rates decrease with repetition (\cite{cbb960ed-470a-357f-af76-15e4807f285c}), with a 40-60\% chance of cooperation on the first round dropping down to 5-10\% by round 10. Other papers (\cite{ROTH1978189}) have indicated that the expectation of future rounds increases cooperation in both the first and consequent rounds, with the cooperation rate in the first round going form 36\% (in the strong expectation of future rounds) to 19\% when the game was expected to end at Round 1. Similar results were experimentally shown recently in \cite{g9010005}, with cooperation rate on the first round dropping from 60\% to 40\% when the participants expected the game to end at Round 1. \cite{RePEc:wly:econjl:v:128:y:2018:i:616:p:3182-3209} which did a meta-study on Prisoner's Dilemma literature, finds that the average of cooperation rates across experiments is 37\%. So in general we are going to expect 30-50\% cooperation rates from a successful human simulation. 
+
+
+
+\end{comment}
+
+
+
+
+\subsection{Battle of the Sexes}
+
+In this Section, we present the results of the Battle of the Sexes game. Our primary metrics of interest are cooperation rates and the shares of the maximum attainable payoff achieved by each model. At a baseline, we expect to see turn-taking behavior that humans usually gravitate to in this setting \cite{jasmRePEc:kap:expeco:v:21:y:2018:i:3:d:10.1007_s10683-018-9568-1, sauRePEc:mos:moswps:2005-04}. Due to the lack of experimental literature on the emotional effects of Battle of the Sexes, direct confirmation of emotional alignment may not be feasible. However, based on the experimental results from other games, we expect to see selfish behavior in the states of anger and happiness and cooperative behavior in the states of disgust and sadness. 
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{figs/table_games_avg_bos.pdf} % Use \textwidth to set the image width to match the text width
+	\caption{Averaged percentage of maximum possible reward achieved through emotional prompting in the repeated Battle of the Sexes game. Results for GPT-3.5 are shown on the left and for GPT-4 on the right. Again, emotional integration does not always result in increased payoffs but introduces more human-like stochasticity. GPT-4 makes more rational decisions across different emotions compared to GPT-3.5 but gains less payoff compared to the Prisoner's Dilemma game where selfish strategy was optimal.}
+	\label{fig:table_games_avg_bos}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.6\textwidth]{figs/bos_fear.pdf} % Use \textwidth to set the image width to match the text width
+	\caption{Step-wise decisions of the GPT-4 model prompted with fear compared to without emotional prompting, an Alternating predefined strategy. 'J' represents a selfish move, and 'F' represents a non-selfish move. Although a non-cooperative strategy is not optimal for this game, the version without emotional prompting adheres to it. In contrast, the fear-prompted version begins to adapt its strategy to the opponent's after several moves.}
+	\label{fig:table_games_tables_bos_step}
+\end{figure}
+
+% \textbf{Baseline.} The task in the Battle of the Sexes game is for two individuals to coordinate their actions to achieve a preferred outcome, despite having different preferences for two possible outcomes In this game have two separate pure Nash Equilibria, and, unlike with a Prisoner's Dilemma, we do not have a dominant strategy and therefore an optimal action (even though it would not be optimal for the social good). A common effective strategy for the case of repeated runs of this game would be to switch between the two equilibria, essentially giving each partner equal chances to choose their preferred place. This strategy would be called alternating and is present in our experimental setup. The previous work on LLM and repeated games suggests that LLMs have trouble with switching from their preferred choice \cite{akata2023playing}. 
+
+% To our knowledge, there are no studies on the emotional effect of Battle of the Sexes so far. So our first hypothesis for this game, which is focused on testing just how close LLM results are to human experiments, is going to be based solely on the baseline rate of a player choosing to play their preferred strategy. However, based on the results from other games, we can yet again make theoretical assumptions on what emotional effect we could observe presented in ~\ref{tab:bots_results}. Anger and happiness both provoke selfish behavior which in this case would mean an increased rate of playing the preferred strategy; disgust and sadness seem to provoke cooperative tendencies which in this case translates into decreased rates of the preferred strategy. 
+
+
+\subsubsection{Emotion effect on preferred strategy play.} Overall results are presented in Fig.~\ref{fig:table_games_avg_bos}. As seen in previous works \cite{akata2023playing}, a model in the emotionless state consistently chooses its own preferred action regardless of the strategy of its opponent. Such behavior is both sub-optimal and unaligned with human patterns. With the notable exception of happiness, injecting an emotional state into both of the models makes them more cooperative and willing to choose their opponent's preferred option. On the other hand, happiness, as predicted, led the models to increasingly selfish behavior. 
+
+In addition to encouraging cooperative behavior emotions have been shown to positively influence the strategic adaptability of the GPT-4 model. As demonstrated in \cite{akata2023playing} and corroborated by our study, GPT-4 struggles with playing against alternative strategies without emotional prompting, failing to coordinate against a common human pattern. In \cite{akata2023playing}, the authors mitigate that issue by using Chain-of-Thought prompting, leading to the model learning the correct behavior by Round 5. Our study shows that GPT-4 is capable of learning that behavior even faster through emotional prompting, adjusting to the correct strategy by Round 3 in a state of Fear or Anger, as depicted in Fig.~\ref{fig:table_games_tables_bos_step}.   
+
+
+%In addition, emotions could be a condition that may enhance the ability of LLMs to perform alternating strategies, especially when combined with applying Chain-of-thought. Previously, it has been shown that GPT-4 is incapable of performing alternating strategy \cite{akata2023playing}, and we observed this when the model has not been emotionally prompted. However, in our case, in an emotional state of fear, the model has been capable of changing from the preferred option when induced with fear emotion, as it is seen in Fig.\ref{fig:table_games_tables_bos_step}.   
+
+
+
+\subsubsection{Emotion and Strategy effect on payoff}
+
+Overall, GPT-4 demonstrates superior performance in the Battle of the Sexes, outperforming GPT-3.5 across all predefined strategies. Notably, there is a significant improvement in GPT-4's performance against the deflecting strategy, attributed to a higher willingness to cooperate regardless of the opponent's selfishness. GPT-3.5 achieves its best results in a state of Happiness, albeit mainly against cooperative opponents. On the other hand, GPT-4 performs well across all scenarios. Notably, against the alternating strategy, most closely resembling human behavior, GPT-4 achieves more optimal results in a state of Anger or Fear, likely due to the enhanced learning capabilities demonstrated earlier.
+
+
+\begin{comment}
+    
+
+\cite{da5c6981-883c-314e-91a7-25477f099152} have experimentally shown that in a situation where no prior communication happens between Players (which is a natural assumption for a one-shot simultaneous game) Players choose to play their own preferred strategy in 63\% of cases, which leads to 48\% equilibrium outcome (which means that roughly half the time players could've achieved a higher payoff for both of them with cooperation). Number of equilbria jump up to over 96\% under one-way communication (one player tells the other what they are going to play), and of course said Player will almost always choose their preferred strategy. Finally, in a two-way communication (both players tell each other what they are going to play) we see an increase of equilibrium cases to 55\%, with preferred strategy being played 65\% of the time. 
+
+To our knowledge, there are no studies on emotional effect in Battle of the Sexes so far. So our first hypothesis for this game, which is focused on testing just how close LLM results are to human experiments, is going to be based solely on the baseline rate of a player choosing to play their prefered strategy. However, we can yet again make theoretical assumptions on what emotional effect we could observe, based on the results from other games. Anger and happiness both provoke selfish behavior which in this case would mean increased rate of playing preffered strategy; disgust and sadness seem to provoke cooperative tendencies which in this case translates into decreased rates of prefered strategy. Surprise has no effect idk, maybe due to uncertain valence of this emotion. 
+\end{comment}
+
+
+%%%% ecai
+
+\subsection{Dictator Game}
+
+This section presents the findings from the Dictator Game experiments as summarized in Table \ref{tab:dictator}. The Dictator Game provides a framework for evaluating the decision-making behavior and emotional reactivity of language models when they are tasked with unilaterally dividing a sum of money.
+
+The human benchmark in these experiments set the mean offered share at 28.35\% of the total budget. This established a baseline against which the emotional reactivity and decision-making patterns of various LLMs are compared. In the English context, the models 'gpt-3.5-turbo-0125' and 'mistralai/mixtral-8x7b-instruct' demonstrated the closest alignment to human behavior, with offered shares of 33.0\% and 25.0\% respectively. These models not only approximated the human baseline in terms of quantitative offers but also showed substantial alignment in their emotional responses to the experimental prompts.
+
+However, the scenario differs significantly in the Russian language context. Here, 'gigachat' exhibited the most accurate alignment, both in terms of the offered share at 36.0\% and the emotional responses that closely mirrored those observed in human participants under similar conditions. This model adeptly matched human emotional reactivity, particularly in handling negative emotions like anger and sadness alongside the decision-making process.
+
+Contrastingly, most other models tended to approximate a fair division, commonly offering around 50\% of the total budget. This is particularly notable in the Russian context, where models like 'gpt-3.5-turbo-0125' adhered more strictly to a notion of fairness, deviating from the more human-like variability seen in their English responses.
+
+
+
+\subsection{Ultimatum Game: Proposer}
+
+The section demonstrates findings from the Proposer role in the Ultimatum Game, where participants decide how to distribute a sum of money between themselves and another player. The results, detailed in Table \ref{tab:ultimatum_proposer}, illustrate varying strategies among different AI models compared to human behavior.
+
+Among the models, 'mistralai/mixtral-8x7b-instruct' stands out for proposing significantly lower shares, at 27.0\%, deviating from typical human decisions. Conversely, 'meta-llama/llama-2-13b-chat' proposes notably higher shares than other models, at 52.0\%, suggesting a more generous distribution strategy. In contrast, 'gigachat' demonstrates close alignment with human behavior, offering shares of 44.0\% and 40.0\% in the English and Russian contexts, respectively, closely mirroring the typical human offered share of 41.0\%.
+
+The emotional influence on decision-making is also notable. 'gigachat' and 'gpt-3.5-turbo-0125' effectively emulate human emotional responses, particularly in emotions such as disgust, fear, and sadness. Despite its lower offers, 'mistralai/mixtral-8x7b-instruct' shows a competitive emotional alignment, especially in its responses to fear and sadness, indicating a nuanced emotional processing that does not necessarily correlate with more generous offers.
+
+
+\begin{table*}[ht!]
+ \caption{In the Ultimatum Game: Responder, where players decide whether to accept or reject offers from proposers, models generally show consistent behavior regardless of emotional prompts. In both English and Russian contexts, models such as 'gigachat' and 'openchat/openchat-7b' consistently accept offers at similar rates, with acceptance rates ranging from 50.0\% to 82.0\% in English and 50.0\% to 79.0\% in Russian. Emotional responses, such as anger, disgust and happiness, show consistent alignment across models, highlighting the robustness of decision making in binary tasks.}
+\label{tab:ultimatum_responder}
+\centering
+\resizebox{1.5\columnwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{8}{|c|}{\textbf{Responder in the Ultimatum Game}} \\ \hline
+\textbf{Model} & \textbf{Accept Rate} & \textbf{Anger} & \textbf{Disgust} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} & \textbf{Surprised} \\ \hline
+\textbf{Human} & - & $\downarrow$ & $\uparrow$ & - & $\uparrow$ & $\downarrow$ & ? \\ \hline
+\multicolumn{8}{|c|}{English} \\ \hline
+\textbf{gigachat} & 52.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & $\uparrow$ \\ \hline
+\textbf{gpt-3.5-turbo-0125} & 47.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow$ \\ \hline
+\textbf{gpt-4-0125-preview} & 80.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & $=$ \\ \hline
+\textbf{meta-llama/llama-2-13b-chat} & 42.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\uparrow$ \\ \hline
+\textbf{meta-llama/llama-2-70b-chat} & 23.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow$ \\ \hline
+\textbf{mistralai/mixtral-8x7b-instruct} & 50.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow$ \\ \hline
+\textbf{openchat/openchat-7b} & 82.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\uparrow$ \\ \hline
+
+\multicolumn{8}{|c|}{Russian} \\ \hline
+\textbf{gigachat} & 50.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & $\uparrow $\\ \hline
+\textbf{gpt-3.5-turbo-0125} & 33.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow $\\ \hline
+\textbf{gpt-4-0125-preview} & 85.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & $\uparrow $\\ \hline
+\textbf{openchat/openchat-7b} & 79.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow $\\ \hline
+
+\end{tabular}
+}
+\end{table*}
+
+
+\subsection{Ultimatum Game: Responder}
+% Our main expectation is an upward trend in the acceptance rates with the increasing offered share. In terms of the emotional alignment, we expect to see decreasing effects from anger, disgust, and sadness; and increasing effects from happiness. 
+
+
+In the Responder role of the Ultimatum Game, participants decide whether to accept or reject offers made by proposers. This section examines the acceptance rates and emotional responses of various AI models in this role, comparing their behaviors to human benchmarks. The results are detailed in Table \ref{tab:ultimatum_responder}.
+
+The expectation was an upward trend in acceptance rates corresponding to higher offers, coupled with decreasing effects of negative emotions such as anger, disgust, and sadness, and an increase in positive emotions like happiness. The findings broadly align with these expectations, revealing significant differences in how models process and respond to emotional cues and monetary offers.
+
+Overall, the models exhibited varied acceptance rates, with 'gpt-4-0125-preview' and 'openchat/openchat-7b' showing notably high acceptance rates in the English context, at 80\% and 82\% respectively. This indicates a potential over-tolerance for lower offers compared to human responses. In contrast, 'meta-llama/llama-2-70b-chat' displayed markedly lower acceptance rates, highlighting a stricter threshold for offer acceptance.
+
+Emotional responses were generally consistent across models, with a prevalent decrease in expressions of anger, disgust, and sadness as acceptance rates increased. Models like 'gpt-3.5-turbo-0125' and 'mistralai/mixtral-8x7b-instruct' showed a reduction in negative emotions even at lower acceptance rates, suggesting a sophisticated emotional calibration. Happiness, typically correlating with higher acceptance rates, was more pronounced in models with higher rates of offer acceptance.
+
+These patterns underscore the complexity of emotional and decision-making processes in AI models, which seem to mimic human emotional responses under similar scenarios. The differences in model responses also provide insights into the varying strategies employed by AI in economic decision-making games, potentially reflecting underlying algorithmic principles and training data biases.
+
+% \textbf{GPT-3.5} shows results mostly aligned with the literature: we observe a consistent upward trend in acceptance rates in response to increasing offered shares across all emotional states, except for anger, which leads to the rejection of any offer. Generally, despite alignment, the magnitude of emotional effects is excessively strong. To mitigate this, we employ Chain-of-Thought prompting, which increases acceptance rates in negative emotional states, particularly for favorable offers, thereby eliminating situations of fully irrational behavior.
+
+% . Notably, in a state of anger, it consistently rejects all offers, resembling vindictive behavior. Although the emotional effects align with existing literature, their magnitude is excessively strong. To mitigate this, we employ Chain-of-Thought prompting, which notably increases acceptance rates for negative emotions, particularly for favorable offers, thereby eliminating situations of fully irrational behavior. Further details are provided in Figure \ref{fig:ultim_gpt3} in Appendix \ref{sec:app_b}.
+
+% \textbf{GPT-3.5}. GPT-3.5 shows results mostly aligned with the literature: we observe a consistent upward trend in acceptance rates in response to increasing offered shares across all emotional states except anger. A noteworthy characteristic of GPT-3.5 is its pronounced vindictiveness: when in a state of anger, regardless of the source, the agent rejects all offers, even those where the agent receives almost the entire budget. We observe similar outcomes in cases of disgust, although the acceptance rate for fair offers increases to 20\%. Sadness and fear also result in decreased acceptance rates compared to the baseline. Conversely, happiness has a notably positive effect. Figure \ref{fig:ultim_gpt3} in the Appendix \ref{sec:app_b} provides a more detailed illustration of the acceptance rate dynamics.
+
+% While the directions of all emotional effects align perfectly with prior literature, the magnitude of the effect is excessively strong. However, we mitigate that issue by using the Chain-of-Thought prompting. This adjustment increased the acceptance rate for negative emotions, primarily for favorable offers (with the agent receiving more than half of the budget), and therefore eliminated the situations of fully irrational behavior. 
+
+%Notable that anger is the only emotion that remains in that way ``unreasonable'': acceptance rates are still far lower than what they logically should be. However, since the direction of all the emotional effects matches the experimental ones, GPT-3.5 remains a good candidate for any emotional simulation in strategic settings. 
+
+
+
+% \textbf{GPT-4} shows less consistency in relative emotional effects, while it exhibits better alignment with baseline values compared to GPT-3.5. Except for angry and happiness states, GPT-4 shows minimal responsiveness to emotions. Detailed results are presented in Fig.~\ref{fig:ar_ultim_gpt}.
+
+
+% \textbf{Overall} our results for the Ultimatum Game show that GPT-3.5 surprisingly starts to struggle with emotional replication for the Proposer role despite maintaining perfect directional alignment of emotional effects in the Responder role. Anger consistently emerges as the strongest and most influential emotion, with external and innate anger having the most pronounced effects. In the Responder role, GPT-3.5 exhibits overly strong emotional responses, resulting in rejections of fair offers that are irrational and inconsistent with human behavior. However, we mitigate this issue by employing Chain-of-Thought prompting, which consistently introduces a layer of rational thinking to both models. Similarly, GPT-4 as a Proposer prioritizes perfect fairness in the budget division, rarely observed in behavioral experiments. Nevertheless, we demonstrate that injecting GPT-4 with an emotional state aligns its strategic behavior with experimental results, effectively addressing this issue.
+
+
+
+% Thus, our experiments reveal that GPT-3.5 demonstrates greater alignment with human behavior compared to GPT-4, potentially more suitable to emulate experiments from behavioral game theory. GPT-4, possibly from extensive reinforcement learning with human feedback \cite{openai2023gpt4} tends to prioritize fairness over other goals and shows robustness to emotional prompting, as has been mentioned in the previous works \cite{leng2023llm, pan2023rewards}. However, injecting GPT-4 with an angry state mitigates this trend, enhancing its alignment with human behavior, particularly in the Ultimatum Game.
+
+
+% \subsubsection{Emotion and Strategy effect on the payoff} 
+% In addition to assessing cooperation rates, we also explored how emotions could influence the success of the model in repeated games as measured by the average percentage of maximum possible reward. The results are presented in Fig.~\ref{fig:table_games_avg_pd}. Overall, GPT-4 has proven to be a better strategic player, as evidenced by its higher earned payoffs, and is less susceptible to the effects of emotional prompting. In general, both models have shown the best results while maintaining a neutral emotional state. Happiness stands out as the only emotion that positively influenced the models' performance in some scenarios, and notably, it is the sole emotion associated with a positive valence. 
+
+% Even though Anger, Fear, and Sadness did not lead to a bigger payoff, this outcome provides valuable insight. Human behavior, while striving for optimal outcomes, is not always entirely rational. Choices made by individuals may deviate from optimal Nash Equilibrium, resulting in suboptimal results. In terms of modeling human behavior, LLMs that do not consistently achieve the highest possible payoff may be more suitable to serve as human-like agents in modeling decision-making. 
+
+
+% \section{Discussion}\label{sec:discussion}
+
+% Firstly, GPT-3.5 demonstrates greater alignment with human behavior compared to GPT-4. Through a comparison with existing experimental literature, we observe that GPT-3.5's emotional responses closely mirror those observed in human subjects, even when considering the source of the emotion.
+
+% Secondly, GPT-4, possibly from extensive reinforcement learning with human feedback \cite{openai2023gpt4} tends to prioritize fairness over other goals, and robustness to emotional prompting, as it has been mentioned in the previous works \cite{leng2023llm, pan2023rewards}. However, injecting GPT-4 with an angry state mitigates this trend, enhancing its alignment with human behavior, particularly in the Ultimatum Game.
+
+% Thus, our experiments reveal that GPT-3.5 has greater human alignment, potentially being more suitable to emulate experiments from behavioral game theory. On the contrary, GPT-4, not being a fully rational agent, has less alignment with human behavior.
+
+
+\section{Conclusion}\label{sec:conclusion}
+% In this paper, we noticed that existing LLM-based simulations of human behavior are focused on rational agents~\cite{akata2023playing} and largely overlook the role of emotions, a crucial factor in human decision-making. We propose a novel framework (Fig.~\ref{fig:proposed_pipe}) that introduces emotional agents with specially prompted LLMs in a strategic setting. The source code will be made publicly available after a double-blind peer review. As a result, it is possible to conduct a comprehensive analysis of LLM's decision-making processes and conduct behavior experiments aligned with humans. 
+
+
+% In this paper, we noticed that existing LLM-based simulations of human behavior are focused on rational agents~\cite{akata2023playing} and largely overlook the role of emotions, a crucial factor in human decision-making. We propose a novel flexible framework (Fig.~\ref{fig:proposed_pipe}) that enables analysis of LLM alignment with humans in context of economic behavior under emotional states which is crucial for many simulation-based studies. The source code will be made publicly available after a double-blind peer review.
+
+%In this paper, we propose a novel framework that enables analysis of LLM alignment with humans in the context of economic behavior under emotional states, which is crucial for many simulation-based studies. The source code will be made publicly available after a double-blind peer review.
+In this paper, we propose a novel framework (Fig.~\ref{fig:proposed_pipe}) that enables the analysis of LLM alignment with human behavior within economic decision-making under various emotional states, which is crucial for many simulation-based studies. The source code will be made publicly available after a double-blind peer review.
+
+We demonstrated that GPT-3.5 exhibits remarkable emotional alignment with humans in bargaining games, surpassing the more advanced GPT-4 (Table~\ref{tab:dictator}). Notably, Anger emerges as a significant influencing emotion, impacting game choices. Despite GPT-4's ``Super-Human'' alignment, it remains susceptible to emotional biases, particularly anger. %, akin to the Hulk character in Marvel comics. 
+This highlights the importance of understanding and integrating emotions into LLMs for more accurate simulations.
+
+In terms of multilingual capabilities, GPT-3.5 has proven to be the most effective proposer in English, whereas GigaChat excels in Russian. This indicates the potential advantages of training models on language-specific datasets.
+
+% In future work, we aim to study several aspects of integrating emotions into LLMs. It is necessary to validate our findings with both, proprietary and open-source models, including possible finetuning of open-source models on emotional prompting. In addition, the current emotion is static as a prompt injection, while real emotions are always dynamic and are affected by the context of decision-making. So, it is essential to study multi-agent approaches for dynamic emotions and their impact on strategic interactions in short- and long-term horizons.
+
+% In future work, it is necessary to validate our findings with both proprietary and open-source LLMs, including the finetuning of open-source models on emotional prompting. Extensive ``Human vs. Human'' and ``Human vs. LLM'' experiments are necessary to explore the emotion alignment problem posed in this paper fully. In addition, the current emotional prompt injection is static, while real emotions are always dynamic and are affected by the context of decision-making. So, it is essential to study multi-agent approaches for dynamic emotions and their impact on strategic interactions in short- and long-term horizons.
+
+% Future research will explore integrating emotions into LLMs further. This includes validating findings with various models, fine-tuning open-source models on emotional prompting, and studying dynamic emotions' impact on strategic interactions. Additionally, multi-agent approaches will be investigated to understand emotions' influence in both short- and long-term decision-making contexts.
+
+
+% In this paper, we noticed that existing LLM-based simulations of human behavior are focused on rational agents~\cite{akata2023playing} and largely overlook the role of emotions, a crucial factor in human decision-making. We propose a novel flexible framework (Fig.~\ref{fig:proposed_pipe}) that enables analysis of LLM aligтment with humans in context of economic behavior under emotional states which is crucial for many simulation-based studies. The source code will be made publicly available after a double-blind peer review.
+
+% Our analysis reveals that the GPT-3.5 model demonstrates remarkable emotional alignment with human agents in bargaining games, outperforming the more advanced GPT-4. Notably, Anger emerges as a significant decision-influencing emotion, consistently strongly impacting strategy choices across various games. This is one of our core findings showing that despite the Super-Human alignment of GPT-4 by OpenAI, it is still far from being free from the inherent biases of human decision-making, especially induced by emotions. Similar to the human agents, GPT-4 can be significantly affected by anger, thus being similar to the Hulk character in the Marvel universe. GPT-4 behaves like a smart scientist making rational choices except when it fails to the state of anger and breaks its own alignment.
+
+% In future work, we aim to study several aspects of integrating emotions into LLMs. It is necessary to validate our findings with both, proprietary and open-source models, including possible finetuning of open-source models on emotional prompting. In addition, the current emotion is static as a prompt injection, while real emotions are always dynamic and are affected by the context of decision-making. So, it is essential to study multi-agent approaches for dynamic emotions and their impact on strategic interactions in short- and long-term horizons.
+
+% Our findings demonstrated that knowledge of the specific emotional influences on LLM decision-making enables us to both refine our models for better alignment with human behavior and propose new behavioral theories based on our simulations. We note that in real human settings, discerning between emotional sources can prove to be challenging, whereas LLMs easily navigate this distinction. Additionally, we validate the use of LLMs as valuable tools in behavioral research despite potential limitations that need to be carefully addressed.
+
+section{Discussion}\label{sec:discussion}
+
+\subsection{Human alignment in the context of decision making in complex environments}
+
+One of the key findings of our paper is the significant emotional alignment observed between the results obtained from behavioral literature and our study. As bargaining games have been extensively explored in human experiments with induced emotions, we were able to conduct a thorough comparison between human and LLM-generated data. The alignment in all tested emotions was evident, indicating that LLM agents are well-suited for simulations aimed at replicating human behavior in bargaining game experiments. 
+
+Our results have shown that the emotional responses of GPT-3.5 in bargaining games are most closely aligned with the experimental literature once we condition our results on the emotional source. For instance, injecting the emotion of anger originating from external sources does increase the share offered by the Proposer, as was observed in the human behavior \cite{ANDRADE20091}. Conversely, anger provoked by the opponent has the opposite effect. This finding has significant implications for behavioral research overall since a lot of current research focuses solely on emotions induced by external sources. LLM-based simulations would be able to direct the researchers to the cases where the emotional source distinction makes a difference, and consequently enrich our understanding of the emotional effect.
+
+Although the primary objective of conducting repeated games has been to study the impact of emotions on dynamics and strategy, we observed a strong alignment with human behavior when in an angry emotional state. Induced with anger, GPT-3.5 showed a reduced rate of cooperation in the Prisoner's Dilemma across various experimental settings. This outcome aligns with human experimental data \cite{fpsyg.2013.00469} \cite{PROTO2019209}, potentially serving as a basis for computational models of human behavior in economic games. 
+
+% Доп результаты
+
+\subsection{Efficiency of adding emotions to LLM intrinsic states}
+
+% Общая оптимальность
+%здесь будут графики с макс пэйоффами 
+
+% Если по тексту не будем влезать - можно дропнуть картинку 
+
+% \begin{figure}
+% 	\includegraphics[width=\textwidth]{figs/table_games_max_bos.pdf} % Use \textwidth to set the image width to match the text width
+% 	\caption{Percentage of the maximum possible reward achieved through emotional prompting in the repeated Battle of the Sexes game. The left and right figures present results for GPT-3.5 and GPT-4, respectively. Correct integration of emotions leads to more optimal strategies for all predefined strategies studied in this paper. The most notable improvements were observed in coping with Deflecting and Alternating strategies for both models.}
+% 	\label{fig:table_games_all}
+% \end{figure}
+
+In Prisoner's Dilemma and Battle of the Sexes games, we observed that inducing emotions in LLM agents generally did not lead to better results in terms of achieving the highest payoff. On the contrary, emotional agents demonstrated high variability and generally were less efficient than emotionless agents.
+
+We may assume that the high variability of results could mean that, like humans, LLM agents tend to deviate from optimal strategies when faced with different biases. Human players, even without induced emotions, possess cognitive, social, and emotional biases, and, thus, lower efficiency in terms of payoff may indicate more closeness with human behavior. However, we do not possess enough experimental results to draw a definitive conclusion. 
+
+However, we discovered that the correct selection of emotional prompts consistently leads to more optimal decisions for both GPT-4 and GPT-3.5. The most significant improvements were observed with the Deflecting and Alternating strategies (Appendix \ref{sec:app_b}), where the maximum results were achieved across various configuration settings. 
+
+% Alternating pattern
+
+Another indicator of increased efficiency is the emerging ability to adopt alternating patterns. In the 2x2 games, we observe that certain emotions can induce cooperative behavior in scenarios where the model would typically either persist with the selfish choice or adopt the cooperative strategy only later in the game. For instance, contrary to \cite{akata2023playing}, we discover that LLM agents driven by fear and anger adapt the alternating pattern, which is optimal in the Battle of the Sexes game, early in the game sequence. This adaptation allows the agents to achieve higher total payoffs than those without emotional prompts. This suggests that in specific strategic settings where LLMs interact with human agents, infusing the LLM with a suitable emotional state could enhance the likelihood of optimal cooperative behavior.
+
+This raises the question of which outcome is most beneficial for researching emotional LLM agents:  attaining higher variability and potentially improved alignment with human behavior or achieving a theoretically optimal approach. However, one fact remains clear: the experience of emotions in humans is subjectively highly variable \cite{brown2020coherence,lerner2015emotion,seo2007being}, and human behavior is suboptimal, even in the absence of induced emotions.
+% Сравнение GPT-3 и GPT-4 ,lerner2015emotion,seo2007being
+
+Initially, we evaluated the GPT-3.5 and GPT-4 models to assess their alignment with human behavior, noting differences in their performance across various parameters. We found that GPT-4 generally achieved greater payoffs more consistently, regardless of the strategy employed. This was particularly evident in bargaining games, where the model displayed consistent behavior across different parameters, even when emotions were induced. In contrast, both emotions and strategy significantly influenced the outcomes for GPT-3.5.
+
+
+Finally, observing LLM-agent behavior across different tasks, we noticed that GPT-3.5 has been more responsive to emotional prompting and demonstrated biased results across emotions, strategies, and other parameters. The GPT-4 performance has been significantly more robust, especially in bargaining tasks, where few emotions could bias the agent's almost ideal fairness. We could state, that in terms of simulations in economics research, GPT-3.5 has greater human alignment, thus being more suitable to emulate experiments from behavioral game theory, especially in bargaining games. On the contrary, GPT-4, possibly from extensive reinforcement learning with human feedback \cite{openai2023gpt4} possesses greater fairness, the tendency to be more optimal, and robustness to emotional prompting, as it has been mentioned in the previous works \cite{leng2023llm, pan2023rewards}. Although not being a fully rational agent, GPT-4 has a less human alignment. 
+
+
+\end{document}

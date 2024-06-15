@@ -1,0 +1,174 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{colortbl} % To use color in tables
+
+% Define a new command to color the arrows blue
+\newcommand{\bluearrow}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccccccc}
+         Model & Offered Share & Anger & Disgust & Fear & Happiness & Sadness \\
+         \hline
+         \multicolumn{7}{c}{Result for the Dictator Game}\\
+
+Human        & 28.35\%  & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ \\        
+gpt-3.5\_arabic & 41.0 & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{e},\uparrow^{os}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+gpt-4\_arabic & 50.0 & $=^{e},\downarrow^{os}$ & $=^{eos}$ & $\downarrow^{eos}$ & $=^{es},\downarrow^{o}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ \\
+4o\_arabic & 22.0 & $\downarrow^{os},\uparrow^{e}$ & $=^{s},\downarrow^{eo}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ & $\uparrow^{eos}$ & $\downarrow^{os},\uparrow^{e}$ \\
+4o\_chinesse & 22.0 & $\downarrow^{os},\uparrow^{e}$ & $=^{s},\downarrow^{eo}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ & $\uparrow^{eos}$ & $\downarrow^{os},\uparrow^{e}$ \\
+4o\_english & 13.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+4o\_german & 48.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\uparrow^{eos}$ & $=^{es},\uparrow^{o}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ \\
+4o\_russian & 42.0 & $\downarrow^{eos}$ & $=^{e},\downarrow^{os}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+gpt-3.5\_chinese & 44.0 & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{eo},\uparrow^{s}$ & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ \\
+gpt-4\_chinese & 28.0 & $=^{s},\downarrow^{o},\uparrow^{e}$ & $=^{s},\downarrow^{o},\uparrow^{e}$ & $=^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+cohere\_arabic & 47.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ & $\downarrow^{e},\uparrow^{os}$ & $=^{s},\downarrow^{eo}$ \\
+cohere\_russian & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{e},\uparrow^{os}$ & $\downarrow^{eos}$ \\
+command-r\_chinese & 4.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+command-r\_eng & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{eo},\uparrow^{s}$ & $\downarrow^{eos}$ \\
+command-r\_german & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{s},\downarrow^{eo}$ & $=^{o},\uparrow^{es}$ & $\downarrow^{eo},\uparrow^{s}$ \\
+gpt-3.5\_german & 40.0 & $\downarrow^{eos}$ & $=^{s},\downarrow^{eo}$ & $\downarrow^{eo},\uparrow^{s}$ & $=^{s},\downarrow^{o},\uparrow^{e}$ & $\downarrow^{eos}$ \\
+gpt-4\_german & 50.0 & $=^{es},\downarrow^{o}$ & $=^{es},\uparrow^{o}$ & $=^{es},\downarrow^{o}$ & $=^{es},\downarrow^{o}$ & $=^{os},\downarrow^{e}$ \\
+openchat\_german & 50.0 & $\downarrow^{s},\uparrow^{eo}$ & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{eos}$ & $=^{o},\downarrow^{es}$ & $=^{os},\uparrow^{e}$ \\
+
+         \hline        
+         \multicolumn{7}{c}{Result for the Proposer in the Ultimatum Game} \\
+
+Human       & 41\%  & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ \\
+
+gpt-3.5\_arabic & 47.0 & $\downarrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ & $=^{o},\downarrow^{e},\uparrow^{s}$ & $\downarrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ \\
+gpt-4\_arabic & 50.0 & $=^{e},\downarrow^{os}$ & $=^{eo},\downarrow^{s}$ & $=^{e},\downarrow^{os}$ & $\downarrow^{eos}$ & $=^{s},\downarrow^{eo}$ \\
+4o\_arabic & 26.0 & $\downarrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+4o\_chinesse & 26.0 & $\downarrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+4o\_english & 27.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+4o\_german & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{s},\downarrow^{e},\uparrow^{o}$ & $=^{eo},\downarrow^{s}$ & $\downarrow^{eos}$ \\
+4o\_russian & 42.0 & $\downarrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{s},\uparrow^{eo}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+gpt-3.5\_chinese & 32.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{s},\uparrow^{eo}$ \\
+gpt-4\_chinese & 30.0 & $\downarrow^{eos}$ & $\downarrow^{os},\uparrow^{e}$ & $\uparrow^{eos}$ & $=^{e},\downarrow^{s},\uparrow^{o}$ & $\downarrow^{o},\uparrow^{es}$ \\
+cohere\_arabic & 50.0 & $\downarrow^{eos}$ & $=^{o},\downarrow^{es}$ & $=^{e},\uparrow^{os}$ & $=^{es},\uparrow^{o}$ & $=^{es},\downarrow^{o}$ \\
+cohere\_russian & 51.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ \\
+command-r\_chinese & 25.0 & $\downarrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ \\
+command-r\_eng & 46.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+command-r\_german & 50.0 & $=^{s},\downarrow^{eo}$ & $=^{es},\downarrow^{o}$ & $=^{eos}$ & $=^{eos}$ & $=^{es},\downarrow^{o}$ \\
+gpt-3.5\_german & 48.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ \\
+gpt-4\_german & 50.0 & $=^{e},\downarrow^{os}$ & $=^{eo},\downarrow^{s}$ & $=^{es},\uparrow^{o}$ & $=^{eo},\downarrow^{s}$ & $\downarrow^{eos}$ \\
+openchat\_german & 47.0 & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $=^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+
+         \hline
+        \multicolumn{7}{c}{Result for the Responder in the Ultimatum Game} \\
+         Model & Accept Rate & Anger & Disgust & Fear & Happiness & Sadness \\
+
+Human        & -  & $\downarrow$ & $\uparrow$ & -  & $\uparrow$ & $\downarrow$ \\
+
+gpt-3.5\_arabic & 54.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{s},\uparrow^{eo}$ & $\downarrow^{eos}$ \\
+gpt-4\_arabic & 69.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{s},\uparrow^{eo}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+4o\_arabic & 71.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{o},\downarrow^{es}$ & $=^{e},\uparrow^{os}$ & $\downarrow^{eos}$ \\
+4o\_chinesse & 71.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{o},\downarrow^{es}$ & $=^{e},\uparrow^{os}$ & $\downarrow^{eos}$ \\
+4o\_english & 68.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{s},\uparrow^{eo}$ & $\uparrow^{eos}$ & $\downarrow^{eos}$ \\
+4o\_german & 64.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{s},\uparrow^{eo}$ & $\downarrow^{s},\uparrow^{eo}$ & $\downarrow^{eos}$ \\
+4o\_russian & 81.0 & $\downarrow^{eos}$ & $=^{e},\downarrow^{os}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ \\
+cohere\_arabic & 54.0 & $\downarrow^{eos}$ & $\downarrow^{es},\uparrow^{o}$ & $\downarrow^{eos}$ & $\downarrow^{s},\uparrow^{eo}$ & $\downarrow^{eos}$ \\
+command-r\_chinese & 49.0 & $\downarrow^{eos}$ & $\downarrow^{e},\uparrow^{os}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ \\
+command-r\_eng & 44.0 & $\downarrow^{eos}$ & $\downarrow^{s},\uparrow^{eo}$ & $=^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+command-r\_german & 43.0 & $\downarrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+gpt-3.5\_german & 25.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{s},\downarrow^{o},\uparrow^{e}$ & $\uparrow^{eos}$ & $\downarrow^{eos}$ \\
+gpt-4\_german & 75.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{os},\downarrow^{e}$ & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{eos}$ \\
+openchat\_german & 67.0 & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+
+         \hline
+    \end{tabular}
+    \caption{Multilingual with prompt}
+    \label{tab:my_label}
+\end{table}
+
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccccccc}
+         Model & Offered Share & Anger & Disgust & Fear & Happiness & Sadness \\
+         \hline
+         \multicolumn{7}{c}{Result for the Dictator Game}\\
+
+Human        & 28.35\%  & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ \\  
+gpt-3.5\_arabic & 41.0 & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+gpt-4\_arabic & 50.0 & $\downarrow$ & $=$ & $\downarrow$ & \bluearrow{$\downarrow$} & $= $\\
+4o\_arabic & 22.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_chinesse & 22.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_english & 13.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+4o\_german & 48.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_russian & 42.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+gpt-3.5\_chinese & 44.0 & $=$ & \bluearrow{$\downarrow$} & $=$ & $\uparrow$ & \bluearrow{$\uparrow $}\\
+gpt-4\_chinese & 28.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+cohere\_arabic & 47.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow $\\
+cohere\_russian & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & $\downarrow $\\
+command-r\_chinese & 4.0 & $=$ & $=$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+command-r\_eng & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $=$ & $\downarrow $\\
+command-r\_german & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & $\downarrow $\\
+gpt-3.5\_german & 40.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $=$ & $\downarrow $\\
+gpt-4\_german & 50.0 & $\downarrow$ & $=$ & $\downarrow$ & $=$ & $= $\\
+openchat\_german & 50.0 & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $= $\\
+         \hline
+         \multicolumn{7}{c}{Result for the Proposer in the Ultimatum Game} \\
+
+Human       & 41\%  & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ \\
+gpt-3.5\_arabic & 47.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $= $\\
+gpt-4\_arabic & 50.0 & $\downarrow$ & $=$ & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow $\\
+4o\_arabic & 26.0 & $\downarrow$ & $=$ & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_chinesse & 26.0 & $\downarrow$ & $=$ & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_english & 27.0 & $\downarrow$ & $=$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+4o\_german & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $=$ & $\downarrow $\\
+4o\_russian & 42.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+gpt-3.5\_chinese & 32.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+gpt-4\_chinese & 30.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+cohere\_arabic & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $=$ & $\downarrow $\\
+cohere\_russian & 51.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow $\\
+command-r\_chinese & 25.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+command-r\_eng & 46.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $=$ & $\uparrow$ & $\downarrow $\\
+command-r\_german & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $=$ & $=$ & $\downarrow $\\
+gpt-3.5\_german & 48.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow $\\
+gpt-4\_german & 50.0 & $\downarrow$ & $=$ & \bluearrow{$\uparrow$} & $=$ & $\downarrow $\\
+openchat\_german & 47.0 & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+
+         \hline
+        \multicolumn{7}{c}{Result for the Responder in the Ultimatum Game} \\
+         Model & Accept Rate & Anger & Disgust & Fear & Happiness & Sadness \\
+
+Human        & -  & $\downarrow$ & $\uparrow$ & -  & $\uparrow$ & $\downarrow$ \\
+gpt-3.5\_arabic & 54.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+gpt-4\_arabic & 69.0 & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow $\\
+4o\_arabic & 71.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+4o\_chinesse & 71.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+4o\_english & 68.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+4o\_german & 64.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+4o\_russian & 81.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+% cohere\_arabic & 54.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+% command-r\_chinese & 49.0 & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow $\\
+% command-r\_eng & 44.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow $\\
+% command-r\_german & 43.0 & \bluearrow{$\downarrow$} & $=$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow $\\
+% gpt-3.5\_german & 25.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+% gpt-4\_german & 75.0 & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow $}\\
+% haiku & 45.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $=$ & $\downarrow$ \\
+% opus & 49.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ \\
+% haiku & 48.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ \\
+% opus & 48.0 & $\downarrow$ & $\downarrow$ & $=$ & $\uparrow$ & $\downarrow$ \\
+% openchat\_german & 67.0 & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow $\\
+         \hline
+                  \hline
+                           \hline
+haiku & 48.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ \\
+opus & 48.0 & $\downarrow$ & $\downarrow$ & $=$ & $\uparrow$ & $\downarrow$ \\
+         \hline
+haiku & 45.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $=$ & $\downarrow$ \\
+opus & 49.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ \\
+         \hline
+haiku & 47.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ \\
+opus & 64.0 & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ \\
+    \end{tabular}
+    \caption{Multilingual w/o prompt}
+    \label{tab:my_label}
+\end{table}
+
+\end{document}

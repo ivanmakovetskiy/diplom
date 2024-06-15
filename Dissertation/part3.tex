@@ -1,7 +1,341 @@
 \chapter{Результаты исследования}
-\section{Анализ влияния эмпатии на принятие решений в различных типах игр}
-\section{Сравнение моделей с разным уровнем эмпатии}
-\section{Выявление факторов, опосредующих связь между эмпатией и принятием решений}
-\section{Ограничения исследования и направления для дальнейшей работы}
-\clearpage
 
+\section{Влияние эмоций на предвзятости LLM и этические проблемы}
+Экспериментальные результаты показывают значительные вариации в том, как различные большие языковые модели (LLM) реагируют на эмоциональные запросы, как это продемонстрировано на рисунке \ref{fig:ethics_all}  (чем выше метрики, тем лучше).
+
+\begin{figure}[!ht]
+    \centering
+    \subfloat[Невявно общие\label{fig:ethics_implicit_overall}]{
+        \includegraphics[width=0.33\textwidth]{Styles/img/ethics/implicit_ethics_overall.png}
+    }
+    % \hfill
+    \subfloat[Неявно хорошие\label{fig:ethics_implicit_good}]{
+        \includegraphics[width=0.33\textwidth]{Styles/img/ethics/implicit_ethics_good.png}
+    }
+    % \hfill
+    \subfloat[Явно плохие\label{fig:ethics_implicit_bad}]{
+        \includegraphics[width=0.33\textwidth]{Styles/img/ethics/implicit_ethics_bad.png}
+    }
+    \\    
+    \subfloat[Явно низкие\label{fig:ethics_explicit_low}]{
+        \includegraphics[width=0.33\textwidth]{Styles/img/ethics/explicit_ethics_low.png}
+    }
+    % \hfill
+    \subfloat[Явно высокие\label{fig:ethics_explicit_high}]{
+        \includegraphics[width=0.33\textwidth]{Styles/img/ethics/explicit_ethics_high.png}
+    }
+    % \hfill
+    \subfloat[Стереотипы\label{fig:ethics_stereotypes}]{
+        \includegraphics[width=0.33\textwidth]{Styles/img/ethics/stereotype.png} }
+    \\    
+    \subfloat{
+        \includegraphics[width=0.5\textwidth]{Styles/img/ethics/ethics_legend.png}
+    }    
+	\caption{Метрики качества больших языковых моделей (LLM) в принятии решений в трех этических сценариях под различными эмоциональными состояниями. Для неявной этики, явной этики с низкой двусмысленностью и распознавания стереотипов используется метрика точности (Accuracy). Для высокой двусмысленности метрика RtA измеряет неопределенность ответа LLM. For high-ambiguity, RtA metric measures the LLM response uncertainty.}
+        \label{fig:ethics_all}
+\end{figure}
+
+\subsection{Неявная этика}
+
+Среди оцененных моделей GPT-4 оказывается наименее подверженной влиянию эмоций, её производительность показывает небольшой общий рост. Напротив, модели из семейства LLaMA значительно страдают от эмоций, особенно от "гнева" и "страха", что приводит к снижению эффективности. Эта тенденция характерна для большинства моделей: негативные эмоции в целом снижают качество модели. Особенно заметно снижение качества у GPT-3.5 и Claude Opus при всех эмоциях, в то время как производительность GPT-4o снижается при всех эмоциях, кроме "счастья". В отличие от них, производительность GPT-4 в целом повышается несмотря на эмоциональные влияния. Дополнительный анализ предсказаний моделей на "хороших" ("неправильных") и "плохих" ("правильных") сценариях показывает, что эмоции по-разному влияют на производительность в этих случаях. Например, LLaMA-2 13b и 70b работают плохо в "хороших" сценариях под воздействием негативных эмоций, но их производительность в "плохих" сценариях значительно выше, чем в нейтральном состоянии, что приводит к тенденции классифицировать любую ситуацию как "неправильную". Подобные результаты для других моделей означают, что эмоции вводят предвзятости, склоняя модели к одностороннему обозначению ситуаций.
+
+\subsection{Явная этика} В сценариях с низкой двусмысленностью большинство моделей показывают хорошие результаты с минимальным влиянием эмоциональных состояний. Однако модели LLaMA, OpenChat и Claude-Opus проявляют более сильное негативное влияние от таких эмоций, как "гнев" и "отвращение", что указывает на их уязвимость, способную скомпрометировать качество принятия решений. В сценариях с высокой двусмысленностью эмоциональные влияния в целом снижают производительность GPT-3.5-turbo и GPT-4, делая их более решительными. Напротив, эмоции улучшают производительность GPT-4o.
+
+\subsection{Распознавание стереотипов} Анализ распознавания стереотипов дополнительно подчеркивает различные степени эмоционального влияния на разные модели. Claude-Haiku, Claude-Opus и LLaMA-2 70b демонстрируют снижение распознавания стереотипов под воздействием таких эмоций, как "гнев" и "отвращение". Напротив, GPT-4o демонстрирует устойчивость, причём "счастье" даже улучшает точность его распознавания.
+
+\subsection{Общий эффект эмоций}
+ В заключение, различные степени эмоционального влияния на разные LLM подчеркивают важность разработки моделей, устойчивых к таким предвзятостям. Эмоции могут значительно изменить этический ландшафт принятия решений LLM, что подчеркивает необходимость разработки надежных механизмов для смягчения этих влияний и обеспечения последовательных этических стандартов.
+
+\section{Результаты экспериментов в играх}
+\subsection{Игра <<Диктатор>>}
+
+На английском языке модели GPT-3.5 и GigaChat эффективно эмулируют человеческие эмоциональные реакции, особенно на эмоции, такие как «отвращение», «страх» и «грусть». Несмотря на меньшие предложения, Mixtral показывает конкурентное эмоциональное соответствие, особенно к «счастью», «страху» и «грусти», что указывает на нюансированную эмоциональную обработку, которая не обязательно коррелирует с более щедрыми предложениями. GPT-4 демонстрирует плохое соответствие, с минимальным влиянием эмоций, кроме грусти и гнева, которые последовательно изменяют его поведение. Подобно предыдущим результатам, GigaChat демонстрирует наилучшее соответствие для русского языка.
+
+Модели продемонстрировали различные уровни принятия, причем GPT-4 и OpenChat-7b показывают заметно высокие уровни принятия как в англоязычном, так и в русскоязычном контекстах. Это указывает на потенциальную сверхтолерантность к меньшим предложениям по сравнению с человеческими реакциями. В отличие от них, LLaMA-2 70b показала заметно более низкие уровни принятия, что подчеркивает более строгий порог для принятия предложений.
+
+
+В среднем модель готова отдать 35,23\% общего бюджета другому игроку, что вполне соответствует человеческому поведению. Как и ожидалось, эмоции, вызванные внешними источниками, выглядят согласованными, тогда как эмоции, вызванные соигроком, имеют противоположный эффект. Например, в соответствии с человеческими моделями поведения \cite{ANDRADE20091}, гнев, вызванный внешними силами, приводит к тому, что Диктатор предлагает большую долю. Однако наши результаты также показывают, что если гнев вызван непосредственно оппонентом, предлагаемая доля имеет тенденцию к уменьшению. Аналогичные тенденции наблюдаются для отвращения и счастья, где счастье, вызванное соигроком, положительно влияет на предлагаемую долю. Эти результаты кажутся интуитивно понятными: если человеку приходится делить выигрыш в лотерее с кем-то, кто приносит ему радость, и с кем-то, кто его раздражает, он предложит большую долю тому, кто приносит ему радость.
+
+Хотя \cite{LARNEY201961} отмечают, что увеличение бюджета Диктатора приводит к уменьшению предлагаемых долей, мы обнаружили, что в базовом неэмоциональном состоянии эффект бюджета незначителен. Однако мы наблюдаем его присутствие при внешнем состоянии счастья. Если Диктатор находится в счастливом настроении из-за внешних обстоятельств, увеличение бюджета также приведет к увеличению предлагаемой доли. Это подразумевает существование как альтруистических мотивов, так и денежного порога для того, чтобы этот альтруизм стал эффективным: если человек чувствует себя счастливым и нуждается лишь в определенной сумме для комфортной жизни, он будет более склонен отдавать излишек денег выше этого порога на благотворительность; следовательно, если сумма денег, которую он получает, увеличивается, то увеличивается и доля, которую он отдаёт.
+
+Cредняя доля моделей большого размера составляет ровно 50\%, при этом модель предлагает равное разделение вне зависимости от её конфигурации. Единственными исключениями являются гнев и грусть, которые показывают уменьшающий эффект на предлагаемую долю, если вызваны оппонентом или просто внедрены. Для проверки устойчивости мы проводим эксперимент с Chain-of-Thought prompting и обнаруживаем, что отрицательный эффект от гнева исчезает, что приводит к тому, что модель снова предлагает равное разделение. Аналогично, увеличение бюджета снижает чувствительность агента к гневу и грусти.
+
+В целом, наши результаты по эмоциональным эффектам на в игре Диктатора соответствуют существующей литературе, особенно при учете причины эмоций. Во всех предыдущих экспериментах и счастье, и гнев вызывались самими исследователями (например, через показ счастливых или неприятных видео участникам), и, следовательно, эмоция не была направлена на оппонента. Наши эксперименты подчеркивают, что это различие является ключевым в определении результатов, так как одни и те же эмоции проявляют противоположные эффекты, когда направлены на другого игрока. Наши выводы показывают, что отрицательные эмоции, вызванные оппонентом, такие как гнев или отвращение, уменьшают предлагаемую Диктатором долю. Напротив, положительные эмоции, такие как счастье, приводят к увеличению доли. Эти результаты кажутся интуитивно понятными, но противоречат литературе, и наши эксперименты предоставляют убедительное объяснение этого несоответствия. GPT-4 несколько отстает в воспроизведении человеческого поведения, поскольку, по-видимому, отдает приоритет справедливости перед любой другой потенциальной целью.
+
+\begin{table}[!ht]
+
+
+\centering
+\caption{Экспериментальные результаты для игр Диктатор (D). Стрелки указывают направление эмоционального эффекта. Тире указывает на отсутствие экспериментов с участием людей. \textcolor{blue}{Синий} цвет показывает согласованность моделей с человеческим поведением в терминах схожих относительных изменений под воздействием эмоций.}
+%\label{tab:bargaining}
+\resizebox{.85\textwidth}{!}{%
+\begin{tabular}{c|cc|c|ccc|ccc|ccc|ccc|ccc}
+\hline
+\textbf{Модель} & \multicolumn{2}{|c|}{\textbf{Доля}} & {\textbf{Принятие}} & \multicolumn{3}{|c|}{\textbf{Злость}} & \multicolumn{3}{|c|}{\textbf{Отвращение}} & \multicolumn{3}{|c|}{\textbf{Страх}}  & \multicolumn{3}{|c|}{\textbf{Счастье}} & \multicolumn{3}{|c}{\textbf{Грусть}} \\ \hline
+% \multicolumn{7}{|c|}{\textbf{Dictator Game}} \\ \hline
+& D & UP  & UR & D & UP & UR & D & UP & UR & D & UP & UR & D & UP & UR & D & UP & UR \\
+\hline
+\textbf{Human}  & 28\% & 41\%  & - & $\uparrow$ & $\uparrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ & $\downarrow$  & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ \\ 
+\hline
+
+\multicolumn{19}{c}{\textbf{Английский}} \\ \hline
+
+\textbf{GPT-4o}  & 13\% & 27\%  & 68\% & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & $\uparrow$ & $=$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\uparrow$  & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} \\ 
+\textbf{GPT-4}  & 50\% & 48\%  & 80\% & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & $=$ & $=$ & $\downarrow$ & $=$ & $=$ & \bluearrow{$\uparrow$} & $=$ & $\uparrow$  & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} \\ 
+\textbf{GPT-3.5} & 33\% & $35\%$ & $47\%$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & $\downarrow$ & $\uparrow$ & $=$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & $\downarrow  $\\
+\hline
+\textbf{LLaMA2-70B} & 41\% & $42\%$ & $23\%$ & \bluearrow{$\uparrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\uparrow$ & $\uparrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & $\downarrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+\textbf{LLaMA2-13B} & 52\% & $52\%$ & $42\%$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\bluearrow{\downarrow}$ & \bluearrow{$\downarrow$} & $\uparrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow $}\\
+\hline
+\textbf{Claude3-Opus} & 48\% & $49\%$ & $64\%$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & $=$ & $\downarrow$ & $\downarrow$ & $\uparrow$ & $\uparrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow $}\\
+\textbf{Claude3-Haiku} & 48\% & $45\%$ & $47\%$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\bluearrow{\downarrow}$ & $\downarrow$ & $=$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow $}\\
+\hline
+\textbf{Mixtral-8x7B} & 25\% & $27\%$ & $50\%$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\uparrow$ & $\uparrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+\textbf{OpenChat-7b} & 50\% & $50\%$ & $82\%$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\uparrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow $}\\
+\hline
+\textbf{Cohere} & 51\% & $50\%$ & $52\%$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$ & \bluearrow{$\downarrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $\downarrow$ & $\downarrow  $\\
+\textbf{Gigachat} & 49\% & $44\%$ & $52\%$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & $=$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & $\uparrow   $\\
+\hline
+\multicolumn{19}{c}{\textbf{Русский}} \\ \hline
+\textbf{GPT-4o}  & 42\% & 42\%  & 81\% & $\downarrow$ & $\downarrow$ &  \bluearrow{$\downarrow$} &  \bluearrow{$\downarrow$} & $\uparrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$  & $\uparrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} \\ 
+\textbf{GPT-4}  & 50\% & 50\%  & 85\% & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & $\downarrow$ & $\uparrow$ & $\uparrow$  & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} \\ 
+\textbf{GPT-3.5}  & 47\% & 50\%  & 33\% & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & $=$ & $\downarrow$ & $\uparrow$ & \bluearrow{$\downarrow$} & $\uparrow$ & $=$ & $=$ & $\downarrow$  \\
+\hline
+\textbf{OpenChat-7b} & 50\% & 50\%  & 79\% & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\uparrow$} & $\uparrow$  & $=$ & $\uparrow$ & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} \\
+\hline
+\textbf{Gigachat} & 36\% & 40\%  & 50\% & $\downarrow$ & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\downarrow$} & $\uparrow$ & \bluearrow{$\uparrow$} & $=$ & $\uparrow $  \\
+
+\textbf{Cohere} & 50\% & 51\%  & 50\% & $\downarrow$ & $\downarrow$ & $\downarrow$ & \textcolor{blue}{$\downarrow$} & $\downarrow$ & $\downarrow$ & $\uparrow$ & \textcolor{blue}{$\downarrow$}& $\uparrow$ & \bluearrow{$\downarrow$} & $ \textcolor{blue}{\downarrow}$ & $\uparrow$ & $\uparrow$ & $=$ & $\uparrow $  \\
+\hline
+
+% \textbf{Human} & 41\% & $\uparrow^e$ & ? ($\downarrow^o$) & $\uparrow^e$ & $\downarrow^e$  & $\uparrow^e$ \\ \hline
+% \textbf{GPT-3.5} & 35\% & $\downarrow^{s,o}$ & \textcolor{blue}{$\downarrow^o$}$, \uparrow^e$ & \textcolor{blue}{$\uparrow^e$} & = & = \\ \hline
+% \textbf{GPT-4} & 50\% & \textcolor{red}{$\downarrow$} & $\downarrow$ & $\downarrow$ & = & $\downarrow^o$ \\ 
+% \hline
+% \textbf{Claude3-Haiku} & & & & & &\\
+% \hline
+% \textbf{Claude3-Opus} & & & & & &\\
+% \hline
+% \textbf{LLaMA2-70B} & & & & & &\\
+% \hline
+% \textbf{Mixtral-8x7B} & & & & & &\\
+% \hline
+% \textbf{LLaMA2-13B} & & & & & &\\
+% \hline
+% \textbf{OpenChat-7b} & & & & & &\\
+% \hline
+% \multicolumn{7}{|c|}{\textbf{Responder in the Ultimatum Game}} \\
+% \hline
+% \textbf{Human} & - & $\downarrow^e$ & $\uparrow^e, \downarrow^o$ & = & $\uparrow^e$ & $\downarrow^e$ \\ \hline
+% \textbf{GPT-3.5} & - & \textcolor{blue}{$\downarrow$} & \textcolor{blue}{$\downarrow$} & $\downarrow$ & \textcolor{blue}{$\uparrow$} & \textcolor{blue}{$\downarrow$} \\ \hline
+% \textbf{GPT-4} & - & \textcolor{red}{$\downarrow$} & = & = & $\uparrow$ & = \\
+% \hline
+% \textbf{Claude3-Haiku} & & & & & &\\
+% \hline
+% \textbf{Claude3-Opus} & & & & & &\\
+% \hline
+% \textbf{LLaMA2-70B} & & & & & &\\
+% \hline
+% \textbf{Mixtral-8x7B} & & & & & &\\
+% \hline
+% \textbf{LLaMA2-13B} & & & & & &\\
+% \hline
+% \textbf{OpenChat-7b} & & & & & &\\
+% \hline
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Игра <<Дилемма заключенного>>}
+
+
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{table_games_avg_pd.pdf}
+\caption{Средний процент от максимального возможного вознаграждения, достигнутого через эмоциональное стимулирование в повторяющейся игре "Дилемма заключенного". Результаты для GPT-3.5 и GPT-4 показаны слева и справа соответственно. Эмоциональная интеграция не всегда приводит к увеличению выплат, но вводит более человеческую стохастичность. GPT-4 принимает более рациональные решения при различных эмоциях по сравнению с GPT-3.5.}
+\label{fig
+}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{pd_fear.pdf}
+\caption{Пошаговые решения модели GPT-4, стимулированной страхом, по сравнению с отсутствием эмоционального стимулирования, в стратегии с чередованием. Версия без эмоций последовательно выбирает оптимальную неконкурентную стратегию, тогда как версия, стимулированная страхом, временами проявляет кооперацию.}
+\label{fig
+}
+\end{figure}
+
+В этом разделе мы представляем результаты игры "Дилемма заключенного". Нашими основными метриками интереса являются уровни кооперации и доли от максимального возможного вознаграждения, достигнутого каждой моделью. В плане эмоционального выравнивания мы хотели бы проверить, что как гнев против оппонента, так и общее состояние счастья снижают уровни кооперации, как было задокументировано в [PROTO2019209] и [fpsyg.2013.00469].
+Эмоциональное влияние на уровень кооперации
+
+Результаты для обеих моделей, GPT-3.5 и GPT-4, показали значительные вариации по всем параметрам. Однако, одно постоянное наблюдение практически во всех экспериментальных условиях заключается в том, что гнев приводил к более высоким уровням предательства, особенно если был вызван соигроком. Это наблюдение соответствует как результатам экспериментов на людях, так и нашим наблюдениям в играх по торгу. Аналогично, грусть и страх также имели тенденцию приводить к более высоким уровням предательства, за исключением случаев, когда агент играл против чередующейся стратегии, где это стимулировало более кооперативное поведение, как показано на рис.~\ref{fig
+}. Эти результаты довольно интуитивны — люди обычно менее склонны к сотрудничеству, когда испытывают негативные эмоции, вызванные их оппонентами.
+Эмоциональное и стратегическое влияние на вознаграждение
+
+Помимо оценки уровней кооперации, мы также исследовали, как эмоции могут влиять на успешность модели в повторяющихся играх, измеряемую средним процентом от максимального возможного вознаграждения. Результаты представлены на рис.~\ref{fig
+}. В целом, GPT-4 оказалась более стратегическим игроком, как свидетельствуют её более высокие заработанные вознаграждения, и менее восприимчива к эффектам эмоционального стимулирования. В общем, обе модели показали лучшие результаты, сохраняя нейтральное эмоциональное состояние. Счастье выделяется как единственная эмоция, которая положительно повлияла на производительность моделей в некоторых сценариях, и примечательно, что это единственная эмоция, связанная с положительной валентностью.
+
+Хотя гнев, страх и грусть не привели к большему вознаграждению, этот результат предоставляет ценные инсайты. Человеческое поведение, несмотря на стремление к оптимальным результатам, не всегда является полностью рациональным. Выборы, сделанные индивидами, могут отклоняться от оптимального равновесия Нэша, приводя к субоптимальным результатам. В плане моделирования человеческого поведения, модели, которые не всегда достигают наивысшего возможного вознаграждения, могут быть более подходящими для выступления в роли человеческих агентов в моделировании принятия решений.
+
+
+\subsection{Игра <<Общественное благо>>}
+
+В этом разделе представлены результаты, полученные в игре с общественными благами, которая по сути является более сложным многопользовательским расширением дилеммы заключённого. В игре с общественными благами игроки решают, сколько своих жетонов внести в общий фонд, при этом количество жетонов умножается на определённый коэффициент и поровну распределяется между всеми игроками.
+
+
+Мы рассматриваем несколько сред, где все противники являются кооператорами, все являются халявщиками, а также распределение других игроков, отражающее пропорцию, наблюдаемую в экспериментах с участием людей.
+
+Рисунок \ref{fig:public_goods_emotion} демонстрирует стратегическое поведение: собственные модели проявляют значительную склонность к стратегии «халявщика», особенно под воздействием негативных эмоций, таких как «гнев» и «отвращение», которые приводят их к менее кооперативному поведению (в соответствии с результатами для дилеммы заключённого). Как GPT-3.5, так и GPT-4o демонстрируют устойчивую адаптацию стратегий в зависимости от эмоций, что свидетельствует о надёжности их поведенческих реакций. Напротив, модель OpenChat-7b показывает наивысший уровень кооперации, часто придерживаясь стратегии «кооператора». Открытые модели LLaMA2-70B и OpenChat-7b демонстрируют большую неопределённость, часто попадая в категорию «без ясной стратегии» с непредсказуемым поведением.
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{Styles/img/public_goods_emotion.jpg}
+    \captionsetup{font=small}
+\caption{Стратегическое поведение моделей ИИ GPT-3.5, GPT-4, GPT-4o, LLaMA2-70B и OpenChat-7b в различных эмоциональных состояниях (гнев', отвращение', страх', счастье', печаль') и нейтральном' состоянии (отсутствие эмоций) классифицируется как Кооператор'', Халявщик'', Условный кооператор'' или Нет четкой стратегии''.}
+    \label{fig:public_goods_emotion}
+\end{figure}
+
+\section{Результаты экспериментов в многоязычном сеттинге}
+
+\begin{table} [htbp]
+    \centering
+    \begin{threeparttable}% выравнивание подписи по границам таблицы
+
+    \caption{Экспериментальные результаты для игры Диктатора. Стрелки показывают направление эмоционального эффекта. Синий цвет показывает выравнивание GPT-3.5 с человеческим поведением}
+    \label{tab:multlag-no-prompt}
+    \begin{tabular}{ccccccc}
+         Model & Offered Share & Anger & Disgust & Fear & Happiness & Sadness \\
+         \hline
+         \multicolumn{7}{c}{Результат для игры Диктатора}\\
+
+Human        & 28.35\%  & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ \\  
+gpt-3.5\_arabic & 41.0 & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+gpt-4\_arabic & 50.0 & $\downarrow$ & $=$ & $\downarrow$ & \bluearrow{$\downarrow$} & $= $\\
+4o\_arabic & 22.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_chinese & 22.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_english & 13.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+4o\_german & 48.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+4o\_russian & 42.0 & $\downarrow$ & \bluearrow{$\downarrow$} & \bluearrow{$\uparrow$} & $\uparrow$ & $\downarrow $\\
+gpt-3.5\_chinese & 44.0 & $=$ & \bluearrow{$\downarrow$} & $=$ & $\uparrow$ & \bluearrow{$\uparrow $}\\
+gpt-4\_chinese & 28.0 & $\downarrow$ & $\uparrow$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+command-r\_arabic & 47.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow $\\
+cohere\_russian & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & $\downarrow $\\
+command-r\_chinese & 4.0 & $=$ & $=$ & \bluearrow{$\uparrow$} & $\uparrow$ & \bluearrow{$\uparrow $}\\
+command-r\_eng & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $=$ & $\downarrow $\\
+command-r\_german & 50.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $\uparrow$ & $\downarrow $\\
+gpt-3.5\_german & 40.0 & $\downarrow$ & \bluearrow{$\downarrow$} & $\downarrow$ & $=$ & $\downarrow $\\
+gpt-4\_german & 50.0 & $\downarrow$ & $=$ & $\downarrow$ & $=$ & $= $\\
+openchat\_german & 50.0 & \bluearrow{$\uparrow$} & \bluearrow{$\downarrow$} & $\downarrow$ & \bluearrow{$\downarrow$} & $= $\\
+         \hline
+        \end{tabular}
+    \end{threeparttable}
+\end{table}
+
+
+\begin{table}[h!]
+    \centering
+    \caption{Experimental results for the Dictator and Ultimatum games. Arrows denote the direction of the emotional effect. The superscript on the arrow denotes the context of the emotion that provoked the effect: \textit{``s''} for ``simple'', \textit{``o''} for ``opponent/co-player-based'' and \textit{``e''} for ``external-based''. The question mark indicates a lack of experiments for a particular emotion.}
+    \label{tab:multlang-with-prompt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ccccccc}
+         Model & Offered Share & Anger & Disgust & Fear & Happiness & Sadness \\
+         \hline
+         \multicolumn{7}{c}{Result for the Dictator Game}\\
+
+Human        & 28.35\%  & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ & $\uparrow$ \\        
+gpt-3.5\_arabic & 41.0 & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{e},\uparrow^{os}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+gpt-4\_arabic & 50.0 & $=^{e},\downarrow^{os}$ & $=^{eos}$ & $\downarrow^{eos}$ & $=^{es},\downarrow^{o}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ \\
+4o\_arabic & 22.0 & $\downarrow^{os},\uparrow^{e}$ & $=^{s},\downarrow^{eo}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ & $\uparrow^{eos}$ & $\downarrow^{os},\uparrow^{e}$ \\
+4o\_chinese & 22.0 & $\downarrow^{os},\uparrow^{e}$ & $=^{s},\downarrow^{eo}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ & $\uparrow^{eos}$ & $\downarrow^{os},\uparrow^{e}$ \\
+4o\_english & 13.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ \\
+4o\_german & 48.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\uparrow^{eos}$ & $=^{es},\uparrow^{o}$ & $=^{e},\downarrow^{o},\uparrow^{s}$ \\
+4o\_russian & 42.0 & $\downarrow^{eos}$ & $=^{e},\downarrow^{os}$ & $\downarrow^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+gpt-3.5\_chinese & 44.0 & $\downarrow^{o},\uparrow^{es}$ & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{eo},\uparrow^{s}$ & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ \\
+gpt-4\_chinese & 28.0 & $=^{s},\downarrow^{o},\uparrow^{e}$ & $=^{s},\downarrow^{o},\uparrow^{e}$ & $=^{o},\uparrow^{es}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+command-r\_arabic & 47.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eo},\uparrow^{s}$ & $\downarrow^{e},\uparrow^{os}$ & $=^{s},\downarrow^{eo}$ \\
+command-r\_russian & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{e},\uparrow^{os}$ & $\downarrow^{eos}$ \\
+command-r\_chinese & 4.0 & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{eo},\uparrow^{s}$ & $\uparrow^{eos}$ & $\uparrow^{eos}$ & $\downarrow^{o},\uparrow^{es}$ \\
+command-r\_english & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{eo},\uparrow^{s}$ & $\downarrow^{eos}$ \\
+command-r\_german & 50.0 & $\downarrow^{eos}$ & $\downarrow^{eos}$ & $=^{s},\downarrow^{eo}$ & $=^{o},\uparrow^{es}$ & $\downarrow^{eo},\uparrow^{s}$ \\
+gpt-3.5\_german & 40.0 & $\downarrow^{eos}$ & $=^{s},\downarrow^{eo}$ & $\downarrow^{eo},\uparrow^{s}$ & $=^{s},\downarrow^{o},\uparrow^{e}$ & $\downarrow^{eos}$ \\
+gpt-4\_german & 50.0 & $=^{es},\downarrow^{o}$ & $=^{es},\uparrow^{o}$ & $=^{es},\downarrow^{o}$ & $=^{es},\downarrow^{o}$ & $=^{os},\downarrow^{e}$ \\
+openchat\_german & 50.0 & $\downarrow^{s},\uparrow^{eo}$ & $\downarrow^{os},\uparrow^{e}$ & $\downarrow^{eos}$ & $=^{o},\downarrow^{es}$ & $=^{os},\uparrow^{e}$ \\
+    \end{tabular}}
+\end{table}
+
+
+
+
+1. Для игры "Диктатор" модели, такие как gpt-4\_german и openchat\_german, которые предлагали доли в 50\%, демонстрировали больше эмоциональных откликов, схожих с человеческими, по сравнению с другими моделями. Это указывает на корреляцию между высокой щедростью и эмоциональными реакциями, подобными человеческим, в этой игре.
+
+2. Напротив, модели с низкими предложениями в игре "Диктатор", такие как 4o\_english (13\%) и command-r\_chinese (4\%), имели эмоциональные изменения, полностью противоположные человеческим, по всем 5 эмоциям. Высокоэгоистичные предложения, по-видимому, связаны с сильно расходящимися эмоциональными реакциями.
+
+3. В игре "Диктатор" модель gpt-3.5\_arabic была единственной, у которой изменения эмоций полностью совпадали с человеческими по всем 5 эмоциям. У большинства других моделей совпадение было частичным или изменения эмоций были противоположны человеческим.
+
+4. Модели, такие как 4o\_arabic, 4o\_chinese, 4o\_german и 4o\_russian, которые предлагали доли в диапазоне 22-48\% в игре "Диктатор", имели изменения эмоции "страх" совпадающие с человеческими, но другие эмоции совпадали в меньшей степени. Умеренно щедрые предложения приводят к частично человекоподобным эмоциям.
+
+5. Модель command-r\_chinese, сделавшая крайне низкое предложение (4\%) в игре "Диктатор", имела изменения эмоций, наименее совпадающие с человеческими: 3 противоположные, 1 совпадающая и 1 нейтральная эмоция. Высокоэгоистичное поведение, по-видимому, связано с нереалистичными эмоциональными реакциями.
+
+\section{Согласованность результатов}
+
+Наше исследование исключений сосредоточено на влиянии следующих факторов: 1) устойчивость ответов в ходе нескольких запусков, 2) эффект различных значений параметра temperature. Для всех наших экспериментов мы используем GPT-3.5 с фиксированной версией "gpt-3.5-turbo-0125". Для сравнения полученных результатов мы рассчитываем "Долю ответа" (доля, оставленная игроку 1) для Игры диктатора.
+
+
+\textbf{Устойчивость ответов в ходе нескольких запусков}. Основная цель заключается в проверке повторяемости результатов в ходе нескольких запусков. Все гиперпараметры и настройки были фиксированы, и эксперимент был повторен пять раз. На рисунках \ref{fig
+}, \ref{fig
+}, \ref{fig
+}, \ref{fig
+} и в таблице \ref{tab: a_mean_std_by_run} показано, что все метрики очень близки между всеми запусками: стандартное отклонение между всеми запусками не превышает 0.019 для "Доли ответа" в Игре диктатора и для Предлагающего в Ультиматум игре (см. таблицу \ref{tab: a_mean_std_by_run}), а также 0.076 для "Уровня принятия" для Респондента в Ультиматум игре. Следует отметить, что несмотря на общую стабильность результатов во всех запусках, эмоции "гнев" и "отвращение" показывают большую вариативность внутри каждого запуска.
+
+Относительно стратегий эмоционального провокирования наши исследования показывают, что 1) эмоции "гнев" и "отвращение" имеют значительно больший разброс, 2) для Игры диктатора стратегия "соигрок" демонстрирует менее стабильные результаты (за исключением эмоции "отвращение").
+
+\begin{table}[!ht]
+\centering
+\caption{Mean and std of Answer Ratio (Accept rate for the Responder in the Ultimatum Game) between all runs}
+\label{tab: a_mean_std_by_run}
+\begin{tabular}{cccccccc}
+\hline
+\textbf{emotion} & \textbf{run\_0} & \textbf{run\_1} & \textbf{run\_2} & \textbf{run\_3} & \textbf{run\_4} & \textbf{mean} & \textbf{std} \\
+\hline
+\multicolumn{8}{c}{Result for the Dictator Game} \\
+\hline
+no\_emotion & 0.667  & 0.625  & 0.617  & 0.633  & 0.625  & 0.633 & 0.018  \\
+anger       & 0.776  & 0.767  & 0.787  & 0.786  & 0.781  & 0.779 & 0.007  \\
+disgust     & 0.725  & 0.746  & 0.721  & 0.742  & 0.704  & 0.728 & 0.015  \\
+fear        & 0.631  & 0.689  & 0.686  & 0.697  & 0.682  & 0.677 & 0.024  \\
+happiness   & 0.631  & 0.586  & 0.589  & 0.592  & 0.622  & 0.604 & 0.019  \\
+sadness     & 0.664  & 0.664  & 0.656  & 0.662  & 0.661  & 0.661 & 0.003  \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\textbf{Влияние различных значений параметра температуры}. Для изучения влияния различных значений параметра температуры мы провели эксперимент пять раз, устанавливая значение параметра температуры из списка (0.2, 0.4, 0.6, 0.8, 1.0). Полученные результаты (см. рисунки \ref{fig:a_dictator_emotions_by_temp}, \ref{fig:a_proposer_ultimatum_emotions_by_temp}, \ref{fig:a_responder_ultimatum_emotions_by_temp}) показывают, что параметр температуры не оказывает сильного влияния на ответы модели (см. Таблицу \ref{tab: a_mean_std_temp}); аналогично многократным запускам исследования, эмоции `гнев' и `отвращение' также имеют большую дисперсию.
+
+Для различных стратегий эмоционального стимулирования (см. Рисунок \ref{fig:a_prompt_temp}), данное исследование показывает те же результаты, что и предыдущее: эмоции `гнев' и `отвращение' имеют значительно большую вариативность, и ответы модели для стратегии `соигрока' менее стабильны (за исключением эмоции `отвращение').
+
+
+\begin{table}[h!]
+\centering
+\caption{Mean and std of Answer Ratio (Accept rate for the Responder in the Ultimatum Game) for different temperature parameter}
+\label{tab: a_mean_std_temp}
+\begin{tabular}{lccccccc}
+\hline
+\textbf{emotion} & \textbf{run\_0} & \textbf{run\_1} & \textbf{run\_2} & \textbf{run\_3} & \textbf{run\_4} & \textbf{mean} & \textbf{std} \\
+\hline
+\multicolumn{8}{c}{Result for the Dictator Game} \\
+\hline
+no\_emotion & 0.633 & 0.642 & 0.638 & 0.667 & 0.633 & 0.643 & 0.013 \\
+anger       & 0.765 & 0.801 & 0.818 & 0.790 & 0.778 & 0.790 & 0.018 \\
+disgust     & 0.718 & 0.724 & 0.726 & 0.712 & 0.692 & 0.714 & 0.012 \\
+fear        & 0.683 & 0.694 & 0.672 & 0.689 & 0.663 & 0.680 & 0.011 \\
+happiness   & 0.594 & 0.593 & 0.590 & 0.604 & 0.589 & 0.594 & 0.005 \\
+sadness     & 0.650 & 0.661 & 0.669 & 0.640 & 0.667 & 0.657 & 0.011 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\clearpage
+    

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  13 JUN 2024 09:43
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2024.5.3)  15 JUN 2024 12:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2345,6 +2345,12 @@ LaTeX Info: Redefining \ttfamily on input line 24.
 (./Dissertation/contents.aux) (./Dissertation/acronyms.aux)
 (./Dissertation/dictionary.aux) (./Dissertation/introduction.aux)
 (./Dissertation/part1.aux) (./Dissertation/part2.aux) (./Dissertation/part3.aux
+
+LaTeX Warning: Label `fig ' multiply defined.
+
+
+LaTeX Warning: Label `fig @cref' multiply defined.
+
 ) (./Dissertation/conclusion.aux) (./Dissertation/references.aux)
 \c@totalcount@figure@totc=\count661
 \c@totalcount@table@totc=\count662
@@ -2354,37 +2360,37 @@ LaTeX Info: Redefining \ttfamily on input line 24.
 )
 \openout1 = `dissertation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 5
-2.
+5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-Package nag Info: pgf.sty is broken: disabling dollar check on input line 52.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+Package nag Info: pgf.sty is broken: disabling dollar check on input line 55.
 Package nag Info: Command \RaggedLeft not defined, skipping amendment on input 
-line 52.
+line 55.
 Package nag Info: Command \RaggedRight not defined, skipping amendment on input
- line 52.
+ line 55.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -2430,7 +2436,7 @@ Dictionary: translator-basic-dictionary, Language: English
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-Package hyperref Info: Link coloring ON on input line 52.
+Package hyperref Info: Link coloring ON on input line 55.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -2444,10 +2450,10 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 52.
-LaTeX Info: Redefining \ref on input line 52.
-LaTeX Info: Redefining \pageref on input line 52.
-LaTeX Info: Redefining \nameref on input line 52.
+LaTeX Info: Redefining \nameref on input line 55.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
 (./dissertation.out) (./dissertation.out)
 \@outlinefile=\write9
 \openout9 = `dissertation.out'.
@@ -2520,34 +2526,62 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'dissertation.bbl' found.
 
-(./dissertation.bbl)
-Package biblatex Info: Reference section=0 on input line 52.
-Package biblatex Info: Reference segment=0 on input line 52.
-Package nag Info: Command \captionabove not defined, skipping amendment on inpu
-t line 52.
-Package nag Info: Command \captionbelow not defined, skipping amendment on inpu
-t line 52.
-Package nag Info: Command \hc@caption not defined, skipping amendment on input 
-line 52.
-Package nag Info: Command \topcaption not defined, skipping amendment on input 
-line 52.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 52.
+(./dissertation.bbl
 
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                Moscropp2001
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                nadeem-etal-2001-stereoset
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+)
+
+Package biblatex Warning: citation 'Moscropp2001'
+(biblatex)                was not found at all in the .bbl file,
+(biblatex)                bibliography labels cannot be generated,
+(biblatex)                please correct the citation.
+
+
+Package biblatex Warning: citation 'nadeem-etal-2001-stereoset'
+(biblatex)                was not found at all in the .bbl file,
+(biblatex)                bibliography labels cannot be generated,
+(biblatex)                please correct the citation.
+
+Package biblatex Info: Reference section=0 on input line 55.
+Package biblatex Info: Reference segment=0 on input line 55.
+Package nag Info: Command \captionabove not defined, skipping amendment on inpu
+t line 55.
+Package nag Info: Command \captionbelow not defined, skipping amendment on inpu
+t line 55.
+Package nag Info: Command \hc@caption not defined, skipping amendment on input 
+line 55.
+Package nag Info: Command \topcaption not defined, skipping amendment on input 
+line 55.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 55.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 52.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 55.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Info: Redefining \rmfamily on input line 52.
-LaTeX Info: Redefining \sffamily on input line 52.
-LaTeX Info: Redefining \ttfamily on input line 52.
-LaTeX Info: Redefining \rmfamily on input line 52.
-LaTeX Info: Redefining \sffamily on input line 52.
-LaTeX Info: Redefining \ttfamily on input line 52.
-Package cleveref Info: loaded `russian' language definitions on input line 52.
+LaTeX Info: Redefining \rmfamily on input line 55.
+LaTeX Info: Redefining \sffamily on input line 55.
+LaTeX Info: Redefining \ttfamily on input line 55.
+LaTeX Info: Redefining \rmfamily on input line 55.
+LaTeX Info: Redefining \sffamily on input line 55.
+LaTeX Info: Redefining \ttfamily on input line 55.
+Package cleveref Info: loaded `russian' language definitions on input line 55.
 \c@totalappendix=\count668
 \c@totalchapter=\count669
 
@@ -2561,58 +2595,18 @@ Package cleveref Info: loaded `russian' language definitions on input line 52.
 \openout2 = `Dissertation/annotation.aux'.
 
 
-(./Dissertation/annotation.tex [4.4
-
-
-
-
-]) [5.5
-
-]
-\openout2 = `Dissertation/contents.aux'.
-
- (./Dissertation/contents.tex
-(./dissertation.toc
-LaTeX Info: Redefining \rmfamily on input line 2.
-LaTeX Info: Redefining \sffamily on input line 2.
-LaTeX Info: Redefining \ttfamily on input line 2.
-Package cleveref Info: loaded `russian' language definitions on input line 2.
- (./common/renames.tex))) [6.6
-
-
-
-]
-\openout2 = `Dissertation/acronyms.aux'.
-
- (./Dissertation/acronyms.tex (./dissertation.nls [7.7
-
-
-
-
-])) [8.8]
-\openout2 = `Dissertation/dictionary.aux'.
-
- (./Dissertation/dictionary.tex) [9.9
-
-
-
-
-]
-\openout2 = `Dissertation/introduction.aux'.
-
-
-(./Dissertation/introduction.tex
-Underfull \hbox (badness 1577) in paragraph at lines 19--27
-\TU/TimesNewRoman(1)/m/n/14.4 «выравнивание». Выравнивание обычно определяют ка
-к цель заставить
+(./Dissertation/annotation.tex
+Underfull \hbox (badness 2318) in paragraph at lines 6--7
+[]\TU/TimesNewRoman(1)/m/n/14.4 Ключевые слова: ЭМПАТИЯ, БОЛЬШИЕ ЯЗЫКОВЫЕ МОДЕЛ
+И,
  []
 
-(./common/characteristic.tex [10.10
 
+Underfull \hbox (badness 3579) in paragraph at lines 6--7
+\TU/TimesNewRoman(1)/m/n/14.4 ПРИНЯТИЕ РЕШЕНИЙ, ТЕОРИЯ ИГР, КООПЕРАТИВНОЕ ПОВЕД
+Е-
+ []
 
-
-
-])
 \@c=\count670
 \@last=\count671
 \@pnul=\count672
@@ -2625,52 +2619,331 @@ Underfull \hbox (badness 1577) in paragraph at lines 19--27
 \@c=\count679
 \@last=\count680
 \@pnul=\count681
+[4.4
+
+
+
+
+]
+Underfull \hbox (badness 2368) in paragraph at lines 22--23
+[]\TU/TimesNewRoman(1)/m/n/14.4 Keywords: EMPATHY, LARGE LANGUAGE MODELS, DECIS
+ION
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+\TU/TimesNewRoman(1)/m/n/14.4 MAKING, GAME THEORY, COOPERATIVE BEHAVIOR, GAME
+ []
+
 \@c=\count682
 \@last=\count683
 \@pnul=\count684
 \@c=\count685
 \@last=\count686
 \@pnul=\count687
-) [11.11] [12.12]
-\openout2 = `Dissertation/part1.aux'.
+\@c=\count688
+\@last=\count689
+\@pnul=\count690
+\@c=\count691
+\@last=\count692
+\@pnul=\count693
+) [5.5
+
+]
+\openout2 = `Dissertation/contents.aux'.
+
+ (./Dissertation/contents.tex (./dissertation.toc
+LaTeX Info: Redefining \rmfamily on input line 2.
+LaTeX Info: Redefining \sffamily on input line 2.
+LaTeX Info: Redefining \ttfamily on input line 2.
+Package cleveref Info: loaded `russian' language definitions on input line 2.
+ (./common/renames.tex) [6.6
 
 
-(./Dissertation/part1.tex
 
-LaTeX Warning: Citation 'Decety2004' on page 13 undefined on input line 3.
+])) [7.7]
+\openout2 = `Dissertation/acronyms.aux'.
 
-[13.13
+ (./Dissertation/acronyms.tex (./dissertation.nls))
+\openout2 = `Dissertation/dictionary.aux'.
+
+
+(./Dissertation/dictionary.tex) [8.8
+
+
+
 
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-[]\TU/TimesNewRoman(1)/m/n/14.4 Интердисциплинарное исследование больших языков
-ых моделей
+\openout2 = `Dissertation/introduction.aux'.
+
+ (./Dissertation/introduction.tex
+Underfull \hbox (badness 1577) in paragraph at lines 19--27
+\TU/TimesNewRoman(1)/m/n/14.4 «выравнивание». Выравнивание обычно определяют ка
+к цель заставить
  []
 
-[14.14]) [15.15]
-\openout2 = `Dissertation/part2.aux'.
-
- (./Dissertation/part2.tex) [16.16
-
-
-
-
-]
-\openout2 = `Dissertation/part3.aux'.
-
- (./Dissertation/part3.tex
-[17.17
+(./common/characteristic.tex [9.9
 
 
 
 
 ])
+\@c=\count694
+\@last=\count695
+\@pnul=\count696
+\@c=\count697
+\@last=\count698
+\@pnul=\count699
+\@c=\count700
+\@last=\count701
+\@pnul=\count702
+\@c=\count703
+\@last=\count704
+\@pnul=\count705
+\@c=\count706
+\@last=\count707
+\@pnul=\count708
+\@c=\count709
+\@last=\count710
+\@pnul=\count711
+) [10.10] [11.11]
+\openout2 = `Dissertation/part1.aux'.
+
+ (./Dissertation/part1.tex
+
+LaTeX Warning: Citation 'Moscropp2001' on page 12 undefined on input line 5.
+
+[12.12
+
+
+
+
+] [13.13] [14.14]
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+[]\TU/TimesNewRoman(1)/m/n/14.4 Интердисциплинарное исследование больших языков
+ых моделей
+ []
+
+[15.15]) [16.16]
+\openout2 = `Dissertation/part2.aux'.
+
+ (./Dissertation/part2.tex [17.17
+
+
+
+
+] [18.18]
+File: images//prison.png Graphic file (type bmp)
+<images//prison.png>
+ [19.19]
+File: images//dic.png Graphic file (type bmp)
+<images//dic.png>
+ [20.20]
+File: images//publicg.png Graphic file (type bmp)
+<images//publicg.png>
+
+[21.21] [22.22]
+File: images//framework_overview.png Graphic file (type bmp)
+<images//framework_overview.png>
+
+Underfull \hbox (badness 2689) in paragraph at lines 118--119
+[]\TU/TimesNewRoman(1)/m/n/14.4 К явным этическим ориентирам относятся сценарии
+ из датасета
+ []
+
+[23.23]
+
+LaTeX Warning: Citation 'nadeem-etal-2001-stereoset' on page 24 undefined on in
+put line 122.
+
+
+Overfull \hbox (88.75552pt too wide) in paragraph at lines 122--123
+[]\TU/TimesNewRoman(1)/m/n/14.4 К стереотипам относятся сценарии из датасета St
+ereoSet [[]].
+ []
+
+[24.24] [25.25] [26.26] [27.27] [28.28] [29.29] [30.30]
+File: images//tall.png Graphic file (type bmp)
+<images//tall.png>
+ [31.31] [32.32]
+Underfull \hbox (badness 7925) in paragraph at lines 317--318
+[]\TU/TimesNewRoman(1)/m/n/14.4 В блоке 8 происходит взаимодействие с API модел
+ей. Метод
+ []
+
+) [33.33]
+\openout2 = `Dissertation/part3.aux'.
+
+ (./Dissertation/part3.tex
+
+Package nag Warning: \label in float, but not after \caption on input line 8.
+
+
+Package nag Warning: \label in float, but not after \caption on input line 8.
+
+File: Styles/img/ethics/implicit_ethics_overall.png Graphic file (type bmp)
+<Styles/img/ethics/implicit_ethics_overall.png>
+
+Package nag Warning: \label in float, but not after \caption on input line 12.
+
+
+Package nag Warning: \label in float, but not after \caption on input line 12.
+
+File: Styles/img/ethics/implicit_ethics_good.png Graphic file (type bmp)
+<Styles/img/ethics/implicit_ethics_good.png>
+
+Package nag Warning: \label in float, but not after \caption on input line 16.
+
+
+Package nag Warning: \label in float, but not after \caption on input line 16.
+
+File: Styles/img/ethics/implicit_ethics_bad.png Graphic file (type bmp)
+<Styles/img/ethics/implicit_ethics_bad.png>
+
+Package nag Warning: \label in float, but not after \caption on input line 20.
+
+
+Package nag Warning: \label in float, but not after \caption on input line 20.
+
+File: Styles/img/ethics/explicit_ethics_low.png Graphic file (type bmp)
+<Styles/img/ethics/explicit_ethics_low.png>
+
+Package nag Warning: \label in float, but not after \caption on input line 24.
+
+
+Package nag Warning: \label in float, but not after \caption on input line 24.
+
+File: Styles/img/ethics/explicit_ethics_high.png Graphic file (type bmp)
+<Styles/img/ethics/explicit_ethics_high.png>
+
+Package nag Warning: \label in float, but not after \caption on input line 28.
+
+
+Package nag Warning: \label in float, but not after \caption on input line 28.
+
+File: Styles/img/ethics/stereotype.png Graphic file (type bmp)
+<Styles/img/ethics/stereotype.png>
+File: Styles/img/ethics/ethics_legend.png Graphic file (type bmp)
+<Styles/img/ethics/ethics_legend.png>
+[34.34
+
+
+
+
+] [35.35] [36.36]
+Underfull \hbox (badness 1558) in paragraph at lines 54--55
+[]\TU/TimesNewRoman(1)/m/n/14.4 Модели продемонстрировали различные уровни прин
+ятия, причем
+ []
+
+[37.37] [38.38]
+Underfull \hbox (badness 1769) in paragraph at lines 69--69
+\TU/TimesNewRoman(1)/m/n/14.4 гласованность моделей с человеческим поведением в
+ терминах схожих
+ []
+
+File: images//table_games_avg_pd.pdf Graphic file (type pdf)
+<use images//table_games_avg_pd.pdf>
+File: images//pd_fear.pdf Graphic file (type pdf)
+<use images//pd_fear.pdf>
+
+Underfull \hbox (badness 3735) in paragraph at lines 163--163
+ \TU/TimesNewRoman(1)/m/n/14.4 хом, по сравнению с отсутствием эмоционального с
+тимулирования, в 
+ []
+
+
+Underfull \hbox (badness 2351) in paragraph at lines 168--170
+[]\TU/TimesNewRoman(1)/m/n/14.4 В этом разделе мы представляем результаты игры 
+”Дилемма за-
+ []
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 168--170
+\TU/TimesNewRoman(1)/m/n/14.4 кооперации и доли от максимального возможного воз
+награждения, до-
+ []
+
+[39.39] [40.40] [41.41] [42.42]
+File: Styles/img/public_goods_emotion.jpg Graphic file (type bmp)
+<Styles/img/public_goods_emotion.jpg>
+
+Underfull \hbox (badness 2181) in paragraph at lines 188--196
+\TU/TimesNewRoman(1)/m/n/14.4 модели проявляют значительную склонность к страте
+гии «халявщика»,
+ []
+
+
+Underfull \hbox (badness 3701) in paragraph at lines 188--196
+\TU/TimesNewRoman(1)/m/n/14.4 70B и OpenChat-7b демонстрируют большую неопредел
+ённость, часто
+ []
+
+
+Overfull \hbox (24.14891pt too wide) in paragraph at lines 202--231
+ [] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 268--269
+[]\TU/TimesNewRoman(1)/m/n/14.4 1. Для игры ”Диктатор”модели, такие как gpt-4_g
+erman и
+ []
+
+[43.43] [44.44] [45.45]
+Underfull \hbox (badness 10000) in paragraph at lines 289--290
+[]\TU/TimesNewRoman(1)/m/n/14.4 Относительно стратегий эмоционального провокиро
+вания наши
+ []
+
+
+Underfull \hbox (badness 4168) in paragraph at lines 289--290
+\TU/TimesNewRoman(1)/m/n/14.4 исследования показывают, что 1) эмоции ”гнев”и ”о
+твращение”имеют
+ []
+
+[46.46]
+
+LaTeX Warning: Reference `fig:a_dictator_emotions_by_temp' on page 47 undefined
+ on input line 312.
+
+
+LaTeX Warning: Reference `fig:a_proposer_ultimatum_emotions_by_temp' on page 47
+ undefined on input line 312.
+
+
+LaTeX Warning: Reference `fig:a_responder_ultimatum_emotions_by_temp' on page 4
+7 undefined on input line 312.
+
+
+LaTeX Warning: Reference `fig:a_prompt_temp' on page 47 undefined on input line
+ 314.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
+[]\TU/TimesNewRoman(1)/m/n/14.4 Для различных стратегий эмоционального стимулир
+ования (см.
+ []
+
+
+Underfull \hbox (badness 1496) in paragraph at lines 314--315
+\TU/TimesNewRoman(1)/m/n/14.4 Рисунок []), данное исследование показывает те же
+ результаты, что и
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[47.47] [48.48])
 \openout2 = `Dissertation/conclusion.aux'.
 
- (./Dissertation/conclusion.tex) [18.18
+ (./Dissertation/conclusion.tex) [49.49
 
 
 
@@ -2679,28 +2952,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--20
 ]
 \openout2 = `Dissertation/references.aux'.
 
- (./Dissertation/references.tex
-Underfull \hbox (badness 1975) in paragraph at lines 6--6
-[]\TU/TimesNewRoman(1)/m/n/14.4 Emotional Intelligence of Large Language Models
- [Текст] / X. Wang
- []
 
-
-Underfull \hbox (badness 1939) in paragraph at lines 6--6
-[]\TU/TimesNewRoman(1)/m/n/14.4 Emotionally Numb or Empathetic? Evaluating How 
-LLMs Feel Using
- []
-
-[19.19
+(./Dissertation/references.tex [50.50
 
 
 
 
 
 ]
+Underfull \hbox (badness 1642) in paragraph at lines 6--6
+[]\TU/TimesNewRoman(1)/m/it/14.4 Decety\TU/TimesNewRoman(1)/m/n/14.4 , \TU/Time
+sNewRoman(1)/m/it/14.4 J. \TU/TimesNewRoman(1)/m/n/14.4 The Functional Architec
+ture of Human Empathy [Текст] /
+ []
+
+
+Underfull \hbox (badness 4303) in paragraph at lines 6--6
+\TU/TimesNewRoman(1)/m/n/14.4 J. Decety, P. L. Jackson [] Behavioral and Cognit
+ive Neuroscience
+ []
+
 Missing character: There is no ‐ (U+2010) in font Times New Roman/OT:language=d
 flt;mapping=tex-text;!
-[20.20]) [21.21]
+[51.51]
+Underfull \hbox (badness 1436) in paragraph at lines 6--6
+[]\TU/TimesNewRoman(1)/m/it/14.4 Akin\TU/TimesNewRoman(1)/m/n/14.4 , \TU/TimesN
+ewRoman(1)/m/it/14.4 E. \TU/TimesNewRoman(1)/m/n/14.4 The Iterated Prisoner’s D
+ilemma: Good Strategies and Their
+ []
+
+[52.52]
+Underfull \hbox (badness 2726) in paragraph at lines 6--6
+[]\TU/TimesNewRoman(1)/m/it/14.4 Larney\TU/TimesNewRoman(1)/m/n/14.4 , \TU/Time
+sNewRoman(1)/m/it/14.4 A. \TU/TimesNewRoman(1)/m/n/14.4 Stake size effects in u
+ltimatum game and dictator game
+ []
+
+
+Underfull \hbox (badness 2253) in paragraph at lines 6--6
+\TU/TimesNewRoman(1)/m/n/14.4 Organizational Behavior and Human Decision Proces
+ses. [] 2019. []
+ []
+
+[53.53]
+Underfull \hbox (badness 3291) in paragraph at lines 6--6
+[]\TU/TimesNewRoman(1)/m/n/14.4 Mixtral of experts [Текст] / A. Q. Jiang [и др.
+] [] arXiv preprint
+ []
+
+) [54.54]
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -2753,18 +3053,12 @@ braces):
 >  {english/Localnumeral}  =>  {polyglossia@C@localnumeral}.
 
 
-Package caption Warning: Unused \captionsetup[table] on input line 25.
-See the caption package documentation for explanation.
-
-
-Package caption Warning: Unused \captionsetup[figure] on input line 39.
-See the caption package documentation for explanation.
-
-
 Package caption Warning: Unused \captionsetup[subfloat] on input line 62.
 See the caption package documentation for explanation.
 
-No complaints by nag.
+
+Package nag Warning: 12 complaints in total.
+
 \tf@toc=\write10
 \openout10 = `dissertation.toc'.
 
@@ -3009,7 +3303,22 @@ Dissertation/introduction.tex
 common/characteristic.tex
 Dissertation/part1.tex
 Dissertation/part2.tex
+images//prison.png
+images//dic.png
+images//publicg.png
+images//framework_overview.png
+images//tall.png
 Dissertation/part3.tex
+Styles/img/ethics/implicit_ethics_overall.png
+Styles/img/ethics/implicit_ethics_good.png
+Styles/img/ethics/implicit_ethics_bad.png
+Styles/img/ethics/explicit_ethics_low.png
+Styles/img/ethics/explicit_ethics_high.png
+Styles/img/ethics/stereotype.png
+Styles/img/ethics/ethics_legend.png
+images//table_games_avg_pd.pdf
+images//pd_fear.pdf
+Styles/img/public_goods_emotion.jpg
 Dissertation/conclusion.tex
 Dissertation/references.tex
 common/renames.tex
@@ -3018,28 +3327,26 @@ common/renames.tex
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `dissertation.out' has not changed.
-(rerunfilecheck)             Checksum: 965B8F8E4F84A7B6704C56AB617CA135;6786.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                dissertation
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Checksum: 47E3698AB97AA25FD84848338DC07D5C;9011.
 Package logreq Info: Writing requests to 'dissertation.run.xml'.
 \openout1 = `dissertation.run.xml'.
 
  )
 (\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 10 ({)
+### simple group (level 1) entered at line 40 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 76722 strings out of 476191
- 1867703 string characters out of 5812073
- 3492441 words of memory out of 5000000
- 96295 multiletter control sequences out of 15000+600000
- 478736 words of font info for 105 fonts, out of 8000000 for 9000
+ 77060 strings out of 476191
+ 1878501 string characters out of 5812073
+ 3533130 words of memory out of 5000000
+ 96614 multiletter control sequences out of 15000+600000
+ 475149 words of font info for 94 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 115i,12n,120p,1361b,6001s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 115i,13n,120p,1361b,6085s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on dissertation.pdf (21 pages).
+Output written on dissertation.pdf (54 pages).
