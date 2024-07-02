@@ -1,8 +1,8 @@
 %%% Переопределение именований, если иначе не сработает %%%
-%\gappto\captionsrussian{
+\gappto\captionsrussian{
 %    \renewcommand{\chaptername}{Глава}
-%    \renewcommand{\appendixname}{Приложение} % (ГОСТ Р 7.0.11-2011, 5.7)
-%}
+    \renewcommand{\appendixname}{ПРИЛОЖЕНИЕ} % (ГОСТ Р 7.0.11-2011, 5.7)
+}
 
 %%% Изображения %%%
 \graphicspath{{images/}{Dissertation/images/}}         % Пути к изображениям
@@ -19,7 +19,7 @@
 % Выставляем значения полей (ГОСТ 7.0.11-2011, 5.3.7)
 \geometry{a4paper, top=2cm, bottom=2cm, left=3cm, right=1.5cm, nomarginpar} %, heightrounded, showframe
 \setlength{\topskip}{0pt}   %размер дополнительного верхнего поля
-\setlength{\footskip}{12.3pt} % снимет warning, согласно https://tex.stackexchange.com/a/334346
+\setlength{\footskip}{10mm} % снимет warning, согласно https://tex.stackexchange.com/a/334346
 
 %%% Выравнивание и переносы %%%
 %% http://tex.stackexchange.com/questions/241343/what-is-the-meaning-of-fussy-sloppy-emergencystretch-tolerance-hbadness
@@ -38,10 +38,10 @@
 %%% Блок управления параметрами для выравнивания заголовков в тексте %%%
 \newlength{\otstuplen}
 \setlength{\otstuplen}{\theotstup\parindent}
-\ifnumequal{\value{headingalign}}{0}{% выравнивание заголовков в тексте
+\ifnumequal{\value{headingalign}}{3}{% выравнивание заголовков в тексте
     \newcommand{\hdngalign}{\centering}                % по центру
     \newcommand{\hdngaligni}{}% по центру
-    \setlength{\otstuplen}{0pt}
+    \setlength{\otstuplen}{1.5pt}
 }{%
     \newcommand{\hdngalign}{}                 % по левому краю
     \newcommand{\hdngaligni}{\hspace{\otstuplen}}      % по левому краю
@@ -54,12 +54,12 @@
 \setrmarg{2.55em plus1fil}                             %To have the (sectional) titles in the ToC, etc., typeset ragged right with no hyphenation
 \renewcommand{\cftchapterpagefont}{\normalfont}        % нежирные номера страниц у глав в оглавлении
 \renewcommand{\cftchapterleader}{\cftdotfill{\cftchapterdotsep}}% нежирные точки до номеров страниц у глав в оглавлении
-%\renewcommand{\cftchapterfont}{}                       % нежирные названия глав в оглавлении
+\renewcommand{\cftchapterfont}{}                       % нежирные названия глав в оглавлении
 
 \ifnumgreater{\value{headingdelim}}{0}{%
     \renewcommand\cftchapteraftersnum{.\space}       % добавляет точку с пробелом после номера раздела в оглавлении
 }{}
-\ifnumgreater{\value{headingdelim}}{1}{%
+\ifnumgreater{\value{headingdelim}}{0}{%
     \renewcommand\cftsectionaftersnum{.\space}       % добавляет точку с пробелом после номера подраздела в оглавлении
     \renewcommand\cftsubsectionaftersnum{.\space}    % добавляет точку с пробелом после номера подподраздела в оглавлении
     \renewcommand\cftsubsubsectionaftersnum{.\space} % добавляет точку с пробелом после номера подподподраздела в оглавлении
@@ -72,7 +72,7 @@
     }
 }
 
-\renewcommand*{\cftappendixname}{\appendixname\space} % Слово Приложение в оглавлении
+\renewcommand*{\cftappendixname}{\appendixname\space} % Слово риложение в оглавлении
 
 %%% Колонтитулы %%%
 % Порядковый номер страницы печатают на середине верхнего поля страницы (ГОСТ Р 7.0.11-2011, 5.3.8)
@@ -119,7 +119,9 @@
     }{%
         \renewcommand*{\afterchapternum}{\quad}     % добавляет \quad после номера раздела
     }
-    \renewcommand*{\printchapternum}{\hdngaligni\hdngalign\chapnumfont \thechapter}
+    \renewcommand*{\printchapternum}{\hspace{1.25cm}\hdngaligni\hdngalign\chapnumfont \thechapter}
+    %%\renewcommand*{\printchapternum}{\hdngaligni\hdngalign\chapnumfont \thechapter}
+    %%\renewcommand*{\printchaptername}{\centering}
     \renewcommand*{\printchaptername}{}
     \renewcommand*{\printchapternonum}{\hdngaligni\hdngalign}
 }
@@ -134,14 +136,16 @@
 
 \chapterstyle{thesisgost}
 
-\setsecheadstyle{\basegostsectionfont\hdngalign}
-\setsecindent{\otstuplen}
+%\setsecheadstyle{\basegostsectionfont\hdngalign}
+\setsecheadstyle{\basegostsectionfont}
+\setsecindent{1.25cm}
+%%\setsecindent{\otstuplen}
 
 \setsubsecheadstyle{\basegostsectionfont\hdngalign}
-\setsubsecindent{\otstuplen}
+\setsubsecindent{1.25cm}
 
 \setsubsubsecheadstyle{\basegostsectionfont\hdngalign}
-\setsubsubsecindent{\otstuplen}
+\setsubsubsecindent{1.25cm}
 
 \sethangfrom{\noindent #1} %все заголовки подразделов центрируются с учетом номера, как block
 
@@ -163,7 +167,7 @@
 % \setlength{\cftbeforechapterskip}{0pt plus 0pt}   % ИЛИ эти 2 строки из учебника
 % \renewcommand*{\insertchapterspace}{}
 % или эту
-% \renewcommand*{\cftbeforechapterskip}{0em}
+\renewcommand*{\cftbeforechapterskip}{0em}
 
 
 %%% Блок дополнительного управления размерами заголовков

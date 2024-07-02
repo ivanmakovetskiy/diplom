@@ -600,7 +600,8 @@ sorting=none,% настройка сортировки списка литера
 
 %%% Создание команд для вывода списка литературы %%%
 \newcommand*{\insertbibliofull}{
-    \printbibliography[keyword=bibliofull,section=0,title=\bibtitlefull]
+    \printbibliography[heading=fullheading,keyword=bibliofull,section=0,title=\bibtitlefull]
+%    \printbibliography[keyword=bibliofull,section=0,title=\bibtitlefull]
     \ifnumequal{\value{draft}}{0}{
       \printbibliography[heading=nobibheading,env=counter,keyword=bibliofull,section=0]
     }{}
@@ -632,3 +633,7 @@ sorting=none,% настройка сортировки списка литера
 \newcommand*{\insertbiblioexternal}{
     \printbibliography[heading=pubgroup,    section=0, keyword=biblioexternal,     title=\bibtitlefull]
 }
+
+
+\defbibheading{fullheading}{\chapter*{\centerline{#1}}\addcontentsline{toc}{chapter}{#1}}
+

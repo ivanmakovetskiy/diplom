@@ -46,7 +46,7 @@
 % Затем, для вывода отдельных частей можно воспользоваться командой \includeonly
 % Ниже примеры использования команды:
 %
-%\includeonly{Dissertation/part2}
+%\includeonly{Dissertation/appendix}
 %\includeonly{Dissertation/contents,Dissertation/appendix,Dissertation/conclusion}
 %
 
@@ -83,11 +83,11 @@
 %%% Настройки для приложений
 \appendix
 % Оформление заголовков приложений ближе к ГОСТ:
-\setlength{\midchapskip}{20pt}
+\setlength{\midchapskip}{2pt}
 \renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
 \renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
-
-%\include{Dissertation/appendix}        % Приложения
+\renewcommand*{\printchaptername}{\hspace{6.1cm}\hdngaligni\hdngalign\chapnamefont ПРИЛОЖЕНИЕ \hspace {-1.3 cm}} %
+\include{Dissertation/appendix}        % Приложения
 
 \setcounter{totalappendix}{\value{chapter}} % Подсчёт количества приложений
 
