@@ -1,5 +1,0 @@
-[0] Config.pm:307> INFO - This is Biber 2.17
-[0] Config.pm:310> INFO - Logfile is 'dissertation.blg'
-[132] biber:340> INFO - === Thu Jun 27, 2024, 19:04:18
-[163] Utils.pm:398> ERROR - dissertation.bcf is malformed, last biblatex run probably failed. Deleted dissertation.bbl
-[163] Biber.pm:135> INFO - ERRORS: 1

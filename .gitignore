@@ -1,0 +1,62 @@
+# ============================================================
+# LaTeX build artifacts (regenerated on every build — never commit)
+# ============================================================
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.dvi
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lol
+*.lot
+*.nav
+*.nlo
+*.nls
+*.out
+*.ps
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*-blx.bib
+texput.log
+
+# Precompiled TikZ figures cache
+images/cache/*.pdf
+images/cache/*.log
+images/cache/*.md5
+images/cache/*.dpth
+
+# ============================================================
+# Built PDFs — published via GitHub Actions artifacts / Releases.
+# Only root-level outputs are ignored; PDF figures and the signed
+# title page inside */images/ folders are SOURCES and stay in git.
+# ============================================================
+/*.pdf
+
+# ============================================================
+# OS / editor junk
+# ============================================================
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+*~
+*.swp
+.vscode/
+.idea/
+
+# Local scratch notes
+/todo.txt

@@ -1,2 +1,27 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# LaTeX sources: always LF, so builds are identical on Windows/Linux/macOS
+*.tex text eol=lf
+*.bib text eol=lf
+*.sty text eol=lf
+*.bst text eol=lf
+*.cls text eol=lf
+*.tikz text eol=lf
+*.md text eol=lf
+*.mk text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.R text eol=lf
+Makefile text eol=lf
+latexmkrc text eol=lf
+
+# Binary assets: never touch line endings
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.eps binary
+*.zip binary
+*.svg text eol=lf

@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this thesis, please cite it as below."
+type: thesis
+title: "Исследование влияния эмпатии в больших языковых моделях в процессе принятия решений в теории игр"
+authors:
+  - family-names: "Макарова"
+    given-names: "Алексей Владимирович"
+date-released: 2024-06-25
+institution:
+  name: "Национальный исследовательский технологический университет «МИСИС»"
+  city: "Москва"
+  country: "RU"
+repository-code: "https://github.com/ivanmakovetskiy/diplom"
+keywords:
+  - empathy
+  - large language models
+  - LLM
+  - decision making
+  - game theory
+  - alignment
+  - cooperative behavior
+abstract: >-
+  Master's thesis (in Russian) investigating how empathy and emotions embedded in
+  large language models change decision-making strategies and outcomes in
+  game-theoretic scenarios (Dictator Game, Prisoner's Dilemma, Public Goods Game)
+  and ethical benchmarks. An emotional-prompting framework is proposed and evaluated
+  across proprietary and open-weight models in a multilingual setting.

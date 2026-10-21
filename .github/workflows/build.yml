@@ -1,0 +1,66 @@
+name: Build LaTeX documents
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [dissertation, synopsis, presentation]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # The thesis targets MS fonts on Windows (FONTFAMILY=1 in usercfg.mk).
+      # In CI we build with the metrically compatible Liberation family instead.
+      - name: Install Liberation fonts
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends fonts-liberation2 fonts-liberation-sans-narrow || \
+          apt-get install -y --no-install-recommends fonts-liberation
+          fc-cache -f >/dev/null 2>&1 || true
+
+      - name: Build ${{ matrix.target }}.pdf
+        run: make ${{ matrix.target }} FONTFAMILY=2 LATEXMKFLAGS=
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}-pdf
+          path: ${{ matrix.target }}.pdf
+          if-no-files-found: error
+
+  release:
+    name: Publish PDFs to Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download built PDFs
+        uses: actions/download-artifact@v4
+        with:
+          path: pdfs
+          pattern: "*-pdf"
+          merge-multiple: true
+
+      - name: Attach PDFs to the GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pdfs/*.pdf
+          generate_release_notes: true
